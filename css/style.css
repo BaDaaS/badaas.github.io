@@ -1,0 +1,51 @@
+.container {
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.logo {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
+    background-image: url('../res/Official_BaDaaS_Logo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.title {
+    text-align: center;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'VT323-Regular';
+    src: url('../fonts/VT323-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'SourceCodePro-VariableFont';
+    src: url(../fonts/SourceCodePro-VariableFont_wght.ttf);
+}
+
+a {
+    text-decoration: none;
+    color: #c1bb3a; /* Light green color */
+}
+
+body {
+    background-color: #191919;
+    color: #c1bb3a; /* Light green color */
+    font-family: 'SourceCodePro-VariableFont', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1.title {
+    border-bottom: 4px dotted #c1bb3a;
+}
