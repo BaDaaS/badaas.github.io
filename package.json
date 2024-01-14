@@ -1,0 +1,31 @@
+{
+  "name": "badaas.github.io",
+  "version": "1.0.0",
+  "description": "BaDaaS website - Applied Mathematics & Cryptography Lab from Belgium",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaDaaS/badaas.github.io.git"
+  },
+  "keywords": [
+    "cryptography",
+    "security",
+    "consulting"
+  ],
+  "author": "BaDaaS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaDaaS/badaas.github.io/issues"
+  },
+  "homepage": "https://badaas.be",
+  "devDependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.16.15",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "sass": "^1.97.3",
+    "shiki": "^3.21.0"
+  }
+}

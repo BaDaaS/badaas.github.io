@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const recentPosts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="BaDaaS - Applied Mathematics & Cryptography Lab"
+  description="We use abstract mathematics to build concrete applications. Applied Mathematics & Cryptography Lab."
+>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="logo"></div>
+    <h1 class="title">BaDaaS</h1>
+    <p class="tagline">
+      We use abstract mathematics to build concrete applications.
+    </p>
+    <p class="subtitle">Applied Mathematics & Cryptography Lab.</p>
+    <a href="https://calendly.com/be-danny-willems/30min" class="cta-button"
+      >Book a call</a
+    >
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2 class="section-title">What we do</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Audits</h3>
+        <p>
+          Security audits for cryptographic protocols, zero-knowledge circuits,
+          and security-critical code. Finding vulnerabilities before attackers
+          do.
+        </p>
+      </div>
+      <div class="service-card">
+        <h3>Research</h3>
+        <p>
+          Publishing findings in cryptography, zero-knowledge proofs, and
+          applied mathematics. Building tools for the community.
+        </p>
+      </div>
+      <div class="service-card">
+        <h3>Development</h3>
+        <p>
+          Production-grade cryptographic implementations, from proof systems to
+          protocol libraries.
+        </p>
+      </div>
+      <div class="service-card">
+        <h3>Consulting</h3>
+        <p>
+          Expert guidance on cryptographic protocols, security architecture, and
+          technical strategy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h2 class="section-title">Clients</h2>
+    <div class="portfolio-grid">
+      <a href="https://leakix.net" class="portfolio-item" target="_blank">
+        <h3>LeakIX</h3>
+        <p>Security research and vulnerability intelligence platform.</p>
+      </a>
+      <a href="https://tezos.com" class="portfolio-item" target="_blank">
+        <h3>Tezos</h3>
+        <p>Protocol development and ecosystem contributions.</p>
+      </a>
+      <a href="https://minaprotocol.com" class="portfolio-item" target="_blank">
+        <h3>Mina Protocol</h3>
+        <p>Zero-knowledge proof systems and protocol development.</p>
+      </a>
+      <a
+        href="https://cryptography.academy"
+        class="portfolio-item"
+        target="_blank"
+      >
+        <h3>Cryptography Academy</h3>
+        <p>Educational platform for cryptography and mathematics.</p>
+      </a>
+    </div>
+    <p style="text-align: center; margin-top: 40px; color: var(--text-muted);">
+      More partners coming soon.
+    </p>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  {
+    recentPosts.length > 0 && (
+      <section id="blog">
+        <h2 class="section-title">Latest Posts</h2>
+        <div class="blog-list">
+          {recentPosts.map(post => (
+            <div class="blog-post-preview">
+              <h3>
+                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+              </h3>
+              <p class="date">
+                {post.data.pubDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+              <p>{post.data.description}</p>
+            </div>
+          ))}
+        </div>
+        <p style="text-align: center; margin-top: 40px;">
+          <a href="/blog" class="cta-button">
+            View all posts
+          </a>
+        </p>
+      </section>
+    )
+  }
+</BaseLayout>
