@@ -49,3 +49,8 @@ body {
 h1.title {
     border-bottom: 4px dotted #c1bb3a;
 }
+
+h2.title {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
