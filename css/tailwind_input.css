@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #c1bb3a;
+    --secondary-color: #191919;
+    --ternary-color: #827b02
+}
+
+@layer base {
+    @font-face {
+        font-family: 'SourceCodePro-VariableFont';
+        src: url(../fonts/SourceCodePro-VariableFont_wght.ttf);
+    }
+    @font-face {
+        font-family: 'VT323-Regular';
+        src: url('../fonts/VT323-Regular.ttf');
+    }
+
+    body {
+        background-color: var(--secondary-color);
+        margin: 0;
+        padding: 0;
+    }
+}
