@@ -42,6 +42,7 @@ Use the Makefile targets to run commands:
 - `make fix-trailing-whitespaces`: Remove trailing whitespaces from all files
 - `make check-trailing-whitespaces`: Check for trailing whitespaces in files
 - `make format-check`: Check if files are formatted correctly
+- `make serve`: Serve the website locally on port 8000
 
 ### Required Actions Before Committing
 

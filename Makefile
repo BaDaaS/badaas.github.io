@@ -1,4 +1,4 @@
-.PHONY: help install prettify fix-trailing-whitespaces check-trailing-whitespaces format format-check clean
+.PHONY: help install prettify fix-trailing-whitespaces check-trailing-whitespaces format format-check serve clean
 
 # Default target
 help: ## Show this help message
@@ -40,6 +40,13 @@ format: ## Format all files with prettier
 
 format-check: ## Check if files are formatted correctly
 	@npx prettier --check "**/*.{html,css,js,json,md}"
+
+serve: ## Serve the website locally on port 8000
+	@echo "Starting local server on http://localhost:8000"
+	@echo "Press Ctrl+C to stop the server"
+	@python3 -m http.server 8000 2>/dev/null || \
+		python -m http.server 8000 2>/dev/null || \
+		python -m SimpleHTTPServer 8000
 
 clean: ## Clean node_modules and package-lock.json
 	@rm -rf node_modules package-lock.json
