@@ -3,7 +3,7 @@
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
-  "singleQuote": true,
+  "singleQuote": false,
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,
   "trailingComma": "all",
@@ -13,7 +13,14 @@
   "proseWrap": "always",
   "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
+  "plugins": ["prettier-plugin-astro"],
   "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    },
     {
       "files": ["**/*.html"],
       "options": {

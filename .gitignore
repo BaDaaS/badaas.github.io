@@ -4,6 +4,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Astro build output
+dist/
+.astro/
+
 # Package managers
 package-lock.json
 yarn.lock
@@ -37,6 +41,4 @@ Thumbs.db
 .cache/
 
 # Build outputs and logs
-dist/
-build/
 *.log

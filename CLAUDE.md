@@ -5,73 +5,78 @@ code in this repository.
 
 ## Project Overview
 
-This is a static website for BaDaaS (Blockchain and DLT as a Service), hosted on
-GitHub Pages. The site serves as a landing page for a Belgian cryptography lab
-that builds blockchain applications.
+This is the website for BaDaaS, an Applied Mathematics & Cryptography Lab from
+Belgium. Built with Astro, it includes a landing page and technical blog with
+code highlighting.
 
 ## Architecture
 
-- **Static HTML Site**: Single `index.html` file with minimal structure
-- **Custom CSS**: Single stylesheet at `css/style.css` with custom fonts and
-  dark theme
-- **Assets**: Logo images in `res/` directory, custom fonts in `fonts/`
-  directory
-- **Hosting**: GitHub Pages with custom domain `badaas.be` (configured via
-  CNAME)
+- **Framework**: Astro 5.x with MDX support
+- **Styling**: SASS with CSS custom properties for theming
+- **Blog**: Content collections with Markdown/MDX
+- **Hosting**: GitHub Pages with custom domain `badaas.be`
 
-## Key Files
+## Project Structure
 
-- `index.html`: Main landing page with company information and links
-- `css/style.css`: Custom stylesheet with dark theme and custom fonts
-- `CNAME`: Domain configuration for GitHub Pages
-- `res/`: Contains BaDaaS logo images (regular and reverse versions)
-- `fonts/`: Custom font files (VT323, Source Code Pro variable font)
+```
+├── src/
+│   ├── content/
+│   │   └── blog/          # Blog posts (Markdown/MDX)
+│   ├── layouts/
+│   │   ├── BaseLayout.astro
+│   │   └── BlogPost.astro
+│   ├── pages/
+│   │   ├── index.astro    # Landing page
+│   │   └── blog/
+│   │       ├── index.astro
+│   │       └── [...slug].astro
+│   └── styles/
+│       └── global.scss    # Global styles with themes
+├── public/
+│   ├── fonts/             # Custom fonts
+│   └── res/               # Logo images
+└── astro.config.mjs
+```
 
-## Development
+## Commands
 
-This is a simple static site with no build process required. Changes can be made
-directly to the HTML and CSS files.
+Use Makefile targets for all commands:
 
-### Commands
+- `make help` - Show available commands
+- `make install` - Install dependencies
+- `make dev` - Start development server
+- `make build` - Build for production
+- `make preview` - Preview production build
+- `make format` - Format all files
+- `make fix-trailing-whitespaces` - Remove trailing whitespaces
+- `make clean` - Clean build artifacts
 
-Use the Makefile targets to run commands:
+## Writing Blog Posts
 
-- `make help`: Show available commands
-- `make install`: Install dependencies (prettier)
-- `make prettify`: Format all files with prettier
-- `make fix-trailing-whitespaces`: Remove trailing whitespaces from all files
-- `make check-trailing-whitespaces`: Check for trailing whitespaces in files
-- `make format-check`: Check if files are formatted correctly
-- `make serve`: Serve the website locally on port 8000
+Create new posts in `src/content/blog/` with frontmatter:
 
-### Required Actions Before Committing
+```markdown
+---
+title: "Post Title"
+description: "Brief description"
+pubDate: 2026-01-23
+tags: ["cryptography", "security"]
+---
 
-Always run these commands before committing changes:
+Content here with code blocks...
+```
 
-1. `make prettify`
+Code blocks support syntax highlighting via Shiki (github-dark theme).
+
+## Required Actions Before Committing
+
+1. `make format`
 2. `make fix-trailing-whitespaces`
 
-### Making Changes
+## Theming
 
-1. Edit `index.html` for content changes
-2. Edit `css/style.css` for styling changes
-3. Replace images in `res/` as needed
-4. Run formatting commands before committing
-5. Commit and push changes - GitHub Pages will automatically deploy
+Themes are controlled via `data-theme` attribute on `<html>`:
 
-### Git Commit Guidelines
-
-- Never mention Claude as a co-author in commit messages
-- Keep commits focused and descriptive
-
-### Code Style Guidelines
-
-- Always wrap lines at 80 characters in Makefiles
-- Use line continuation with backslashes for long commands
-
-### Design Notes
-
-- Uses a dark theme with green accent color (#c1bb3a)
-- Custom fonts: VT323 for headings, Source Code Pro for body text
-- Responsive design with flexbox centering
-- Simple, minimalist design focused on company branding and contact information
+- Default: dark theme
+- `data-theme="light"` - Light theme
+- `data-theme="blue"` - Blue accent theme
