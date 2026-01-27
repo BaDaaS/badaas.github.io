@@ -228,10 +228,18 @@ section {
   color: var(--accent-color);
   text-align: center;
   margin-bottom: 60px;
-  border-bottom: 2px dotted var(--accent-color);
-  padding-bottom: 10px;
-  display: inline-block;
-  width: 100%;
+  padding-bottom: 20px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    border-bottom: 2px dotted var(--accent-color);
+  }
 }
 
 // ==========================================================================
@@ -242,12 +250,6 @@ section {
   background-color: var(--bg-secondary);
   max-width: none;
   padding: 100px 20px;
-
-  .section-title {
-    max-width: $max-width;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .services-grid {
@@ -278,6 +280,21 @@ section {
     color: var(--text-muted);
     margin: 0;
     font-size: 0.9rem;
+  }
+}
+
+// ==========================================================================
+// Projects Section
+// ==========================================================================
+
+#projects {
+  background-color: var(--bg-secondary);
+  max-width: none;
+  padding: 100px 20px;
+
+  .portfolio-grid {
+    max-width: $max-width;
+    margin: 0 auto;
   }
 }
 
