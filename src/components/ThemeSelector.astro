@@ -1,0 +1,40 @@
+---
+const themes = [
+  { value: "", label: "Classic (Gold)" },
+  { value: "minimal", label: "Minimal (White)" },
+  { value: "corporate", label: "Corporate (Blue)" },
+  { value: "warm", label: "Warm (Amber)" },
+  { value: "ocean", label: "Ocean (Cyan)" },
+];
+---
+
+<div class="theme-selector">
+  <label for="theme-select">Theme:</label>
+  <select id="theme-select">
+    {themes.map(theme => <option value={theme.value}>{theme.label}</option>)}
+  </select>
+</div>
+
+<script>
+  const select = document.getElementById("theme-select") as HTMLSelectElement;
+  const html = document.documentElement;
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem("theme") || "";
+  if (savedTheme) {
+    html.setAttribute("data-theme", savedTheme);
+    select.value = savedTheme;
+  }
+
+  // Handle theme change
+  select.addEventListener("change", () => {
+    const theme = select.value;
+    if (theme) {
+      html.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    } else {
+      html.removeAttribute("data-theme");
+      localStorage.removeItem("theme");
+    }
+  });
+</script>

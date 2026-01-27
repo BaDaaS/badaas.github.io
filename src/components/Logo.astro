@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={["logo-text", className]}>BaDaaS</span>
+
+<style>
+  .logo-text {
+    display: inline;
+    padding: 2px 6px;
+    color: var(--text-color);
+  }
+</style>

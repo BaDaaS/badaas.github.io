@@ -13,7 +13,6 @@
   --icon-color: #888;
   --icon-hover-color: #c1bb3a;
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
-  --logo-filter: none;
 }
 
 // Minimal: Clean dark with white accent
@@ -26,8 +25,6 @@
   --border-color: #2a2a2a;
   --icon-color: #707070;
   --icon-hover-color: #ffffff;
-  --logo-image: url("/res/badaas-icon-dark-bg.svg");
-  --logo-filter: grayscale(100%) brightness(1.2);
 }
 
 // Corporate: Professional blue tones
@@ -40,8 +37,6 @@
   --border-color: #d1d5db;
   --icon-color: #64748b;
   --icon-hover-color: #2563eb;
-  --logo-image: url("/res/badaas-icon-light-bg.svg");
-  --logo-filter: hue-rotate(200deg) saturate(1.5);
 }
 
 // Warm: Dark with amber accent
@@ -54,8 +49,6 @@
   --border-color: #3d3830;
   --icon-color: #9a9488;
   --icon-hover-color: #f59e0b;
-  --logo-image: url("/res/badaas-icon-dark-bg.svg");
-  --logo-filter: hue-rotate(-25deg) saturate(1.4);
 }
 
 // Ocean: Deep blue theme
@@ -68,9 +61,6 @@
   --border-color: #2d4a5e;
   --icon-color: #778da9;
   --icon-hover-color: #00d4ff;
-  --logo-image: url("/res/badaas-icon-dark-bg.svg");
-  --logo-filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg)
-    brightness(0.4);
 }
 
 // ==========================================================================
@@ -256,12 +246,24 @@ h6 {
   width: 200px;
   height: 200px;
   margin-bottom: 30px;
-  background-image: var(--logo-image);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: var(--logo-filter);
-  transition: filter $transition-speed ease;
+  background-color: var(--bg-secondary);
+  border-radius: 50%;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent-color);
+    mask-image: var(--logo-image);
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: var(--logo-image);
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+  }
 }
 
 .title {
