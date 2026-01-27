@@ -3,7 +3,7 @@
 // ==========================================================================
 
 :root {
-  // Default: Dark theme
+  // Default: Classic dark with gold accent
   --bg-color: #191919;
   --bg-secondary: #1f1f1f;
   --accent-color: #c1bb3a;
@@ -12,22 +12,54 @@
   --border-color: #333;
 }
 
-[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --bg-secondary: #e8e8e8;
-  --accent-color: #8b8720;
-  --text-color: #1a1a1a;
-  --text-muted: #666;
-  --border-color: #ccc;
+// Terminal: Classic green terminal
+[data-theme="terminal"] {
+  --bg-color: #0a0a0a;
+  --bg-secondary: #111111;
+  --accent-color: #00ff41;
+  --text-color: #b0ffb0;
+  --text-muted: #5a8a5a;
+  --border-color: #1a3a1a;
 }
 
-[data-theme="blue"] {
-  --bg-color: #191919;
-  --bg-secondary: #1f1f1f;
-  --accent-color: #3a9ec1;
-  --text-color: #e0e0e0;
-  --text-muted: #888;
-  --border-color: #333;
+// Minimal: Clean dark with white accent
+[data-theme="minimal"] {
+  --bg-color: #0f0f0f;
+  --bg-secondary: #161616;
+  --accent-color: #ffffff;
+  --text-color: #d0d0d0;
+  --text-muted: #707070;
+  --border-color: #2a2a2a;
+}
+
+// Corporate: Professional blue tones
+[data-theme="corporate"] {
+  --bg-color: #f8f9fa;
+  --bg-secondary: #edf0f2;
+  --accent-color: #2563eb;
+  --text-color: #1a1a2e;
+  --text-muted: #64748b;
+  --border-color: #d1d5db;
+}
+
+// Warm: Dark with amber accent
+[data-theme="warm"] {
+  --bg-color: #1a1814;
+  --bg-secondary: #211f1a;
+  --accent-color: #f59e0b;
+  --text-color: #e8e4dc;
+  --text-muted: #9a9488;
+  --border-color: #3d3830;
+}
+
+// Ocean: Deep blue theme
+[data-theme="ocean"] {
+  --bg-color: #0d1b2a;
+  --bg-secondary: #1b263b;
+  --accent-color: #00d4ff;
+  --text-color: #e0e6ed;
+  --text-muted: #778da9;
+  --border-color: #2d4a5e;
 }
 
 // ==========================================================================
@@ -146,6 +178,52 @@ h6 {
     &:hover {
       transform: translateY(-2px);
       opacity: 0.9 !important;
+    }
+  }
+}
+
+// ==========================================================================
+// Theme Selector
+// ==========================================================================
+
+.theme-selector {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  select {
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition:
+      border-color $transition-speed ease,
+      background-color $transition-speed ease;
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    option {
+      background-color: var(--bg-secondary);
+      color: var(--text-color);
     }
   }
 }
