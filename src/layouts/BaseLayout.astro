@@ -3,6 +3,8 @@ import "../styles/global.scss";
 import IconTwitter from "../components/icons/IconTwitter.astro";
 import IconLinkedIn from "../components/icons/IconLinkedIn.astro";
 import IconGitHub from "../components/icons/IconGitHub.astro";
+import ThemeSelector from "../components/ThemeSelector.astro";
+import Logo from "../components/Logo.astro";
 
 interface Props {
   title: string;
@@ -21,7 +23,7 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="BaDaaS" />
-    <link rel="icon" href="/res/Official_BaDaaS_Logo.png" type="image/png" />
+    <link rel="icon" href="/res/badaas-icon-dark-bg.svg" type="image/svg+xml" />
     <title>{title}</title>
 
     <!-- Open Graph -->
@@ -29,18 +31,18 @@ const currentPath = Astro.url.pathname;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/res/Official_BaDaaS_Logo.png" />
+    <meta property="og:image" content="/res/badaas-icon-dark-bg.svg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/res/Official_BaDaaS_Logo.png" />
+    <meta property="twitter:image" content="/res/badaas-icon-dark-bg.svg" />
   </head>
   <body>
     <nav class="nav">
-      <a href="/" class="nav__logo">BaDaaS</a>
+      <a href="/" class="nav__logo"><Logo /></a>
       <div class="nav__links">
         <a href="/#services" class:list={{ active: currentPath === "/" }}
           >What we do</a
@@ -60,7 +62,7 @@ const currentPath = Astro.url.pathname;
     <footer class="footer">
       <div class="footer__content">
         <div class="footer__brand">
-          <a href="/" class="footer__logo">BaDaaS</a>
+          <a href="/" class="footer__logo"><Logo /></a>
           <p class="footer__tagline">
             We use abstract mathematics to build concrete applications.
           </p>
@@ -111,8 +113,10 @@ const currentPath = Astro.url.pathname;
       </div>
 
       <div class="footer__bottom">
-        <p>&copy; {new Date().getFullYear()} BaDaaS. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} <Logo />. All rights reserved.</p>
       </div>
     </footer>
+
+    <ThemeSelector />
   </body>
 </html>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Logo from "../components/Logo.astro";
 import { getCollection } from "astro:content";
 
 const recentPosts = (await getCollection("blog"))
@@ -14,7 +15,7 @@ const recentPosts = (await getCollection("blog"))
   <!-- Hero Section -->
   <section class="hero">
     <div class="logo"></div>
-    <h1 class="title">BaDaaS</h1>
+    <h1 class="title"><Logo /></h1>
     <p class="tagline">
       We use abstract mathematics to build concrete applications.
     </p>
