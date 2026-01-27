@@ -246,7 +246,7 @@ h6 {
   width: 200px;
   height: 200px;
   margin-bottom: 30px;
-  background-color: var(--bg-secondary);
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
   border-radius: 50%;
   position: relative;
 
