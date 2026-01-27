@@ -3,31 +3,64 @@
 // ==========================================================================
 
 :root {
-  // Default: Dark theme
+  // Default: Classic dark with gold accent
   --bg-color: #191919;
   --bg-secondary: #1f1f1f;
   --accent-color: #c1bb3a;
   --text-color: #e0e0e0;
   --text-muted: #888;
   --border-color: #333;
+  --icon-color: #888;
+  --icon-hover-color: #c1bb3a;
+  --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
-[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --bg-secondary: #e8e8e8;
-  --accent-color: #8b8720;
-  --text-color: #1a1a1a;
-  --text-muted: #666;
-  --border-color: #ccc;
+// Minimal: Clean dark with white accent
+[data-theme="minimal"] {
+  --bg-color: #0f0f0f;
+  --bg-secondary: #161616;
+  --accent-color: #ffffff;
+  --text-color: #d0d0d0;
+  --text-muted: #707070;
+  --border-color: #2a2a2a;
+  --icon-color: #707070;
+  --icon-hover-color: #ffffff;
 }
 
-[data-theme="blue"] {
-  --bg-color: #191919;
-  --bg-secondary: #1f1f1f;
-  --accent-color: #3a9ec1;
-  --text-color: #e0e0e0;
-  --text-muted: #888;
-  --border-color: #333;
+// Corporate: Professional blue tones
+[data-theme="corporate"] {
+  --bg-color: #f8f9fa;
+  --bg-secondary: #edf0f2;
+  --accent-color: #2563eb;
+  --text-color: #1a1a2e;
+  --text-muted: #64748b;
+  --border-color: #d1d5db;
+  --icon-color: #64748b;
+  --icon-hover-color: #2563eb;
+}
+
+// Warm: Dark with amber accent
+[data-theme="warm"] {
+  --bg-color: #1a1814;
+  --bg-secondary: #211f1a;
+  --accent-color: #f59e0b;
+  --text-color: #e8e4dc;
+  --text-muted: #9a9488;
+  --border-color: #3d3830;
+  --icon-color: #9a9488;
+  --icon-hover-color: #f59e0b;
+}
+
+// Ocean: Deep blue theme
+[data-theme="ocean"] {
+  --bg-color: #0d1b2a;
+  --bg-secondary: #1b263b;
+  --accent-color: #00d4ff;
+  --text-color: #e0e6ed;
+  --text-muted: #778da9;
+  --border-color: #2d4a5e;
+  --icon-color: #778da9;
+  --icon-hover-color: #00d4ff;
 }
 
 // ==========================================================================
@@ -115,7 +148,6 @@ h6 {
   &__logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--accent-color);
   }
 
   &__links {
@@ -151,6 +183,52 @@ h6 {
 }
 
 // ==========================================================================
+// Theme Selector
+// ==========================================================================
+
+.theme-selector {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  select {
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition:
+      border-color $transition-speed ease,
+      background-color $transition-speed ease;
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    option {
+      background-color: var(--bg-secondary);
+      color: var(--text-color);
+    }
+  }
+}
+
+// ==========================================================================
 // Hero Section
 // ==========================================================================
 
@@ -168,15 +246,28 @@ h6 {
   width: 200px;
   height: 200px;
   margin-bottom: 30px;
-  background-image: url("/res/Official_BaDaaS_Logo.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: var(--bg-secondary);
+  border-radius: 50%;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent-color);
+    mask-image: var(--logo-image);
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: var(--logo-image);
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+  }
 }
 
 .title {
   font-size: 4rem;
-  color: var(--accent-color);
   margin: 0;
   border-bottom: 4px dotted var(--accent-color);
   padding-bottom: 10px;
@@ -502,7 +593,6 @@ a.portfolio-item {
   &__logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--accent-color);
   }
 
   &__tagline {
@@ -517,11 +607,11 @@ a.portfolio-item {
     gap: 15px;
 
     a {
-      color: var(--text-muted);
+      color: var(--icon-color);
       transition: color $transition-speed ease;
 
       &:hover {
-        color: var(--accent-color);
+        color: var(--icon-hover-color);
       }
     }
   }
