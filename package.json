@@ -18,14 +18,21 @@
     "url": "https://github.com/BaDaaS/badaas.github.io/issues"
   },
   "homepage": "https://badaas.be",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
+  },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.0",
     "astro": "^5.16.15",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.97.3",
-    "shiki": "^3.21.0"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "shiki": "^3.21.0",
+    "tailwindcss": "^4.0.0"
   }
 }

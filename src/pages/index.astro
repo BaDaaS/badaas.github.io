@@ -13,48 +13,75 @@ const recentPosts = (await getCollection("blog"))
   description="We use abstract mathematics to build concrete applications. Applied Mathematics & Cryptography Lab."
 >
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="logo"></div>
-    <h1 class="title"><Logo /></h1>
-    <p class="tagline">
+  <section
+    class="flex min-h-screen flex-col items-center justify-center px-5 pt-24 pb-12 text-center"
+  >
+    <div
+      class="logo-mask bg-accent/20 relative mb-8 h-[200px] w-[200px] rounded-full"
+    >
+    </div>
+    <h1
+      class="border-accent m-0 border-b-4 border-dotted pb-2.5 text-4xl md:text-[4rem]"
+    >
+      <Logo />
+    </h1>
+    <p class="text-text mt-8 mb-2.5 max-w-[600px] text-xl">
       We use abstract mathematics to build concrete applications.
     </p>
-    <p class="subtitle">Applied Mathematics & Cryptography Lab.</p>
-    <a href="https://calendly.com/be-danny-willems/30min" class="cta-button"
+    <p class="text-text-muted mb-10 text-base">
+      Applied Mathematics & Cryptography Lab.
+    </p>
+    <a
+      href="https://calendly.com/be-danny-willems/30min"
+      class="bg-accent text-bg inline-block px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
       >Book a call</a
     >
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="services">
-    <h2 class="section-title">What we do</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <h3>Audits</h3>
-        <p>
+  <section id="services" class="bg-bg-secondary px-5 py-16 md:py-24">
+    <h2
+      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
+    >
+      What we do
+    </h2>
+    <div
+      class="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+    >
+      <div
+        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+      >
+        <h3 class="text-accent mb-4 text-xl">Audits</h3>
+        <p class="text-text-muted text-sm">
           We review cryptographic protocols, zero-knowledge circuits, and
           security-critical code to find vulnerabilities before they become
           exploits.
         </p>
       </div>
-      <div class="service-card">
-        <h3>Research</h3>
-        <p>
+      <div
+        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+      >
+        <h3 class="text-accent mb-4 text-xl">Research</h3>
+        <p class="text-text-muted text-sm">
           We explore cryptography, zero-knowledge proofs, and applied
           mathematics. We publish our findings and build tools for the
           community.
         </p>
       </div>
-      <div class="service-card">
-        <h3>Development</h3>
-        <p>
+      <div
+        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+      >
+        <h3 class="text-accent mb-4 text-xl">Development</h3>
+        <p class="text-text-muted text-sm">
           We build production-grade cryptographic software, from proof systems
           to protocol libraries.
         </p>
       </div>
-      <div class="service-card">
-        <h3>Consulting</h3>
-        <p>
+      <div
+        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+      >
+        <h3 class="text-accent mb-4 text-xl">Consulting</h3>
+        <p class="text-text-muted text-sm">
           We advise on cryptographic protocols, security architecture, and
           technical strategy.
         </p>
@@ -63,66 +90,106 @@ const recentPosts = (await getCollection("blog"))
   </section>
 
   <!-- Portfolio Section -->
-  <section id="portfolio">
-    <h2 class="section-title">Trusted By</h2>
-    <div class="portfolio-grid">
-      <a href="https://leakix.net" class="portfolio-item" target="_blank">
-        <h3>LeakIX</h3>
-        <p>Security research and vulnerability intelligence platform.</p>
+  <section id="portfolio" class="max-w-container mx-auto px-5 py-16 md:py-24">
+    <h2
+      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
+    >
+      Trusted By
+    </h2>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="https://leakix.net"
+        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        target="_blank"
+      >
+        <h3 class="text-accent mb-2.5 text-xl">LeakIX</h3>
+        <p class="text-text-muted text-sm">
+          Security research and vulnerability intelligence platform.
+        </p>
       </a>
-      <a href="https://tezos.com" class="portfolio-item" target="_blank">
-        <h3>Tezos</h3>
-        <p>Protocol development and ecosystem contributions.</p>
+      <a
+        href="https://tezos.com"
+        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        target="_blank"
+      >
+        <h3 class="text-accent mb-2.5 text-xl">Tezos</h3>
+        <p class="text-text-muted text-sm">
+          Protocol development and ecosystem contributions.
+        </p>
       </a>
-      <a href="https://minaprotocol.com" class="portfolio-item" target="_blank">
-        <h3>Mina Protocol</h3>
-        <p>Zero-knowledge proof systems and protocol development.</p>
+      <a
+        href="https://minaprotocol.com"
+        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        target="_blank"
+      >
+        <h3 class="text-accent mb-2.5 text-xl">Mina Protocol</h3>
+        <p class="text-text-muted text-sm">
+          Zero-knowledge proof systems and protocol development.
+        </p>
       </a>
-      <a href="https://www.b2c2.com" class="portfolio-item" target="_blank">
-        <h3>B2C2</h3>
-        <p>Institutional crypto liquidity provider.</p>
+      <a
+        href="https://www.b2c2.com"
+        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        target="_blank"
+      >
+        <h3 class="text-accent mb-2.5 text-xl">B2C2</h3>
+        <p class="text-text-muted text-sm">
+          Institutional crypto liquidity provider.
+        </p>
       </a>
       <a
         href="https://www.nomadic-labs.com"
-        class="portfolio-item"
+        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
-        <h3>Nomadic Labs</h3>
-        <p>Core development and research for the Tezos ecosystem.</p>
+        <h3 class="text-accent mb-2.5 text-xl">Nomadic Labs</h3>
+        <p class="text-text-muted text-sm">
+          Core development and research for the Tezos ecosystem.
+        </p>
       </a>
     </div>
-    <p style="text-align: center; margin-top: 40px; color: var(--text-muted);">
-      More partners coming soon.
-    </p>
+    <p class="text-text-muted mt-10 text-center">More partners coming soon.</p>
   </section>
 
   <!-- Projects Section -->
-  <section id="projects">
-    <h2 class="section-title">Projects</h2>
-    <div class="portfolio-grid">
+  <section id="projects" class="bg-bg-secondary px-5 py-16 md:py-24">
+    <h2
+      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
+    >
+      Projects
+    </h2>
+    <div
+      class="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+    >
       <a
         href="https://cryptography.academy"
-        class="portfolio-item"
+        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
-        <h3>Cryptography Academy</h3>
-        <p>Educational platform for cryptography and mathematics.</p>
+        <h3 class="text-accent mb-2.5 text-xl">Cryptography Academy</h3>
+        <p class="text-text-muted text-sm">
+          Educational platform for cryptography and mathematics.
+        </p>
       </a>
       <a
         href="https://github.com/LeakIX/zcash-web-wallet"
-        class="portfolio-item"
+        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
-        <h3>Zcash Web Wallet</h3>
-        <p>Privacy-preserving Zcash wallet implementation.</p>
+        <h3 class="text-accent mb-2.5 text-xl">Zcash Web Wallet</h3>
+        <p class="text-text-muted text-sm">
+          Privacy-preserving Zcash wallet implementation.
+        </p>
       </a>
       <a
         href="https://github.com/LeakIX/zcash-infra"
-        class="portfolio-item"
+        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
-        <h3>Zcash Infra</h3>
-        <p>Infrastructure tooling for Zcash nodes and services.</p>
+        <h3 class="text-accent mb-2.5 text-xl">Zcash Infra</h3>
+        <p class="text-text-muted text-sm">
+          Infrastructure tooling for Zcash nodes and services.
+        </p>
       </a>
     </div>
   </section>
@@ -130,27 +197,37 @@ const recentPosts = (await getCollection("blog"))
   <!-- Recent Blog Posts -->
   {
     recentPosts.length > 0 && (
-      <section id="blog">
-        <h2 class="section-title">Latest Posts</h2>
-        <div class="blog-list">
+      <section id="blog" class="max-w-container mx-auto px-5 py-16 md:py-24">
+        <h2 class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl">
+          Latest Posts
+        </h2>
+        <div class="max-w-content mx-auto">
           {recentPosts.map(post => (
-            <div class="blog-post-preview">
-              <h3>
-                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            <div class="border-border border-b py-8 last:border-b-0">
+              <h3 class="mb-2.5">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="text-accent hover:opacity-80"
+                >
+                  {post.data.title}
+                </a>
               </h3>
-              <p class="date">
+              <p class="text-text-muted mb-2.5 text-sm">
                 {post.data.pubDate.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
               </p>
-              <p>{post.data.description}</p>
+              <p class="text-text">{post.data.description}</p>
             </div>
           ))}
         </div>
-        <p style="text-align: center; margin-top: 40px;">
-          <a href="/blog" class="cta-button">
+        <p class="mt-10 text-center">
+          <a
+            href="/blog"
+            class="bg-accent text-bg inline-block px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
+          >
             View all posts
           </a>
         </p>

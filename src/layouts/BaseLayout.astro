@@ -1,5 +1,5 @@
 ---
-import "../styles/global.scss";
+import "../styles/global.css";
 import IconTwitter from "../components/icons/IconTwitter.astro";
 import IconLinkedIn from "../components/icons/IconLinkedIn.astro";
 import IconGitHub from "../components/icons/IconGitHub.astro";
@@ -41,17 +41,29 @@ const currentPath = Astro.url.pathname;
     <meta property="twitter:image" content="/res/badaas-icon-dark-bg.svg" />
   </head>
   <body>
-    <nav class="nav">
-      <a href="/" class="nav__logo"><Logo /></a>
-      <div class="nav__links">
-        <a href="/#services" class:list={{ active: currentPath === "/" }}
-          >What we do</a
+    <nav
+      class="border-border bg-bg fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b px-5 py-4 md:px-10 md:py-5"
+    >
+      <a href="/" class="text-2xl font-bold"><Logo /></a>
+      <div class="flex items-center gap-4 md:gap-8">
+        <a
+          href="/#services"
+          class="text-text-muted hover:text-accent text-sm transition-colors"
+          class:list={{ active: currentPath === "/" }}>What we do</a
         >
-        <a href="/#portfolio">Trusted By</a>
-        <a href="/blog" class:list={{ active: currentPath.startsWith("/blog") }}
-          >Blog</a
+        <a
+          href="/#portfolio"
+          class="text-text-muted hover:text-accent text-sm transition-colors"
+          >Trusted By</a
         >
-        <a href="https://calendly.com/be-danny-willems/30min" class="nav__cta"
+        <a
+          href="/blog"
+          class="text-text-muted hover:text-accent text-sm transition-colors"
+          class:list={{ active: currentPath.startsWith("/blog") }}>Blog</a
+        >
+        <a
+          href="https://calendly.com/be-danny-willems/30min"
+          class="bg-accent text-bg px-5 py-2 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
           >Book a call</a
         >
       </div>
@@ -59,61 +71,108 @@ const currentPath = Astro.url.pathname;
 
     <slot />
 
-    <footer class="footer">
-      <div class="footer__content">
-        <div class="footer__brand">
-          <a href="/" class="footer__logo"><Logo /></a>
-          <p class="footer__tagline">
+    <footer class="border-border bg-bg-secondary border-t px-5 pt-16 pb-8">
+      <div
+        class="max-w-container mx-auto grid grid-cols-1 gap-10 md:grid-cols-[1fr_2fr] md:gap-16"
+      >
+        <div class="flex flex-col gap-4">
+          <a href="/" class="text-2xl font-bold"><Logo /></a>
+          <p class="text-text-muted max-w-[280px] text-sm">
             We use abstract mathematics to build concrete applications.
           </p>
-          <div class="footer__social">
-            <a href="https://twitter.com/be_badaas" aria-label="Twitter">
+          <div class="flex gap-4">
+            <a
+              href="https://twitter.com/be_badaas"
+              aria-label="Twitter"
+              class="text-icon hover:text-icon-hover transition-colors"
+            >
               <IconTwitter />
             </a>
             <a
               href="https://linkedin.com/company/bebadaas"
               aria-label="LinkedIn"
+              class="text-icon hover:text-icon-hover transition-colors"
             >
               <IconLinkedIn />
             </a>
-            <a href="https://github.com/BaDaaS" aria-label="GitHub">
+            <a
+              href="https://github.com/BaDaaS"
+              aria-label="GitHub"
+              class="text-icon hover:text-icon-hover transition-colors"
+            >
               <IconGitHub />
             </a>
           </div>
         </div>
 
-        <div class="footer__links">
-          <div class="footer__column">
-            <h4>What we do</h4>
-            <a href="/#services">Audits</a>
-            <a href="/#services">Research</a>
-            <a href="/#services">Development</a>
-            <a href="/#services">Consulting</a>
+        <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div class="flex flex-col gap-2.5">
+            <h4 class="text-accent mb-1 text-sm">What we do</h4>
+            <a
+              href="/#services"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Audits</a
+            >
+            <a
+              href="/#services"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Research</a
+            >
+            <a
+              href="/#services"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Development</a
+            >
+            <a
+              href="/#services"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Consulting</a
+            >
           </div>
 
-          <div class="footer__column">
-            <h4>Resources</h4>
-            <a href="/blog">Blog</a>
-            <a href="https://cryptography.academy" target="_blank"
+          <div class="flex flex-col gap-2.5">
+            <h4 class="text-accent mb-1 text-sm">Resources</h4>
+            <a
+              href="/blog"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Blog</a
+            >
+            <a
+              href="https://cryptography.academy"
+              target="_blank"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
               >Cryptography Academy</a
             >
           </div>
 
-          <div class="footer__column">
-            <h4>Company</h4>
-            <a href="/#portfolio">Trusted By</a>
+          <div class="flex flex-col gap-2.5">
+            <h4 class="text-accent mb-1 text-sm">Company</h4>
+            <a
+              href="/#portfolio"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Trusted By</a
+            >
           </div>
 
-          <div class="footer__column">
-            <h4>Contact</h4>
-            <a href="mailto:contact@badaas.be">contact@badaas.be</a>
-            <p>Belgium</p>
+          <div class="flex flex-col gap-2.5">
+            <h4 class="text-accent mb-1 text-sm">Contact</h4>
+            <a
+              href="mailto:contact@badaas.be"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >contact@badaas.be</a
+            >
+            <p class="text-text-muted text-sm">Belgium</p>
           </div>
         </div>
       </div>
 
-      <div class="footer__bottom">
-        <p>&copy; {new Date().getFullYear()} <Logo />. All rights reserved.</p>
+      <div
+        class="max-w-container border-border mx-auto mt-10 border-t pt-5 text-center"
+      >
+        <p class="text-text-muted text-xs">
+          &copy; {new Date().getFullYear()}
+          <Logo />. All rights reserved.
+        </p>
       </div>
     </footer>
 

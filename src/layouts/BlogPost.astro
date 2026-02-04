@@ -20,9 +20,12 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title={`${title} | BaDaaS Blog`} description={description}>
-  <article class="prose">
-    <h1>{title}</h1>
-    <time class="date" datetime={pubDate.toISOString()}>
+  <article class="prose max-w-content mx-auto px-5 pt-24 pb-16">
+    <h1 class="mb-2.5 text-4xl md:text-[2.5rem]">{title}</h1>
+    <time
+      class="text-text-muted mb-10 block text-sm"
+      datetime={pubDate.toISOString()}
+    >
       {formatDate(pubDate)}
       {updatedDate && <span> (Updated: {formatDate(updatedDate)})</span>}
     </time>

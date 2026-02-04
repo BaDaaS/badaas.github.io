@@ -8,9 +8,12 @@ const themes = [
 ];
 ---
 
-<div class="theme-selector">
-  <label for="theme-select">Theme:</label>
-  <select id="theme-select">
+<div class="fixed right-5 bottom-5 z-[100] flex items-center gap-2.5">
+  <label for="theme-select" class="text-text-muted text-xs">Theme:</label>
+  <select
+    id="theme-select"
+    class="border-border bg-bg-secondary text-text hover:border-accent focus:border-accent cursor-pointer border px-3 py-2 font-mono text-xs transition-colors focus:outline-none"
+  >
     {themes.map(theme => <option value={theme.value}>{theme.label}</option>)}
   </select>
 </div>

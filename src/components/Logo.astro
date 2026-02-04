@@ -6,11 +6,4 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<span class:list={["logo-text", className]}>BaDaaS</span>
-
-<style>
-  .logo-text {
-    display: inline;
-    color: var(--accent-color);
-  }
-</style>
+<span class:list={["text-accent inline", className]}>BaDaaS</span>

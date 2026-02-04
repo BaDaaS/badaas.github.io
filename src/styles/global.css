@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Custom Fonts
+   ========================================================================== */
+
+@font-face {
+  font-family: "SourceCodePro";
+  src: url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Theme Variables (CSS Custom Properties)
+   ========================================================================== */
+
+:root {
+  /* Default: Classic dark with gold accent */
+  --color-bg: #191919;
+  --color-bg-secondary: #1f1f1f;
+  --color-accent: #c1bb3a;
+  --color-text: #e0e0e0;
+  --color-text-muted: #888;
+  --color-border: #333;
+  --color-icon: #888;
+  --color-icon-hover: #c1bb3a;
+  --logo-image: url("/res/badaas-icon-dark-bg.svg");
+}
+
+/* Minimal: Clean dark with white accent */
+[data-theme="minimal"] {
+  --color-bg: #0f0f0f;
+  --color-bg-secondary: #161616;
+  --color-accent: #ffffff;
+  --color-text: #d0d0d0;
+  --color-text-muted: #707070;
+  --color-border: #2a2a2a;
+  --color-icon: #707070;
+  --color-icon-hover: #ffffff;
+}
+
+/* Corporate: Professional blue tones */
+[data-theme="corporate"] {
+  --color-bg: #f8f9fa;
+  --color-bg-secondary: #edf0f2;
+  --color-accent: #2563eb;
+  --color-text: #1a1a2e;
+  --color-text-muted: #64748b;
+  --color-border: #d1d5db;
+  --color-icon: #64748b;
+  --color-icon-hover: #2563eb;
+}
+
+/* Warm: Dark with amber accent */
+[data-theme="warm"] {
+  --color-bg: #1a1814;
+  --color-bg-secondary: #211f1a;
+  --color-accent: #f59e0b;
+  --color-text: #e8e4dc;
+  --color-text-muted: #9a9488;
+  --color-border: #3d3830;
+  --color-icon: #9a9488;
+  --color-icon-hover: #f59e0b;
+}
+
+/* Ocean: Deep blue theme */
+[data-theme="ocean"] {
+  --color-bg: #0d1b2a;
+  --color-bg-secondary: #1b263b;
+  --color-accent: #00d4ff;
+  --color-text: #e0e6ed;
+  --color-text-muted: #778da9;
+  --color-border: #2d4a5e;
+  --color-icon: #778da9;
+  --color-icon-hover: #00d4ff;
+}
+
+/* ==========================================================================
+   Tailwind Theme Configuration
+   ========================================================================== */
+
+@theme {
+  --font-mono: "SourceCodePro", "SF Mono", Monaco, "Andale Mono", monospace;
+
+  --color-bg: var(--color-bg);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-accent: var(--color-accent);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-border: var(--color-border);
+  --color-icon: var(--color-icon);
+  --color-icon-hover: var(--color-icon-hover);
+
+  --max-width-content: 800px;
+  --max-width-container: 1200px;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-accent);
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-accent);
+  margin-top: 0;
+}
+
+/* ==========================================================================
+   Logo Mask (requires pseudo-element)
+   ========================================================================== */
+
+.logo-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-accent);
+  mask-image: var(--logo-image);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: var(--logo-image);
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* ==========================================================================
+   Section Title Underline (requires pseudo-element)
+   ========================================================================== */
+
+.section-title-underline::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  border-bottom: 2px dotted var(--color-accent);
+}
+
+/* ==========================================================================
+   Typography Plugin Customization
+   ========================================================================== */
+
+.prose {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-accent);
+  --tw-prose-lead: var(--color-text);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-counters: var(--color-text-muted);
+  --tw-prose-bullets: var(--color-text-muted);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-text-muted);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-captions: var(--color-text-muted);
+  --tw-prose-code: var(--color-text);
+  --tw-prose-pre-code: var(--color-text);
+  --tw-prose-pre-bg: var(--color-bg-secondary);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+.prose pre {
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.prose :not(pre) > code {
+  background-color: var(--color-bg-secondary);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
