@@ -20,7 +20,7 @@
   "homepage": "https://badaas.be",
   "dependencies": {
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.2"
+    "tailwind-merge": "^3.4.1"
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.13",
