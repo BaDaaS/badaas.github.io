@@ -73,7 +73,7 @@ const services = [
   {
     num: "03",
     title: "Incubation",
-    desc: "We build and spin out projects that make the Internet safer. LeakIX, Cryptography Academy, and Papyrus all started here.",
+    desc: 'We build and spin out projects that make the Internet safer. <a href="https://leakix.net" target="_blank">LeakIX</a>, <a href="https://cryptography.academy" target="_blank">Cryptography Academy</a>, and <a href="https://papyrus.badaas.eu" target="_blank">Papyrus</a> all started here.',
   },
   {
     num: "04",
@@ -151,7 +151,7 @@ const services = [
                 <h3 class="font-display text-accent m-0 mb-2 text-2xl md:hidden">
                   {s.title}
                 </h3>
-                <p class="text-text-muted m-0 text-sm">{s.desc}</p>
+                <p class="text-text-muted m-0 text-sm" set:html={s.desc} />
               </div>
             </div>
           ))
