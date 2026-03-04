@@ -23,32 +23,32 @@
    ========================================================================== */
 
 :root {
-  /* Dark theme: navy chalkboard with green/pink accents */
-  --color-bg: #1a1f2e;
-  --color-bg-secondary: #141824;
-  --color-accent: #00ff88;
-  --color-accent-secondary: #ff3366;
+  /* Dark theme: steel blue + amber */
+  --color-bg: #161b26;
+  --color-bg-secondary: #111620;
+  --color-accent: #5b8fd4;
+  --color-accent-secondary: #d4a74a;
   --color-text: #d4d8e0;
   --color-text-muted: #8891a5;
   --color-border: #2a3045;
   --color-icon: #8891a5;
-  --color-icon-hover: #00ff88;
-  --color-grid: rgba(0, 255, 136, 0.04);
+  --color-icon-hover: #5b8fd4;
+  --color-grid: rgba(91, 143, 212, 0.04);
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
 [data-theme="light"] {
-  /* Light theme: warm paper with deep green/pink accents */
+  /* Light theme: warm paper with deep blue + gold */
   --color-bg: #faf8f5;
   --color-bg-secondary: #f0ede7;
-  --color-accent: #006644;
-  --color-accent-secondary: #cc2255;
+  --color-accent: #2d5a9e;
+  --color-accent-secondary: #a07828;
   --color-text: #2c2c2c;
   --color-text-muted: #6b6b6b;
   --color-border: #d4cfc6;
   --color-icon: #6b6b6b;
-  --color-icon-hover: #006644;
-  --color-grid: rgba(0, 102, 68, 0.06);
+  --color-icon-hover: #2d5a9e;
+  --color-grid: rgba(45, 90, 158, 0.06);
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
