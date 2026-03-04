@@ -11,32 +11,44 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "VT323";
+  src: url("/fonts/VT323-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
 /* ==========================================================================
    Theme Variables (CSS Custom Properties)
    ========================================================================== */
 
 :root {
-  /* Dark theme (default) */
-  --color-bg: #0f1117;
-  --color-bg-secondary: #161923;
-  --color-accent: #3b82f6;
-  --color-text: #e2e8f0;
-  --color-text-muted: #94a3b8;
-  --color-border: #1e293b;
-  --color-icon: #94a3b8;
-  --color-icon-hover: #3b82f6;
+  /* Dark theme: navy chalkboard with green/pink accents */
+  --color-bg: #1a1f2e;
+  --color-bg-secondary: #141824;
+  --color-accent: #00ff88;
+  --color-accent-secondary: #ff3366;
+  --color-text: #d4d8e0;
+  --color-text-muted: #8891a5;
+  --color-border: #2a3045;
+  --color-icon: #8891a5;
+  --color-icon-hover: #00ff88;
+  --color-grid: rgba(0, 255, 136, 0.04);
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
 [data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-accent: #2563eb;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
-  --color-icon: #64748b;
-  --color-icon-hover: #2563eb;
+  /* Light theme: warm paper with deep green/pink accents */
+  --color-bg: #faf8f5;
+  --color-bg-secondary: #f0ede7;
+  --color-accent: #006644;
+  --color-accent-secondary: #cc2255;
+  --color-text: #2c2c2c;
+  --color-text-muted: #6b6b6b;
+  --color-border: #d4cfc6;
+  --color-icon: #6b6b6b;
+  --color-icon-hover: #006644;
+  --color-grid: rgba(0, 102, 68, 0.06);
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
@@ -46,10 +58,12 @@
 
 @theme {
   --font-mono: "SourceCodePro", "SF Mono", Monaco, "Andale Mono", monospace;
+  --font-display: "VT323", "Courier New", monospace;
 
   --color-bg: var(--color-bg);
   --color-bg-secondary: var(--color-bg-secondary);
   --color-accent: var(--color-accent);
+  --color-accent-secondary: var(--color-accent-secondary);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
   --color-border: var(--color-border);
@@ -70,12 +84,25 @@ html {
 
 body {
   background-color: var(--color-bg);
+  background-image: linear-gradient(
+      var(--color-grid) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--color-text);
   font-family: var(--font-mono);
   line-height: 1.6;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+/* Global sharp edges */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
 }
 
 a {
@@ -94,6 +121,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-display);
   color: var(--color-accent);
   margin-top: 0;
 }
@@ -118,19 +146,103 @@ h6 {
 }
 
 /* ==========================================================================
-   Section Title Underline
+   Oversized Section Number
    ========================================================================== */
 
-.section-title-underline::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
+.section-number {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.3;
+}
+
+@media (min-width: 768px) {
+  .section-number {
+    font-size: 8rem;
+  }
+}
+
+/* ==========================================================================
+   Accent Bar (decorative divider)
+   ========================================================================== */
+
+.accent-bar {
+  width: 80px;
+  height: 6px;
   background-color: var(--color-accent);
-  border-radius: 2px;
+}
+
+.accent-bar-secondary {
+  width: 80px;
+  height: 6px;
+  background-color: var(--color-accent-secondary);
+}
+
+/* ==========================================================================
+   Notebook Card (left border, offset shadow)
+   ========================================================================== */
+
+.card-notebook {
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-bg);
+  padding: 2rem;
+  box-shadow: 4px 4px 0 var(--color-accent-secondary);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-notebook:hover {
+  border-left-color: var(--color-accent-secondary);
+  box-shadow: 6px 6px 0 var(--color-accent-secondary);
+}
+
+/* ==========================================================================
+   Filled CTA Button (primary)
+   ========================================================================== */
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  padding: 0.875rem 2.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Outlined CTA Button (secondary)
+   ========================================================================== */
+
+.btn-secondary {
+  display: inline-block;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  opacity: 1;
 }
 
 /* ==========================================================================
@@ -158,13 +270,11 @@ h6 {
 
 .prose pre {
   border: 1px solid var(--color-border);
-  border-radius: 4px;
 }
 
 .prose :not(pre) > code {
   background-color: var(--color-bg-secondary);
   padding: 2px 6px;
-  border-radius: 3px;
 }
 
 .prose code {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
+import MathWatermark from "../components/MathWatermark.astro";
 import { getCollection } from "astro:content";
 
 const recentPosts = (await getCollection("blog"))
@@ -57,6 +58,33 @@ const servicesJsonLd = JSON.stringify({
     ],
   },
 });
+
+const services = [
+  {
+    num: "01",
+    title: "Audits",
+    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
+    desc: "We review cryptographic protocols, zero-knowledge circuits, and security-critical code to find vulnerabilities before they become exploits.",
+  },
+  {
+    num: "02",
+    title: "Research",
+    icon: '<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+    desc: "We explore cryptography, zero-knowledge proofs, and applied mathematics. We publish our findings and build tools for the community.",
+  },
+  {
+    num: "03",
+    title: "Development",
+    icon: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+    desc: "We build production-grade cryptographic software, from proof systems to protocol libraries.",
+  },
+  {
+    num: "04",
+    title: "Consulting",
+    icon: '<circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>',
+    desc: "We advise on cryptographic protocols, security architecture, and technical strategy.",
+  },
+];
 ---
 
 <BaseLayout
@@ -67,292 +95,253 @@ const servicesJsonLd = JSON.stringify({
     <script type="application/ld+json" set:html={servicesJsonLd} />
   </Fragment>
 
-  <!-- Hero Section -->
+  <!-- Hero Section: left-aligned with circular logo -->
   <section
-    class="flex min-h-screen flex-col items-center justify-center px-5 pt-24 pb-12 text-center"
+    class="relative flex min-h-screen flex-col justify-center overflow-hidden px-5 pt-24 pb-12 md:px-16"
   >
-    <div
-      class="logo-mask bg-accent/10 relative mb-8 h-[200px] w-[200px] rounded-full shadow-[0_0_40px_rgba(59,130,246,0.15)]"
-    >
+    <MathWatermark />
+    <div class="relative z-10 max-w-4xl">
+      <div class="accent-bar mb-8"></div>
+      <div class="mb-8 flex items-center gap-8">
+        <div
+          class="logo-mask relative h-[120px] w-[120px] shrink-0 md:h-[160px] md:w-[160px]"
+        >
+        </div>
+        <h1
+          class="font-display text-accent m-0 text-5xl leading-none tracking-tight md:text-[6rem]"
+        >
+          <Logo />
+        </h1>
+      </div>
+      <p class="text-text mb-3 max-w-[600px] text-xl font-medium">
+        We use abstract mathematics to build concrete applications.
+      </p>
+      <p class="text-text-muted mb-10 text-base">
+        Applied Mathematics & Cryptography Lab, Belgium.
+      </p>
+      <a href="https://calendly.com/be-danny-willems/30min" class="btn-primary">
+        Book a call
+      </a>
     </div>
-    <h1 class="border-accent m-0 border-b-2 pb-3 text-4xl md:text-[4rem]">
-      <Logo />
-    </h1>
-    <p class="text-text mt-8 mb-3 max-w-[600px] text-xl font-medium">
-      We use abstract mathematics to build concrete applications.
-    </p>
-    <p class="text-text-muted mb-10 text-base">
-      Applied Mathematics & Cryptography Lab.
-    </p>
-    <a
-      href="https://calendly.com/be-danny-willems/30min"
-      class="bg-accent inline-block rounded-lg px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
-      style="color: var(--color-bg)">Book a call</a
-    >
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="bg-bg-secondary px-5 py-16 md:py-24">
-    <h2
-      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
-    >
-      What we do
-    </h2>
-    <div
-      class="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
-    >
-      <div
-        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
-      >
-        <div class="text-accent mb-4 text-2xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
+  <!-- Services Section: numbered notebook cards -->
+  <section id="services" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
+    <div class="max-w-container mx-auto">
+      <div class="mb-12 flex items-end gap-6">
+        <span class="section-number">01</span>
+        <div>
+          <div class="accent-bar mb-4"></div>
+          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+            What we do
+          </h2>
         </div>
-        <h3 class="text-accent mb-4 text-xl">Audits</h3>
-        <p class="text-text-muted text-sm">
-          We review cryptographic protocols, zero-knowledge circuits, and
-          security-critical code to find vulnerabilities before they become
-          exploits.
-        </p>
       </div>
-      <div
-        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
-      >
-        <div class="text-accent mb-4 text-2xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </div>
-        <h3 class="text-accent mb-4 text-xl">Research</h3>
-        <p class="text-text-muted text-sm">
-          We explore cryptography, zero-knowledge proofs, and applied
-          mathematics. We publish our findings and build tools for the
-          community.
-        </p>
-      </div>
-      <div
-        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
-      >
-        <div class="text-accent mb-4 text-2xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-        </div>
-        <h3 class="text-accent mb-4 text-xl">Development</h3>
-        <p class="text-text-muted text-sm">
-          We build production-grade cryptographic software, from proof systems
-          to protocol libraries.
-        </p>
-      </div>
-      <div
-        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
-      >
-        <div class="text-accent mb-4 text-2xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polygon
-              points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
-            ></polygon>
-          </svg>
-        </div>
-        <h3 class="text-accent mb-4 text-xl">Consulting</h3>
-        <p class="text-text-muted text-sm">
-          We advise on cryptographic protocols, security architecture, and
-          technical strategy.
-        </p>
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          services.map(s => (
+            <div class="card-notebook">
+              <span class="font-display text-accent-secondary mb-3 block text-2xl">
+                {s.num}
+              </span>
+              <div class="text-accent mb-4 text-2xl">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <Fragment set:html={s.icon} />
+                </svg>
+              </div>
+              <h3 class="font-display text-accent mb-4 text-2xl">{s.title}</h3>
+              <p class="text-text-muted text-sm">{s.desc}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Portfolio Section -->
-  <section id="portfolio" class="max-w-container mx-auto px-5 py-16 md:py-24">
-    <h2
-      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
-    >
-      Trusted By
-    </h2>
+  <!-- Portfolio Section: notebook cards -->
+  <section
+    id="portfolio"
+    class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
+  >
+    <div class="mb-12 flex items-end gap-6">
+      <span class="section-number">02</span>
+      <div>
+        <div class="accent-bar-secondary mb-4"></div>
+        <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+          Trusted By
+        </h2>
+      </div>
+    </div>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <a
         href="https://leakix.net"
-        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
+        class="card-notebook block no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="text-accent mb-2.5 text-xl">LeakIX</h3>
+        <h3 class="font-display text-accent mb-2.5 text-2xl">LeakIX</h3>
         <p class="text-text-muted text-sm">
           Security research and vulnerability intelligence platform.
         </p>
       </a>
       <a
         href="https://tezos.com"
-        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
+        class="card-notebook block no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="text-accent mb-2.5 text-xl">Tezos</h3>
+        <h3 class="font-display text-accent mb-2.5 text-2xl">Tezos</h3>
         <p class="text-text-muted text-sm">
           Protocol development and ecosystem contributions.
         </p>
       </a>
       <a
         href="https://minaprotocol.com"
-        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
+        class="card-notebook block no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="text-accent mb-2.5 text-xl">Mina Protocol</h3>
+        <h3 class="font-display text-accent mb-2.5 text-2xl">Mina Protocol</h3>
         <p class="text-text-muted text-sm">
           Zero-knowledge proof systems and protocol development.
         </p>
       </a>
       <a
         href="https://www.b2c2.com"
-        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
+        class="card-notebook block no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="text-accent mb-2.5 text-xl">B2C2</h3>
+        <h3 class="font-display text-accent mb-2.5 text-2xl">B2C2</h3>
         <p class="text-text-muted text-sm">
           Institutional crypto liquidity provider.
         </p>
       </a>
       <a
         href="https://www.nomadic-labs.com"
-        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
+        class="card-notebook block no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="text-accent mb-2.5 text-xl">Nomadic Labs</h3>
+        <h3 class="font-display text-accent mb-2.5 text-2xl">Nomadic Labs</h3>
         <p class="text-text-muted text-sm">
           Core development and research for the Tezos ecosystem.
         </p>
       </a>
     </div>
-    <p class="text-text-muted mt-10 text-center">More partners coming soon.</p>
+    <p class="text-text-muted mt-10">More partners coming soon.</p>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="bg-bg-secondary px-5 py-16 md:py-24">
-    <h2
-      class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl"
-    >
-      Projects
-    </h2>
-    <div
-      class="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
-    >
-      <a
-        href="https://cryptography.academy"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Cryptography Academy</h3>
-        <p class="text-text-muted text-sm">
-          Educational platform for cryptography and mathematics.
-        </p>
-      </a>
-      <a
-        href="https://github.com/LeakIX/zcash-web-wallet"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Zcash Web Wallet</h3>
-        <p class="text-text-muted text-sm">
-          Privacy-preserving Zcash wallet implementation.
-        </p>
-      </a>
-      <a
-        href="https://github.com/LeakIX/zcash-infra"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Zcash Infra</h3>
-        <p class="text-text-muted text-sm">
-          Infrastructure tooling for Zcash nodes and services.
-        </p>
-      </a>
-      <a
-        href="https://github.com/dannywillems/mina-explorer"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Mina Explorer</h3>
-        <p class="text-text-muted text-sm">
-          Blockchain explorer for Mina Protocol networks.
-        </p>
-      </a>
-      <a
-        href="https://github.com/o1-labs/mina-rust"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Mina Rust</h3>
-        <p class="text-text-muted text-sm">
-          Rust implementation of the Mina Protocol node.
-        </p>
-      </a>
-      <a
-        href="https://github.com/MinaProtocol/mina"
-        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
-        target="_blank"
-      >
-        <h3 class="text-accent mb-2.5 text-xl">Mina Protocol</h3>
-        <p class="text-text-muted text-sm">
-          OCaml implementation of the Mina Protocol node.
-        </p>
-      </a>
+  <!-- Projects Section: notebook cards -->
+  <section id="projects" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
+    <div class="max-w-container mx-auto">
+      <div class="mb-12 flex items-end gap-6">
+        <span class="section-number">03</span>
+        <div>
+          <div class="accent-bar mb-4"></div>
+          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+            Projects
+          </h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <a
+          href="https://cryptography.academy"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">
+            Cryptography Academy
+          </h3>
+          <p class="text-text-muted text-sm">
+            Educational platform for cryptography and mathematics.
+          </p>
+        </a>
+        <a
+          href="https://github.com/LeakIX/zcash-web-wallet"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">
+            Zcash Web Wallet
+          </h3>
+          <p class="text-text-muted text-sm">
+            Privacy-preserving Zcash wallet implementation.
+          </p>
+        </a>
+        <a
+          href="https://github.com/LeakIX/zcash-infra"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">Zcash Infra</h3>
+          <p class="text-text-muted text-sm">
+            Infrastructure tooling for Zcash nodes and services.
+          </p>
+        </a>
+        <a
+          href="https://github.com/dannywillems/mina-explorer"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">
+            Mina Explorer
+          </h3>
+          <p class="text-text-muted text-sm">
+            Blockchain explorer for Mina Protocol networks.
+          </p>
+        </a>
+        <a
+          href="https://github.com/o1-labs/mina-rust"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">Mina Rust</h3>
+          <p class="text-text-muted text-sm">
+            Rust implementation of the Mina Protocol node.
+          </p>
+        </a>
+        <a
+          href="https://github.com/MinaProtocol/mina"
+          class="card-notebook block no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <h3 class="font-display text-accent mb-2.5 text-2xl">
+            Mina Protocol
+          </h3>
+          <p class="text-text-muted text-sm">
+            OCaml implementation of the Mina Protocol node.
+          </p>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Recent Blog Posts -->
   {
     recentPosts.length > 0 && (
-      <section id="blog" class="max-w-container mx-auto px-5 py-16 md:py-24">
-        <h2 class="section-title-underline text-accent relative mb-16 pb-5 text-center text-2xl">
-          Latest Posts
-        </h2>
-        <div class="max-w-content mx-auto">
+      <section
+        id="blog"
+        class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
+      >
+        <div class="mb-12 flex items-end gap-6">
+          <span class="section-number">04</span>
+          <div>
+            <div class="accent-bar-secondary mb-4" />
+            <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+              Latest Posts
+            </h2>
+          </div>
+        </div>
+        <div class="max-w-content">
           {recentPosts.map(post => (
-            <div class="border-border border-b py-8 last:border-b-0">
-              <h3 class="mb-2.5">
+            <div class="border-accent/20 mb-6 border-l-3 py-6 pl-6">
+              <h3 class="font-display mb-2.5 text-2xl">
                 <a
                   href={`/blog/${post.slug}`}
                   class="text-accent hover:opacity-80"
@@ -371,12 +360,8 @@ const servicesJsonLd = JSON.stringify({
             </div>
           ))}
         </div>
-        <p class="mt-10 text-center">
-          <a
-            href="/blog"
-            class="bg-accent inline-block rounded-lg px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
-            style="color: var(--color-bg)"
-          >
+        <p class="mt-10">
+          <a href="/blog" class="btn-secondary">
             View all posts
           </a>
         </p>

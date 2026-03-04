@@ -1,0 +1,33 @@
+---
+/**
+ * Decorative math formula overlay for the hero section.
+ * Renders faint mathematical expressions at very low opacity
+ * to create an academic atmosphere without distracting from content.
+ */
+---
+
+<div
+  class="pointer-events-none absolute inset-0 overflow-hidden select-none"
+  aria-hidden="true"
+>
+  <div class="font-display text-text relative h-full w-full opacity-[0.03]">
+    <span class="absolute top-[10%] left-[5%] text-3xl md:text-5xl">
+      e^(i*pi) + 1 = 0
+    </span>
+    <span class="absolute top-[25%] right-[8%] text-2xl md:text-4xl">
+      sum(k=0, inf) x^k/k!
+    </span>
+    <span class="absolute top-[50%] left-[12%] text-2xl md:text-4xl">
+      int(0, inf) e^(-x^2) dx
+    </span>
+    <span class="absolute top-[70%] right-[15%] text-xl md:text-3xl">
+      H(x) = -sum p(x) log p(x)
+    </span>
+    <span class="absolute top-[40%] left-[60%] text-xl md:text-3xl">
+      zeta(s) = sum(n=1, inf) 1/n^s
+    </span>
+    <span class="absolute bottom-[15%] left-[25%] text-2xl md:text-4xl">
+      P(A|B) = P(B|A)P(A) / P(B)
+    </span>
+  </div>
+</div>

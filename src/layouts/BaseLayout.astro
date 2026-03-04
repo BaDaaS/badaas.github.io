@@ -25,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
     <meta name="description" content={description} />
     <meta name="author" content="BaDaaS" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0f1117" />
+    <meta name="theme-color" content="#1a1f2e" />
     <link rel="canonical" href={canonicalURL.href} />
     <link rel="icon" href="/res/badaas-icon-dark-bg.svg" type="image/svg+xml" />
     <title>{title}</title>
@@ -69,9 +69,10 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
   </head>
   <body>
     <nav
-      class="border-border bg-bg/80 fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b px-5 py-4 backdrop-blur-md md:px-10 md:py-5"
+      class="bg-bg/80 fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b-2 border-dashed px-5 py-4 backdrop-blur-md md:px-10 md:py-5"
+      style="border-color: var(--color-border)"
     >
-      <a href="/" class="text-2xl font-bold"><Logo /></a>
+      <a href="/" class="font-display text-2xl font-bold"><Logo /></a>
       <div class="flex items-center gap-4 md:gap-8">
         <a
           href="/#services"
@@ -91,20 +92,23 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
         <ThemeSelector />
         <a
           href="https://calendly.com/be-danny-willems/30min"
-          class="bg-accent rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
-          style="color: var(--color-bg)">Book a call</a
+          class="btn-primary !px-5 !py-2 !text-sm">Book a call</a
         >
       </div>
     </nav>
 
     <slot />
 
-    <footer class="border-border bg-bg-secondary border-t px-5 pt-16 pb-8">
+    <footer
+      class="bg-bg-secondary border-t-2 border-dashed px-5 pt-16 pb-8"
+      style="border-color: var(--color-border)"
+    >
       <div
         class="max-w-container mx-auto grid grid-cols-1 gap-10 md:grid-cols-[1fr_2fr] md:gap-16"
       >
         <div class="flex flex-col gap-4">
-          <a href="/" class="text-2xl font-bold"><Logo /></a>
+          <div class="accent-bar mb-2"></div>
+          <a href="/" class="font-display text-2xl font-bold"><Logo /></a>
           <p class="text-text-muted max-w-[280px] text-sm">
             We use abstract mathematics to build concrete applications.
           </p>
@@ -135,7 +139,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
 
         <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div class="flex flex-col gap-2.5">
-            <h4 class="text-accent mb-1 text-sm">What we do</h4>
+            <h4 class="font-display text-accent mb-1 text-base">What we do</h4>
             <a
               href="/#services"
               class="text-text-muted hover:text-accent text-sm transition-colors"
@@ -159,7 +163,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           </div>
 
           <div class="flex flex-col gap-2.5">
-            <h4 class="text-accent mb-1 text-sm">Resources</h4>
+            <h4 class="font-display text-accent mb-1 text-base">Resources</h4>
             <a
               href="/blog"
               class="text-text-muted hover:text-accent text-sm transition-colors"
@@ -174,7 +178,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           </div>
 
           <div class="flex flex-col gap-2.5">
-            <h4 class="text-accent mb-1 text-sm">Company</h4>
+            <h4 class="font-display text-accent mb-1 text-base">Company</h4>
             <a
               href="/#portfolio"
               class="text-text-muted hover:text-accent text-sm transition-colors"
@@ -183,7 +187,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           </div>
 
           <div class="flex flex-col gap-2.5">
-            <h4 class="text-accent mb-1 text-sm">Contact</h4>
+            <h4 class="font-display text-accent mb-1 text-base">Contact</h4>
             <a
               href="mailto:contact@badaas.be"
               class="text-text-muted hover:text-accent text-sm transition-colors"
@@ -195,11 +199,16 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
       </div>
 
       <div
-        class="max-w-container border-border mx-auto mt-10 border-t pt-5 text-center"
+        class="max-w-container mx-auto mt-10 flex items-center gap-4 border-t-2 border-dashed pt-5"
+        style="border-color: var(--color-border)"
       >
+        <div class="accent-bar-secondary"></div>
         <p class="text-text-muted text-xs">
           &copy; {new Date().getFullYear()}
           <Logo />. All rights reserved.
+          <span class="font-display text-accent-secondary ml-2 opacity-50">
+            Q.E.D.
+          </span>
         </p>
       </div>
     </footer>
