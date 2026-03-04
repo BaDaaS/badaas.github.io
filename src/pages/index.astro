@@ -68,12 +68,12 @@ const services = [
   {
     num: "02",
     title: "Engineering",
-    desc: "Production cryptographic software, protocol development, and proof systems. We write low-level code in OCaml and Rust that runs in real protocols.",
+    desc: "We build and maintain software, from low-level cryptographic libraries to full infrastructure. Distributed systems, networking layers, proof systems, open source tooling, and production systems.",
   },
   {
     num: "03",
     title: "Incubation",
-    desc: 'We build and spin out projects that make the Internet safer. <a href="https://leakix.net" target="_blank">LeakIX</a>, <a href="https://cryptography.academy" target="_blank">Cryptography Academy</a>, and <a href="https://papyrus.badaas.eu" target="_blank">Papyrus</a> all started here.',
+    desc: 'We build and spin out projects that make the Internet safer and knowledge more accessible. <a href="https://leakix.net" target="_blank">LeakIX</a>, <a href="https://cryptography.academy" target="_blank">Cryptography Academy</a>, and <a href="https://papyrus.badaas.eu" target="_blank">Papyrus</a> all started here.',
   },
   {
     num: "04",
@@ -84,19 +84,46 @@ const services = [
 ---
 
 <BaseLayout
-  title="BaDaaS - Making the Internet Better and Safer"
+  title="BaDaaS - Making the Internet Better"
   description="From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={servicesJsonLd} />
   </Fragment>
 
-  <!-- Hero Section: left-aligned with circular logo -->
+  <!-- Hero Section: left-aligned with mission block on the right -->
   <section
     class="relative flex min-h-screen flex-col justify-center overflow-hidden px-5 pt-24 pb-12 md:px-16"
   >
     <MathWatermark />
-    <div class="relative z-10 max-w-4xl">
+
+    <!-- Mission block (right side, desktop only) -->
+    <div
+      class="absolute top-0 right-0 hidden h-full w-[38%] items-center justify-center lg:flex"
+      style="background: var(--color-accent-secondary); opacity: 0.07"
+    >
+    </div>
+    <div
+      class="absolute top-0 right-0 z-10 hidden h-full w-[38%] items-center px-12 lg:flex"
+    >
+      <div class="max-w-sm">
+        <div class="accent-bar-secondary mb-6"></div>
+        <p class="font-display text-accent text-3xl leading-tight xl:text-4xl">
+          Making the Internet better.
+        </p>
+        <p class="text-text-muted mt-4 text-sm leading-relaxed">
+          We use abstract mathematics to build concrete applications.
+        </p>
+        <p class="text-text-muted mt-6 text-xs leading-relaxed opacity-70">
+          The original Internet was about open knowledge, free for everyone, and
+          individual freedom. We build the mathematics that keeps it that way:
+          cryptography for privacy, formal verification for trust, and open
+          source so knowledge stays accessible to all.
+        </p>
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl lg:max-w-[55%]">
       <div class="accent-bar mb-8"></div>
       <div class="mb-8 flex items-center gap-8">
         <div
@@ -109,15 +136,23 @@ const services = [
           <Logo />
         </h1>
       </div>
-      <p class="text-text mb-3 max-w-[600px] text-xl font-medium">
+      <!-- Mobile: show mission inline -->
+      <p class="text-text mb-3 max-w-[600px] text-xl font-medium lg:hidden">
         We use abstract mathematics to build concrete applications.
       </p>
-      <p class="text-text mb-3 max-w-[600px] text-xl font-medium">
-        Making the Internet better and safer.
+      <p class="text-text mb-3 max-w-[600px] text-xl font-medium lg:hidden">
+        Making the Internet better.
       </p>
-      <p class="text-text-muted mb-10 max-w-[540px] text-base leading-relaxed">
-        From formal verification to applied cryptography and Internet security.
-        We build and incubate projects that protect the Internet.
+      <p class="text-text-muted mb-4 max-w-[540px] text-base leading-relaxed">
+        We research, build, and incubate projects in cryptography and Internet
+        security.
+      </p>
+      <p
+        class="text-text-muted mb-10 max-w-[540px] text-sm leading-relaxed opacity-70 lg:hidden"
+      >
+        The original Internet was about open knowledge and individual freedom.
+        We build the mathematics that keeps it that way: cryptography for
+        privacy, formal verification for trust, and open source for access.
       </p>
       <a href="https://calendly.com/be-danny-willems/30min" class="btn-primary">
         Book a call
@@ -182,19 +217,17 @@ const services = [
       style="background: var(--color-border)"
     >
       <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">7+</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">Years in cryptography</p>
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">2020</p>
+        <p class="text-text-muted m-0 mt-2 text-sm">Founded</p>
       </div>
       <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">3</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">
-          L1 protocols contributed to
-        </p>
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">2</p>
+        <p class="text-text-muted m-0 mt-2 text-sm">Protocols contributed to</p>
       </div>
       <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">ZK</p>
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">5+</p>
         <p class="text-text-muted m-0 mt-2 text-sm">
-          Proof systems and circuits
+          Publications and talks
         </p>
       </div>
       <div class="bg-bg px-6 py-8 text-center">
@@ -315,6 +348,16 @@ const services = [
         href="https://www.nomadic-labs.com"
         class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
         target="_blank">Nomadic Labs</a
+      >
+      <a
+        href="https://www.inria.fr"
+        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
+        target="_blank">INRIA</a
+      >
+      <a
+        href="https://web.umons.ac.be"
+        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
+        target="_blank">UMONS</a
       >
     </div>
   </section>
