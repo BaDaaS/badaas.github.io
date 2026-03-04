@@ -63,25 +63,21 @@ const services = [
   {
     num: "01",
     title: "Audits",
-    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
     desc: "We review cryptographic protocols, zero-knowledge circuits, and security-critical code to find vulnerabilities before they become exploits.",
   },
   {
     num: "02",
     title: "Research",
-    icon: '<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
     desc: "We explore cryptography, zero-knowledge proofs, and applied mathematics. We publish our findings and build tools for the community.",
   },
   {
     num: "03",
     title: "Development",
-    icon: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
     desc: "We build production-grade cryptographic software, from proof systems to protocol libraries.",
   },
   {
     num: "04",
     title: "Consulting",
-    icon: '<circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>',
     desc: "We advise on cryptographic protocols, security architecture, and technical strategy.",
   },
 ];
@@ -137,33 +133,26 @@ const services = [
           </h2>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="max-w-4xl">
         {
           services.map(s => (
-            <div class="card-notebook">
-              <span class="font-display text-accent-secondary mb-3 block text-2xl">
+            <div class="service-strip">
+              <span class="font-display text-accent-secondary text-2xl">
                 {s.num}
               </span>
-              <div class="text-accent mb-4 text-2xl">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <Fragment set:html={s.icon} />
-                </svg>
+              <h3 class="font-display text-accent m-0 hidden text-2xl md:block">
+                {s.title}
+              </h3>
+              <div>
+                <h3 class="font-display text-accent m-0 mb-2 text-2xl md:hidden">
+                  {s.title}
+                </h3>
+                <p class="text-text-muted m-0 text-sm">{s.desc}</p>
               </div>
-              <h3 class="font-display text-accent mb-4 text-2xl">{s.title}</h3>
-              <p class="text-text-muted text-sm">{s.desc}</p>
             </div>
           ))
         }
+        <div class="border-border border-t"></div>
       </div>
     </div>
   </section>
