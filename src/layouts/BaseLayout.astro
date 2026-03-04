@@ -11,8 +11,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Applied Mathematics & Cryptography Lab" } =
-  Astro.props;
+const {
+  title,
+  description = "From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security.",
+} = Astro.props;
 const currentPath = Astro.url.pathname;
 const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
 ---
@@ -52,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
         "name": "BaDaaS",
         "url": "https://badaas.be",
         "logo": "https://badaas.be/og-image.png",
-        "description": "Applied Mathematics & Cryptography Lab",
+        "description": "From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security.",
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "BE"
@@ -69,33 +71,149 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
   </head>
   <body>
     <nav
-      class="bg-bg/80 fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b-2 border-dashed px-5 py-4 backdrop-blur-md md:px-10 md:py-5"
+      class="bg-bg/80 fixed inset-x-0 top-0 z-[100] border-b-2 border-dashed backdrop-blur-md"
       style="border-color: var(--color-border)"
     >
-      <a href="/" class="font-display text-2xl font-bold"><Logo /></a>
-      <div class="flex items-center gap-4 md:gap-8">
-        <a
-          href="/#services"
-          class="text-text-muted hover:text-accent text-sm transition-colors"
-          class:list={{ active: currentPath === "/" }}>What we do</a
-        >
-        <a
-          href="/#portfolio"
-          class="text-text-muted hover:text-accent text-sm transition-colors"
-          >Trusted By</a
-        >
-        <a
-          href="/blog"
-          class="text-text-muted hover:text-accent text-sm transition-colors"
-          class:list={{ active: currentPath.startsWith("/blog") }}>Blog</a
-        >
-        <ThemeSelector />
-        <a
-          href="https://calendly.com/be-danny-willems/30min"
-          class="btn-primary !px-5 !py-2 !text-sm">Book a call</a
-        >
+      <div class="flex items-center justify-between px-5 py-4 md:px-10 md:py-5">
+        <a href="/" class="font-display text-2xl font-bold"><Logo /></a>
+
+        <!-- Desktop nav -->
+        <div class="hidden items-center gap-8 md:flex">
+          <a
+            href="/#services"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            class:list={{ active: currentPath === "/" }}>What we do</a
+          >
+          <a
+            href="/#portfolio"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            >Trusted By</a
+          >
+          <a
+            href="/#research"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            >Research</a
+          >
+          <a
+            href="/#projects"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            >Open Source</a
+          >
+          <a
+            href="/blog"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            class:list={{ active: currentPath.startsWith("/blog") }}>Blog</a
+          >
+          <ThemeSelector />
+          <a
+            href="https://calendly.com/be-danny-willems/30min"
+            class="btn-primary !px-5 !py-2 !text-sm">Book a call</a
+          >
+        </div>
+
+        <!-- Mobile controls -->
+        <div class="flex items-center gap-3 md:hidden">
+          <ThemeSelector />
+          <button
+            id="menu-toggle"
+            class="text-text-muted hover:text-accent p-1 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg
+              id="menu-icon-open"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <svg
+              id="menu-icon-close"
+              class="hidden"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="bg-bg/95 hidden border-t border-dashed backdrop-blur-md md:hidden"
+        style="border-color: var(--color-border)"
+      >
+        <div class="flex flex-col gap-1 px-5 py-4">
+          <a
+            href="/#services"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >What we do</a
+          >
+          <a
+            href="/#portfolio"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >Trusted By</a
+          >
+          <a
+            href="/#research"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >Research</a
+          >
+          <a
+            href="/#projects"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >Open Source</a
+          >
+          <a
+            href="/blog"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >Blog</a
+          >
+          <div class="pt-2">
+            <a
+              href="https://calendly.com/be-danny-willems/30min"
+              class="btn-primary block !py-3 text-center !text-sm"
+              >Book a call</a
+            >
+          </div>
+        </div>
       </div>
     </nav>
+
+    <script>
+      const toggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+      const iconOpen = document.getElementById("menu-icon-open");
+      const iconClose = document.getElementById("menu-icon-close");
+
+      toggle?.addEventListener("click", () => {
+        const isOpen = !menu?.classList.contains("hidden");
+        menu?.classList.toggle("hidden");
+        iconOpen?.classList.toggle("hidden");
+        iconClose?.classList.toggle("hidden");
+      });
+
+      // Close menu when a link is clicked
+      menu?.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          menu?.classList.add("hidden");
+          iconOpen?.classList.remove("hidden");
+          iconClose?.classList.add("hidden");
+        });
+      });
+    </script>
 
     <slot />
 
@@ -110,7 +228,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           <div class="accent-bar mb-2"></div>
           <a href="/" class="font-display text-2xl font-bold"><Logo /></a>
           <p class="text-text-muted max-w-[280px] text-sm">
-            We use abstract mathematics to build concrete applications.
+            We use abstract mathematics to build concrete applications. Making
+            the Internet better and safer.
           </p>
           <div class="flex gap-4">
             <a
