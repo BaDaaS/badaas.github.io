@@ -23,36 +23,36 @@ const servicesJsonLd = JSON.stringify({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Cryptographic Audits",
-          description:
-            "Review of cryptographic protocols, zero-knowledge circuits, and security-critical code.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
           name: "Research",
           description:
-            "Cryptography, zero-knowledge proofs, and applied mathematics research.",
+            "Mathematics, formal verification, and cryptography research.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Development",
+          name: "Engineering",
           description:
-            "Production-grade cryptographic software, proof systems, and protocol libraries.",
+            "Production cryptographic software, protocol development, and proof systems in OCaml and Rust.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Consulting",
+          name: "Incubation",
           description:
-            "Cryptographic protocol design, security architecture, and technical strategy.",
+            "Building and spinning out projects that make the Internet safer.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Security",
+          description:
+            "Attack surface management, cryptographic audits, and vulnerability research.",
         },
       },
     ],
@@ -62,30 +62,30 @@ const servicesJsonLd = JSON.stringify({
 const services = [
   {
     num: "01",
-    title: "Audits",
-    desc: "We review cryptographic protocols, zero-knowledge circuits, and security-critical code to find vulnerabilities before they become exploits.",
+    title: "Research",
+    desc: "Mathematics, formal verification, and cryptography. We publish papers, contribute to open knowledge, and advance the foundations that everything else builds on.",
   },
   {
     num: "02",
-    title: "Research",
-    desc: "We explore cryptography, zero-knowledge proofs, and applied mathematics. We publish our findings and build tools for the community.",
+    title: "Engineering",
+    desc: "Production cryptographic software, protocol development, and proof systems. We write low-level code in OCaml and Rust that runs in real protocols.",
   },
   {
     num: "03",
-    title: "Development",
-    desc: "We build production-grade cryptographic software, from proof systems to protocol libraries.",
+    title: "Incubation",
+    desc: "We build and spin out projects that make the Internet safer. LeakIX, Cryptography Academy, and Papyrus all started here.",
   },
   {
     num: "04",
-    title: "Consulting",
-    desc: "We advise on cryptographic protocols, security architecture, and technical strategy.",
+    title: "Security",
+    desc: "Attack surface management, cryptographic audits, and vulnerability research. The applied side of our mission to protect the Internet.",
   },
 ];
 ---
 
 <BaseLayout
-  title="BaDaaS - Applied Mathematics & Cryptography Lab"
-  description="We use abstract mathematics to build concrete applications. Applied Mathematics & Cryptography Lab."
+  title="BaDaaS - Making the Internet Better and Safer"
+  description="From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={servicesJsonLd} />
@@ -112,8 +112,12 @@ const services = [
       <p class="text-text mb-3 max-w-[600px] text-xl font-medium">
         We use abstract mathematics to build concrete applications.
       </p>
-      <p class="text-text-muted mb-10 text-base">
-        Applied Mathematics & Cryptography Lab, Belgium.
+      <p class="text-text mb-3 max-w-[600px] text-xl font-medium">
+        Making the Internet better and safer.
+      </p>
+      <p class="text-text-muted mb-10 max-w-[540px] text-base leading-relaxed">
+        From formal verification to applied cryptography and Internet security.
+        We build and incubate projects that protect the Internet.
       </p>
       <a href="https://calendly.com/be-danny-willems/30min" class="btn-primary">
         Book a call
@@ -223,9 +227,9 @@ const services = [
             </p>
           </div>
           <p class="text-text-muted m-0 text-sm leading-relaxed">
-            Core contributor to the Mina Protocol node. Designed and implemented
-            zero-knowledge proof systems, cryptographic primitives, and
-            protocol-level logic in OCaml and Rust.
+            Core contributor to the Mina Protocol node with o1Labs. Designed and
+            implemented zero-knowledge proof systems, cryptographic primitives,
+            and protocol-level logic in OCaml and Rust.
           </p>
         </div>
       </a>
@@ -247,8 +251,8 @@ const services = [
           </div>
           <p class="text-text-muted m-0 text-sm leading-relaxed">
             Protocol-level development and cryptographic research for the Tezos
-            ecosystem, working with Nomadic Labs on core infrastructure and
-            proof-of-stake consensus mechanisms.
+            ecosystem with Nomadic Labs. Core infrastructure, ZK rollups, and
+            low-level cryptographic engineering in OCaml.
           </p>
         </div>
       </a>
@@ -265,13 +269,39 @@ const services = [
               LeakIX
             </h4>
             <p class="text-accent-secondary m-0 mt-1 text-xs">
-              Security Research
+              Incubated at BaDaaS
             </p>
           </div>
           <p class="text-text-muted m-0 text-sm leading-relaxed">
-            Cryptographic engineering for a security intelligence platform.
-            Built privacy-preserving systems and secure data processing
-            pipelines.
+            Internet-wide attack surface management platform, incubated at
+            BaDaaS and spun out as an independent company. Indexes
+            misconfigurations and vulnerabilities across the Internet with
+            responsible disclosure. 100+ clients. Co-founder.
+          </p>
+        </div>
+      </a>
+      <a
+        href="https://www.b2c2.com"
+        class="border-border group block border-t py-8 no-underline hover:opacity-100"
+        target="_blank"
+      >
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+          <div class="shrink-0 md:w-48">
+            <h4
+              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+            >
+              B2C2
+            </h4>
+            <p class="text-accent-secondary m-0 mt-1 text-xs">
+              Trading Infrastructure
+            </p>
+          </div>
+          <p class="text-text-muted m-0 text-sm leading-relaxed">
+            First engineer at B2C2, now a leading institutional digital asset
+            market maker (London, Standard Chartered partner). Built exchange
+            interfaces, real-time blockchain transaction detection, accounting
+            systems, and risk management pipelines for the trading desk.
+            Maintained multi-chain node infrastructure. 2017 - 2020.
           </p>
         </div>
       </a>
@@ -282,11 +312,6 @@ const services = [
     <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
       <p class="text-text-muted m-0 text-sm">Also worked with</p>
       <a
-        href="https://www.b2c2.com"
-        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank">B2C2</a
-      >
-      <a
         href="https://www.nomadic-labs.com"
         class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
         target="_blank">Nomadic Labs</a
@@ -294,11 +319,223 @@ const services = [
     </div>
   </section>
 
-  <!-- Open Source Section -->
-  <section id="projects" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
+  <!-- Research Section -->
+  <section id="research" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
     <div class="max-w-container mx-auto">
       <div class="mb-12 flex items-end gap-6">
         <span class="section-number">03</span>
+        <div>
+          <div class="accent-bar mb-4"></div>
+          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+            Research
+          </h2>
+        </div>
+      </div>
+
+      <!-- Publications -->
+      <div class="max-w-4xl">
+        <div class="border-border flex items-center gap-4 border-t py-4">
+          <span
+            class="border-accent text-accent border px-3 py-1 text-xs font-medium tracking-widest uppercase"
+            >Publications</span
+          >
+          <span class="text-text-muted text-xs"
+            >Cryptography, type theory, and applied mathematics</span
+          >
+        </div>
+
+        <a
+          href="https://eprint.iacr.org/2022/840"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Anemoi
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2022</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Hash Functions</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >ZK Proofs</span
+                >
+              </div>
+            </div>
+            <div>
+              <p class="text-text m-0 text-sm leading-relaxed font-medium">
+                New Design Techniques for Efficient Arithmetization-Oriented
+                Hash Functions: Anemoi Permutations and Jive Compression Mode
+              </p>
+              <p class="text-text-muted m-0 mt-2 text-xs">
+                C. Bouvier, P. Briaud, P. Chaidos, L. Perrin, R. Salen, V.
+                Velichkov, D. Willems
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="https://eprint.iacr.org/2022/462"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                PlonK
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2022</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >zk-SNARKs</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Optimization</span
+                >
+              </div>
+            </div>
+            <div>
+              <p class="text-text m-0 text-sm leading-relaxed font-medium">
+                New optimization techniques for PlonK's arithmetization
+              </p>
+              <p class="text-text-muted m-0 mt-2 text-xs">
+                M. Ambrona, A.-L. Schmitt, R. R. Toledo, D. Willems
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://github.com/dannywillems/master-thesis/"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                RML
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">
+                Master's Thesis, 2017
+              </p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Type Systems</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >OCaml</span
+                >
+              </div>
+            </div>
+            <div>
+              <p class="text-text m-0 text-sm leading-relaxed font-medium">
+                To a typed language for modular programming
+              </p>
+              <p class="text-text-muted m-0 mt-2 text-xs">
+                D. Willems. Directed by F. Pottier (INRIA Paris)
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <div class="border-border border-t"></div>
+      </div>
+
+      <!-- Talks -->
+      <div class="mt-12 max-w-4xl">
+        <div class="border-border flex items-center gap-4 border-t py-4">
+          <span
+            class="border-accent-secondary text-accent-secondary border px-3 py-1 text-xs font-medium tracking-widest uppercase"
+            >Talks</span
+          >
+          <span class="text-text-muted text-xs">Conference presentations</span>
+        </div>
+
+        <a
+          href="https://www.youtube.com/watch?v=HDH2KXRAxAc"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                ZK Summit 11
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2024</p>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              o1VM: Building a Real-World zkVM for MIPS. Bitwise operation
+              encoding, folding schemes, and RAM lookups.
+            </p>
+          </div>
+        </a>
+
+        <a
+          href="https://www.youtube.com/watch?v=hR1lwvc3LBg"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                SevenX Research Day
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2024</p>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              A zkVM for the MIPS architecture and OP fault proofs.
+            </p>
+          </div>
+        </a>
+
+        <a
+          href="https://www.youtube.com/watch?v=3EdbLiClFPI"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                ZKProof 5
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">Tel Aviv, 2022</p>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Anemoi & Jive: New Arithmetization-Oriented Tools for PlonK. With
+              C. Bouvier.
+            </p>
+          </div>
+        </a>
+        <div class="border-border border-t"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Section -->
+  <section id="projects" class="px-5 py-16 md:px-16 md:py-24">
+    <div class="max-w-container mx-auto">
+      <div class="mb-12 flex items-end gap-6">
+        <span class="section-number">04</span>
         <div>
           <div class="accent-bar mb-4"></div>
           <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
@@ -308,7 +545,15 @@ const services = [
       </div>
 
       <div class="max-w-4xl">
-        <!-- Mina Protocol (OCaml) -->
+        <div class="border-border flex items-center gap-4 border-t py-4">
+          <span
+            class="border-accent text-accent border px-3 py-1 text-xs font-medium tracking-widest uppercase"
+            >Core Contributions</span
+          >
+          <span class="text-text-muted text-xs"
+            >Long-term protocol-level work</span
+          >
+        </div>
         <a
           href="https://github.com/MinaProtocol/mina"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
@@ -321,6 +566,7 @@ const services = [
               >
                 Mina Protocol
               </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2023 - 2026</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
@@ -340,7 +586,6 @@ const services = [
           </div>
         </a>
 
-        <!-- Mina Rust -->
         <a
           href="https://github.com/o1-labs/mina-rust"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
@@ -353,6 +598,7 @@ const services = [
               >
                 Mina Rust
               </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2025 - 2026</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
@@ -372,7 +618,115 @@ const services = [
           </div>
         </a>
 
-        <!-- Mina Explorer -->
+        <a
+          href="https://gitlab.com/tezos/tezos"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Octez
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2020 - 2023</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >OCaml</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Protocol</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Core contributor to the Tezos blockchain node. Protocol
+              development, ZK rollup (Epoxy), and low-level cryptographic
+              engineering with Nomadic Labs.
+            </p>
+          </div>
+        </a>
+
+        <a
+          href="https://gitlab.com/nomadic-labs/cryptography/ocaml-bls12-381"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                ocaml-bls12-381
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2020 - 2023</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >OCaml</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Elliptic Curves</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Efficient OCaml implementation of the BLS12-381 pairing-friendly
+              curve. FFT, multi-scalar exponentiation, and hash-to-curve. Used
+              in the Tezos protocol.
+            </p>
+          </div>
+        </a>
+
+        <a
+          href="https://gitlab.com/nomadic-labs/cryptography/ocaml-bls12-381-hash"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Plompiler
+              </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2021 - 2023</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >OCaml</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >ZK Circuits</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Monadic DSL for PlonK circuit development. Includes an optimizer,
+              flamegraphs for constraint profiling, and built-in cryptographic
+              primitives (Anemoi, Poseidon, Rescue, Griffin).
+            </p>
+          </div>
+        </a>
+
+        <div class="border-border border-t"></div>
+      </div>
+
+      <div class="mt-12 max-w-4xl">
+        <div class="border-border flex items-center gap-4 border-t py-4">
+          <span
+            class="border-accent-secondary text-accent-secondary border px-3 py-1 text-xs font-medium tracking-widest uppercase"
+            >Tools & Experiments</span
+          >
+          <span class="text-text-muted text-xs"
+            >Side projects and prototypes</span
+          >
+        </div>
         <a
           href="https://github.com/dannywillems/mina-explorer"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
@@ -385,6 +739,7 @@ const services = [
               >
                 Mina Explorer
               </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2026</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
@@ -393,6 +748,10 @@ const services = [
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
                   >Web</span
+                >
+                <span
+                  class="bg-text-muted/10 text-text-muted px-2 py-0.5 text-xs"
+                  >Archived</span
                 >
               </div>
             </div>
@@ -404,7 +763,6 @@ const services = [
           </div>
         </a>
 
-        <!-- Zcash Web Wallet -->
         <a
           href="https://github.com/LeakIX/zcash-web-wallet"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
@@ -426,6 +784,10 @@ const services = [
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
                   >Zcash</span
                 >
+                <span
+                  class="bg-text-muted/10 text-text-muted px-2 py-0.5 text-xs"
+                  >Archived</span
+                >
               </div>
             </div>
             <p class="text-text-muted m-0 text-sm leading-relaxed">
@@ -436,7 +798,6 @@ const services = [
           </div>
         </a>
 
-        <!-- Zcash Infra -->
         <a
           href="https://github.com/LeakIX/zcash-infra"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
@@ -449,6 +810,7 @@ const services = [
               >
                 Zcash Infra
               </h4>
+              <p class="text-text-muted m-0 mt-1 text-xs">2025 - 2026</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
@@ -457,6 +819,10 @@ const services = [
                 <span
                   class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
                   >Zcash</span
+                >
+                <span
+                  class="bg-text-muted/10 text-text-muted px-2 py-0.5 text-xs"
+                  >Archived</span
                 >
               </div>
             </div>
@@ -467,30 +833,93 @@ const services = [
             </p>
           </div>
         </a>
-
         <div class="border-border border-t"></div>
       </div>
 
-      <!-- Cryptography Academy (separate, educational) -->
+      <!-- Education -->
       <div class="mt-12 max-w-4xl">
+        <div class="border-border flex items-center gap-4 border-t py-4">
+          <span
+            class="border-accent text-accent border px-3 py-1 text-xs font-medium tracking-widest uppercase"
+            >Education</span
+          >
+          <span class="text-text-muted text-xs">Free learning resources</span>
+        </div>
         <a
           href="https://cryptography.academy"
-          class="group flex items-center gap-6 no-underline hover:opacity-100"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
         >
-          <div class="accent-bar-secondary"></div>
-          <div>
-            <h4
-              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors"
-            >
-              Cryptography Academy
-            </h4>
-            <p class="text-text-muted m-0 mt-1 text-sm">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Cryptography Academy
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Courses</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Free</span
+                >
+                <span
+                  class="bg-accent/10 text-accent px-2 py-0.5 text-xs font-medium"
+                  >Active</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
               Free educational platform for cryptography and mathematics. Open
               to everyone.
             </p>
           </div>
         </a>
+
+        <a
+          href="https://papyrus.badaas.eu"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Papyrus
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Python</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >LLM</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >GPU</span
+                >
+                <span
+                  class="bg-accent/10 text-accent px-2 py-0.5 text-xs font-medium"
+                  >Active</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Distributed pipeline powering Cryptography Academy. Harvests
+              papers from IACR ePrint, converts PDFs to Markdown via GPU,
+              extracts mathematical entities with LLMs, and formalizes them in
+              Lean 4. Open to contributors.
+            </p>
+          </div>
+        </a>
+
+        <div class="border-border border-t"></div>
       </div>
     </div>
   </section>
@@ -503,7 +932,7 @@ const services = [
         class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
       >
         <div class="mb-12 flex items-end gap-6">
-          <span class="section-number">04</span>
+          <span class="section-number">05</span>
           <div>
             <div class="accent-bar-secondary mb-4" />
             <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
