@@ -12,7 +12,7 @@ code highlighting.
 ## Architecture
 
 - **Framework**: Astro 5.x with MDX support
-- **Styling**: SASS with CSS custom properties for theming
+- **Styling**: Tailwind CSS v4 with CSS custom properties for theming
 - **Blog**: Content collections with Markdown/MDX
 - **Hosting**: GitHub Pages with custom domain `badaas.be`
 
@@ -31,7 +31,7 @@ code highlighting.
 │   │       ├── index.astro
 │   │       └── [...slug].astro
 │   └── styles/
-│       └── global.scss    # Global styles with themes
+│       └── global.css     # Global styles with themes
 ├── public/
 │   ├── fonts/             # Custom fonts
 │   └── res/               # Logo images
@@ -75,8 +75,16 @@ Code blocks support syntax highlighting via Shiki (github-dark theme).
 
 ## Theming
 
-Themes are controlled via `data-theme` attribute on `<html>`:
+Dark/light toggle controlled via `data-theme` attribute on `<html>`:
 
-- Default: dark theme
-- `data-theme="light"` - Light theme
-- `data-theme="blue"` - Blue accent theme
+- Default (no attribute): dark theme with blue accent (#3b82f6)
+- `data-theme="light"`: light theme with blue accent (#2563eb)
+
+Respects `prefers-color-scheme` on first visit, then localStorage overrides.
+
+## SEO
+
+- JSON-LD structured data: Organization (BaseLayout), ProfessionalService
+  (index), BlogPosting (BlogPost layout)
+- Canonical URLs, Open Graph, Twitter Cards
+- Named slot `head` in BaseLayout for per-page `<head>` injections

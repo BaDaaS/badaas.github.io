@@ -6,26 +6,79 @@ import { getCollection } from "astro:content";
 const recentPosts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const servicesJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "BaDaaS",
+  url: "https://badaas.be",
+  description: "Applied Mathematics & Cryptography Lab",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Cryptographic Audits",
+          description:
+            "Review of cryptographic protocols, zero-knowledge circuits, and security-critical code.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Research",
+          description:
+            "Cryptography, zero-knowledge proofs, and applied mathematics research.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Development",
+          description:
+            "Production-grade cryptographic software, proof systems, and protocol libraries.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Consulting",
+          description:
+            "Cryptographic protocol design, security architecture, and technical strategy.",
+        },
+      },
+    ],
+  },
+});
 ---
 
 <BaseLayout
   title="BaDaaS - Applied Mathematics & Cryptography Lab"
   description="We use abstract mathematics to build concrete applications. Applied Mathematics & Cryptography Lab."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={servicesJsonLd} />
+  </Fragment>
+
   <!-- Hero Section -->
   <section
     class="flex min-h-screen flex-col items-center justify-center px-5 pt-24 pb-12 text-center"
   >
     <div
-      class="logo-mask bg-accent/20 relative mb-8 h-[200px] w-[200px] rounded-full"
+      class="logo-mask bg-accent/10 relative mb-8 h-[200px] w-[200px] rounded-full shadow-[0_0_40px_rgba(59,130,246,0.15)]"
     >
     </div>
-    <h1
-      class="border-accent m-0 border-b-4 border-dotted pb-2.5 text-4xl md:text-[4rem]"
-    >
+    <h1 class="border-accent m-0 border-b-2 pb-3 text-4xl md:text-[4rem]">
       <Logo />
     </h1>
-    <p class="text-text mt-8 mb-2.5 max-w-[600px] text-xl">
+    <p class="text-text mt-8 mb-3 max-w-[600px] text-xl font-medium">
       We use abstract mathematics to build concrete applications.
     </p>
     <p class="text-text-muted mb-10 text-base">
@@ -33,7 +86,7 @@ const recentPosts = (await getCollection("blog"))
     </p>
     <a
       href="https://calendly.com/be-danny-willems/30min"
-      class="bg-accent inline-block px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
+      class="bg-accent inline-block rounded-lg px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
       style="color: var(--color-bg)">Book a call</a
     >
   </section>
@@ -49,8 +102,23 @@ const recentPosts = (await getCollection("blog"))
       class="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
     >
       <div
-        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
       >
+        <div class="text-accent mb-4 text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
         <h3 class="text-accent mb-4 text-xl">Audits</h3>
         <p class="text-text-muted text-sm">
           We review cryptographic protocols, zero-knowledge circuits, and
@@ -59,8 +127,24 @@ const recentPosts = (await getCollection("blog"))
         </p>
       </div>
       <div
-        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
       >
+        <div class="text-accent mb-4 text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
         <h3 class="text-accent mb-4 text-xl">Research</h3>
         <p class="text-text-muted text-sm">
           We explore cryptography, zero-knowledge proofs, and applied
@@ -69,8 +153,24 @@ const recentPosts = (await getCollection("blog"))
         </p>
       </div>
       <div
-        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
       >
+        <div class="text-accent mb-4 text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </div>
         <h3 class="text-accent mb-4 text-xl">Development</h3>
         <p class="text-text-muted text-sm">
           We build production-grade cryptographic software, from proof systems
@@ -78,8 +178,26 @@ const recentPosts = (await getCollection("blog"))
         </p>
       </div>
       <div
-        class="border-border bg-bg hover:border-accent border p-8 transition-colors"
+        class="border-border bg-bg hover:border-accent rounded-lg border p-10 transition-colors"
       >
+        <div class="text-accent mb-4 text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon
+              points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+            ></polygon>
+          </svg>
+        </div>
         <h3 class="text-accent mb-4 text-xl">Consulting</h3>
         <p class="text-text-muted text-sm">
           We advise on cryptographic protocols, security architecture, and
@@ -99,7 +217,7 @@ const recentPosts = (await getCollection("blog"))
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <a
         href="https://leakix.net"
-        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">LeakIX</h3>
@@ -109,7 +227,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://tezos.com"
-        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Tezos</h3>
@@ -119,7 +237,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://minaprotocol.com"
-        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Mina Protocol</h3>
@@ -129,7 +247,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://www.b2c2.com"
-        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">B2C2</h3>
@@ -139,7 +257,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://www.nomadic-labs.com"
-        class="border-border hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Nomadic Labs</h3>
@@ -163,7 +281,7 @@ const recentPosts = (await getCollection("blog"))
     >
       <a
         href="https://cryptography.academy"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Cryptography Academy</h3>
@@ -173,7 +291,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://github.com/LeakIX/zcash-web-wallet"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Zcash Web Wallet</h3>
@@ -183,7 +301,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://github.com/LeakIX/zcash-infra"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Zcash Infra</h3>
@@ -193,7 +311,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://github.com/dannywillems/mina-explorer"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Mina Explorer</h3>
@@ -203,7 +321,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://github.com/o1-labs/mina-rust"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Mina Rust</h3>
@@ -213,7 +331,7 @@ const recentPosts = (await getCollection("blog"))
       </a>
       <a
         href="https://github.com/MinaProtocol/mina"
-        class="border-border bg-bg hover:border-accent block border p-8 no-underline transition-colors hover:opacity-100"
+        class="border-border bg-bg hover:border-accent block rounded-lg border p-8 no-underline transition-colors hover:opacity-100"
         target="_blank"
       >
         <h3 class="text-accent mb-2.5 text-xl">Mina Protocol</h3>
@@ -256,7 +374,7 @@ const recentPosts = (await getCollection("blog"))
         <p class="mt-10 text-center">
           <a
             href="/blog"
-            class="bg-accent inline-block px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
+            class="bg-accent inline-block rounded-lg px-8 py-3 font-semibold transition-all hover:-translate-y-0.5 hover:opacity-90"
             style="color: var(--color-bg)"
           >
             View all posts

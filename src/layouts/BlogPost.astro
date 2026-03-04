@@ -17,9 +17,35 @@ const formatDate = (date: Date) => {
     day: "numeric",
   });
 };
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: description,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  author: {
+    "@type": "Organization",
+    name: "BaDaaS",
+    url: "https://badaas.be",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "BaDaaS",
+    url: "https://badaas.be",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://badaas.be/og-image.png",
+    },
+  },
+});
 ---
 
 <BaseLayout title={`${title} | BaDaaS Blog`} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
   <article class="prose max-w-content mx-auto px-5 pt-24 pb-16">
     <h1 class="mb-2.5 text-4xl md:text-[2.5rem]">{title}</h1>
     <time

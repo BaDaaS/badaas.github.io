@@ -16,64 +16,28 @@
    ========================================================================== */
 
 :root {
-  /* Default: Classic dark with gold accent */
-  --color-bg: #191919;
-  --color-bg-secondary: #1f1f1f;
-  --color-accent: #c1bb3a;
-  --color-text: #e0e0e0;
-  --color-text-muted: #888;
-  --color-border: #333;
-  --color-icon: #888;
-  --color-icon-hover: #c1bb3a;
+  /* Dark theme (default) */
+  --color-bg: #0f1117;
+  --color-bg-secondary: #161923;
+  --color-accent: #3b82f6;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-border: #1e293b;
+  --color-icon: #94a3b8;
+  --color-icon-hover: #3b82f6;
   --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
-/* Minimal: Clean dark with white accent */
-[data-theme="minimal"] {
-  --color-bg: #0f0f0f;
-  --color-bg-secondary: #161616;
-  --color-accent: #ffffff;
-  --color-text: #d0d0d0;
-  --color-text-muted: #707070;
-  --color-border: #2a2a2a;
-  --color-icon: #707070;
-  --color-icon-hover: #ffffff;
-}
-
-/* Corporate: Professional blue tones */
-[data-theme="corporate"] {
-  --color-bg: #f8f9fa;
-  --color-bg-secondary: #edf0f2;
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8fafc;
   --color-accent: #2563eb;
-  --color-text: #1a1a2e;
+  --color-text: #1e293b;
   --color-text-muted: #64748b;
-  --color-border: #d1d5db;
+  --color-border: #e2e8f0;
   --color-icon: #64748b;
   --color-icon-hover: #2563eb;
-}
-
-/* Warm: Dark with amber accent */
-[data-theme="warm"] {
-  --color-bg: #1a1814;
-  --color-bg-secondary: #211f1a;
-  --color-accent: #f59e0b;
-  --color-text: #e8e4dc;
-  --color-text-muted: #9a9488;
-  --color-border: #3d3830;
-  --color-icon: #9a9488;
-  --color-icon-hover: #f59e0b;
-}
-
-/* Ocean: Deep blue theme */
-[data-theme="ocean"] {
-  --color-bg: #0d1b2a;
-  --color-bg-secondary: #1b263b;
-  --color-accent: #00d4ff;
-  --color-text: #e0e6ed;
-  --color-text-muted: #778da9;
-  --color-border: #2d4a5e;
-  --color-icon: #778da9;
-  --color-icon-hover: #00d4ff;
+  --logo-image: url("/res/badaas-icon-dark-bg.svg");
 }
 
 /* ==========================================================================
@@ -110,8 +74,8 @@ body {
   font-family: var(--font-mono);
   line-height: 1.6;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 a {
@@ -154,7 +118,7 @@ h6 {
 }
 
 /* ==========================================================================
-   Section Title Underline (requires pseudo-element)
+   Section Title Underline
    ========================================================================== */
 
 .section-title-underline::after {
@@ -163,8 +127,10 @@ h6 {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
-  border-bottom: 2px dotted var(--color-accent);
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
 }
 
 /* ==========================================================================
