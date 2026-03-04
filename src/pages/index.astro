@@ -294,7 +294,7 @@ const services = [
     </div>
   </section>
 
-  <!-- Projects Section: notebook cards -->
+  <!-- Open Source Section -->
   <section id="projects" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
     <div class="max-w-container mx-auto">
       <div class="mb-12 flex items-end gap-6">
@@ -302,78 +302,194 @@ const services = [
         <div>
           <div class="accent-bar mb-4"></div>
           <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
-            Projects
+            Open Source
           </h2>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a
-          href="https://cryptography.academy"
-          class="card-notebook block no-underline hover:opacity-100"
-          target="_blank"
-        >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">
-            Cryptography Academy
-          </h3>
-          <p class="text-text-muted text-sm">
-            Educational platform for cryptography and mathematics.
-          </p>
-        </a>
-        <a
-          href="https://github.com/LeakIX/zcash-web-wallet"
-          class="card-notebook block no-underline hover:opacity-100"
-          target="_blank"
-        >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">
-            Zcash Web Wallet
-          </h3>
-          <p class="text-text-muted text-sm">
-            Privacy-preserving Zcash wallet implementation.
-          </p>
-        </a>
-        <a
-          href="https://github.com/LeakIX/zcash-infra"
-          class="card-notebook block no-underline hover:opacity-100"
-          target="_blank"
-        >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">Zcash Infra</h3>
-          <p class="text-text-muted text-sm">
-            Infrastructure tooling for Zcash nodes and services.
-          </p>
-        </a>
-        <a
-          href="https://github.com/dannywillems/mina-explorer"
-          class="card-notebook block no-underline hover:opacity-100"
-          target="_blank"
-        >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">
-            Mina Explorer
-          </h3>
-          <p class="text-text-muted text-sm">
-            Blockchain explorer for Mina Protocol networks.
-          </p>
-        </a>
-        <a
-          href="https://github.com/o1-labs/mina-rust"
-          class="card-notebook block no-underline hover:opacity-100"
-          target="_blank"
-        >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">Mina Rust</h3>
-          <p class="text-text-muted text-sm">
-            Rust implementation of the Mina Protocol node.
-          </p>
-        </a>
+
+      <div class="max-w-4xl">
+        <!-- Mina Protocol (OCaml) -->
         <a
           href="https://github.com/MinaProtocol/mina"
-          class="card-notebook block no-underline hover:opacity-100"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
         >
-          <h3 class="font-display text-accent mb-2.5 text-2xl">
-            Mina Protocol
-          </h3>
-          <p class="text-text-muted text-sm">
-            OCaml implementation of the Mina Protocol node.
-          </p>
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Mina Protocol
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >OCaml</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >ZK Proofs</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Core contributor to the Mina Protocol node. Implemented
+              cryptographic primitives, proof system integrations, and consensus
+              logic for the world's lightest blockchain.
+            </p>
+          </div>
+        </a>
+
+        <!-- Mina Rust -->
+        <a
+          href="https://github.com/o1-labs/mina-rust"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Mina Rust
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Rust</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >P2P</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Rust implementation of the Mina Protocol node. Rewrites
+              performance-critical components in Rust for memory safety and
+              speed, including networking and state management.
+            </p>
+          </div>
+        </a>
+
+        <!-- Mina Explorer -->
+        <a
+          href="https://github.com/dannywillems/mina-explorer"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Mina Explorer
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Explorer</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Web</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Blockchain explorer for Mina Protocol networks. Browse blocks,
+              transactions, and account activity across Mina's zero-knowledge
+              proof chain.
+            </p>
+          </div>
+        </a>
+
+        <!-- Zcash Web Wallet -->
+        <a
+          href="https://github.com/LeakIX/zcash-web-wallet"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Zcash Web Wallet
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Privacy</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Zcash</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Browser-based Zcash wallet with shielded transaction support.
+              Handles zk-SNARK proof generation client-side for private
+              transfers without trusting a server.
+            </p>
+          </div>
+        </a>
+
+        <!-- Zcash Infra -->
+        <a
+          href="https://github.com/LeakIX/zcash-infra"
+          class="border-border group block border-t py-8 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+            <div class="shrink-0 md:w-48">
+              <h4
+                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+              >
+                Zcash Infra
+              </h4>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >DevOps</span
+                >
+                <span
+                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
+                  >Zcash</span
+                >
+              </div>
+            </div>
+            <p class="text-text-muted m-0 text-sm leading-relaxed">
+              Infrastructure tooling for deploying and managing Zcash full nodes
+              and related services. Automated provisioning, monitoring, and
+              maintenance.
+            </p>
+          </div>
+        </a>
+
+        <div class="border-border border-t"></div>
+      </div>
+
+      <!-- Cryptography Academy (separate, educational) -->
+      <div class="mt-12 max-w-4xl">
+        <a
+          href="https://cryptography.academy"
+          class="group flex items-center gap-6 no-underline hover:opacity-100"
+          target="_blank"
+        >
+          <div class="accent-bar-secondary"></div>
+          <div>
+            <h4
+              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors"
+            >
+              Cryptography Academy
+            </h4>
+            <p class="text-text-muted m-0 mt-1 text-sm">
+              Free educational platform for cryptography and mathematics. Open
+              to everyone.
+            </p>
+          </div>
         </a>
       </div>
     </div>
