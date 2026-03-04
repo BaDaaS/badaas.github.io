@@ -13,8 +13,25 @@ const servicesJsonLd = JSON.stringify({
   "@type": "ProfessionalService",
   name: "BaDaaS",
   url: "https://badaas.be",
-  description: "Applied Mathematics & Cryptography Lab",
+  description:
+    "From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security.",
   areaServed: "Worldwide",
+  foundingDate: "2020",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "BE",
+  },
+  founder: {
+    "@type": "Person",
+    name: "Danny Willems",
+    url: "https://dannywillems.github.io",
+    sameAs: [
+      "https://twitter.com/be_badaas",
+      "https://github.com/dannywillems",
+      "https://github.com/BaDaaS",
+      "https://linkedin.com/company/bebadaas",
+    ],
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Services",
@@ -25,7 +42,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Research",
           description:
-            "Mathematics, formal verification, and cryptography research.",
+            "Mathematics, formal verification, and cryptography. We publish papers, contribute to open knowledge, and advance the foundations that everything else builds on.",
         },
       },
       {
@@ -34,7 +51,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Engineering",
           description:
-            "Production cryptographic software, protocol development, and proof systems in OCaml and Rust.",
+            "We build and maintain software, from low-level cryptographic libraries to full infrastructure. Distributed systems, networking layers, proof systems, open source tooling, and production systems.",
         },
       },
       {
@@ -43,7 +60,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Incubation",
           description:
-            "Building and spinning out projects that make the Internet safer.",
+            "We build and spin out projects that make the Internet safer and knowledge more accessible. LeakIX, Cryptography Academy, and Papyrus all started here.",
         },
       },
       {
@@ -52,7 +69,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Security",
           description:
-            "Attack surface management, cryptographic audits, and vulnerability research.",
+            "Attack surface management, cryptographic audits, and vulnerability research. The applied side of our mission to protect the Internet.",
         },
       },
     ],
@@ -73,7 +90,7 @@ const services = [
   {
     num: "03",
     title: "Incubation",
-    desc: 'We build and spin out projects that make the Internet safer and knowledge more accessible. <a href="https://leakix.net" target="_blank">LeakIX</a>, <a href="https://cryptography.academy" target="_blank">Cryptography Academy</a>, and <a href="https://papyrus.badaas.eu" target="_blank">Papyrus</a> all started here.',
+    desc: 'We build and spin out projects that make the Internet safer and knowledge more accessible. <a href="https://leakix.net" target="_blank" rel="noopener noreferrer">LeakIX</a>, <a href="https://cryptography.academy" target="_blank" rel="noopener noreferrer">Cryptography Academy</a>, and <a href="https://papyrus.badaas.eu" target="_blank" rel="noopener noreferrer">Papyrus</a> all started here.',
   },
   {
     num: "04",
@@ -150,9 +167,10 @@ const services = [
       <p
         class="text-text-muted mb-10 max-w-[540px] text-sm leading-relaxed opacity-70 lg:hidden"
       >
-        The original Internet was about open knowledge and individual freedom.
-        We build the mathematics that keeps it that way: cryptography for
-        privacy, formal verification for trust, and open source for access.
+        The original Internet was about open knowledge, free for everyone, and
+        individual freedom. We build the mathematics that keeps it that way:
+        cryptography for privacy, formal verification for trust, and open source
+        so knowledge stays accessible to all.
       </p>
       <a href="https://calendly.com/be-danny-willems/30min" class="btn-primary">
         Book a call
@@ -226,9 +244,7 @@ const services = [
       </div>
       <div class="bg-bg px-6 py-8 text-center">
         <p class="font-display text-accent m-0 text-4xl md:text-5xl">5+</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">
-          Publications and talks
-        </p>
+        <p class="text-text-muted m-0 mt-2 text-sm">Publications and talks</p>
       </div>
       <div class="bg-bg px-6 py-8 text-center">
         <p class="font-display text-accent-secondary m-0 text-4xl md:text-5xl">
@@ -247,6 +263,7 @@ const services = [
         href="https://minaprotocol.com"
         class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
           <div class="shrink-0 md:w-48">
@@ -270,6 +287,7 @@ const services = [
         href="https://tezos.com"
         class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
           <div class="shrink-0 md:w-48">
@@ -293,6 +311,7 @@ const services = [
         href="https://leakix.net"
         class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
           <div class="shrink-0 md:w-48">
@@ -317,6 +336,7 @@ const services = [
         href="https://www.b2c2.com"
         class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
           <div class="shrink-0 md:w-48">
@@ -347,17 +367,20 @@ const services = [
       <a
         href="https://www.nomadic-labs.com"
         class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank">Nomadic Labs</a
+        target="_blank"
+        rel="noopener noreferrer">Nomadic Labs</a
       >
       <a
         href="https://www.inria.fr"
         class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank">INRIA</a
+        target="_blank"
+        rel="noopener noreferrer">INRIA</a
       >
       <a
         href="https://web.umons.ac.be"
         class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank">UMONS</a
+        target="_blank"
+        rel="noopener noreferrer">UMONS</a
       >
     </div>
   </section>
@@ -391,6 +414,7 @@ const services = [
           href="https://eprint.iacr.org/2022/840"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -428,6 +452,7 @@ const services = [
           href="https://eprint.iacr.org/2022/462"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -462,6 +487,7 @@ const services = [
           href="https://github.com/dannywillems/master-thesis/"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -512,6 +538,7 @@ const services = [
           href="https://www.youtube.com/watch?v=HDH2KXRAxAc"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -533,6 +560,7 @@ const services = [
           href="https://www.youtube.com/watch?v=hR1lwvc3LBg"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -553,6 +581,7 @@ const services = [
           href="https://www.youtube.com/watch?v=3EdbLiClFPI"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -601,6 +630,7 @@ const services = [
           href="https://github.com/MinaProtocol/mina"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -633,6 +663,7 @@ const services = [
           href="https://github.com/o1-labs/mina-rust"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -665,6 +696,7 @@ const services = [
           href="https://gitlab.com/tezos/tezos"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -697,6 +729,7 @@ const services = [
           href="https://gitlab.com/nomadic-labs/cryptography/ocaml-bls12-381"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -729,6 +762,7 @@ const services = [
           href="https://gitlab.com/nomadic-labs/cryptography/ocaml-bls12-381-hash"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -774,6 +808,7 @@ const services = [
           href="https://github.com/dannywillems/mina-explorer"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -810,6 +845,7 @@ const services = [
           href="https://github.com/LeakIX/zcash-web-wallet"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -845,6 +881,7 @@ const services = [
           href="https://github.com/LeakIX/zcash-infra"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -892,6 +929,7 @@ const services = [
           href="https://cryptography.academy"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">
@@ -926,6 +964,7 @@ const services = [
           href="https://papyrus.badaas.eu"
           class="border-border group block border-t py-8 no-underline hover:opacity-100"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
             <div class="shrink-0 md:w-48">

@@ -18,10 +18,6 @@
     "url": "https://github.com/BaDaaS/badaas.github.io/issues"
   },
   "homepage": "https://badaas.be",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.2"
-  },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.15",

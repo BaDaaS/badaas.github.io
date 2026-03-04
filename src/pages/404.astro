@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 - Page Not Found | BaDaaS">
+  <section
+    class="flex min-h-screen flex-col items-center justify-center px-5 text-center"
+  >
+    <p
+      class="font-display text-accent mb-4 text-8xl opacity-30 md:text-[12rem]"
+    >
+      404
+    </p>
+    <h1 class="font-display text-accent mb-4 text-3xl md:text-4xl">
+      Page not found
+    </h1>
+    <p class="text-text-muted mb-10 max-w-md text-sm">
+      The page you are looking for does not exist, has been moved, or is
+      temporarily unavailable.
+    </p>
+    <a href="/" class="btn-primary">Back to home</a>
+  </section>
+</BaseLayout>

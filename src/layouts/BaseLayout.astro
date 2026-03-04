@@ -30,6 +30,20 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
     <meta name="theme-color" content="#1a1f2e" />
     <link rel="canonical" href={canonicalURL.href} />
     <link rel="icon" href="/res/badaas-icon-dark-bg.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/VT323-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/SourceCodePro-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     <title>{title}</title>
 
     <!-- Open Graph -->
@@ -107,6 +121,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           <ThemeSelector />
           <a
             href="https://calendly.com/be-danny-willems/30min"
+            rel="noopener noreferrer"
+            target="_blank"
             class="btn-primary !px-5 !py-2 !text-sm">Book a call</a
           >
         </div>
@@ -184,6 +200,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
           <div class="pt-2">
             <a
               href="https://calendly.com/be-danny-willems/30min"
+              rel="noopener noreferrer"
+              target="_blank"
               class="btn-primary block !py-3 text-center !text-sm"
               >Book a call</a
             >
@@ -215,7 +233,9 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
       });
     </script>
 
-    <slot />
+    <main>
+      <slot />
+    </main>
 
     <footer
       class="bg-bg-secondary border-t-2 border-dashed px-5 pt-16 pb-8"
@@ -235,6 +255,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             <a
               href="https://twitter.com/be_badaas"
               aria-label="Twitter"
+              rel="me noopener noreferrer"
+              target="_blank"
               class="text-icon hover:text-icon-hover transition-colors"
             >
               <IconTwitter />
@@ -242,6 +264,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             <a
               href="https://linkedin.com/company/bebadaas"
               aria-label="LinkedIn"
+              rel="me noopener noreferrer"
+              target="_blank"
               class="text-icon hover:text-icon-hover transition-colors"
             >
               <IconLinkedIn />
@@ -249,6 +273,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             <a
               href="https://github.com/BaDaaS"
               aria-label="GitHub"
+              rel="me noopener noreferrer"
+              target="_blank"
               class="text-icon hover:text-icon-hover transition-colors"
             >
               <IconGitHub />
@@ -286,18 +312,21 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             <a
               href="https://leakix.net"
               target="_blank"
+              rel="noopener noreferrer"
               class="text-text-muted hover:text-accent text-sm transition-colors"
               >LeakIX</a
             >
             <a
               href="https://cryptography.academy"
               target="_blank"
+              rel="noopener noreferrer"
               class="text-text-muted hover:text-accent text-sm transition-colors"
               >Cryptography Academy</a
             >
             <a
               href="https://papyrus.badaas.eu"
               target="_blank"
+              rel="noopener noreferrer"
               class="text-text-muted hover:text-accent text-sm transition-colors"
               >Papyrus</a
             >

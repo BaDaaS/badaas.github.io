@@ -41,3 +41,4 @@ Thumbs.db
 
 # Build outputs and logs
 *.log
+.stashed/

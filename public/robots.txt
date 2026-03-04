@@ -1,0 +1,26 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+Disallow: /.stashed/
+
+# Sitemap
+Sitemap: https://badaas.be/sitemap-index.xml
+
+# AI Crawlers - explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
