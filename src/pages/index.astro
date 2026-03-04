@@ -157,7 +157,7 @@ const services = [
     </div>
   </section>
 
-  <!-- Portfolio Section: notebook cards -->
+  <!-- Track Record Section -->
   <section
     id="portfolio"
     class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
@@ -167,63 +167,131 @@ const services = [
       <div>
         <div class="accent-bar-secondary mb-4"></div>
         <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
-          Trusted By
+          Track Record
         </h2>
       </div>
     </div>
-    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+    <!-- Trust Metrics -->
+    <div
+      class="border-border mb-16 grid grid-cols-2 gap-px border md:grid-cols-4"
+      style="background: var(--color-border)"
+    >
+      <div class="bg-bg px-6 py-8 text-center">
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">7+</p>
+        <p class="text-text-muted m-0 mt-2 text-sm">Years in cryptography</p>
+      </div>
+      <div class="bg-bg px-6 py-8 text-center">
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">3</p>
+        <p class="text-text-muted m-0 mt-2 text-sm">
+          L1 protocols contributed to
+        </p>
+      </div>
+      <div class="bg-bg px-6 py-8 text-center">
+        <p class="font-display text-accent m-0 text-4xl md:text-5xl">ZK</p>
+        <p class="text-text-muted m-0 mt-2 text-sm">
+          Proof systems and circuits
+        </p>
+      </div>
+      <div class="bg-bg px-6 py-8 text-center">
+        <p class="font-display text-accent-secondary m-0 text-4xl md:text-5xl">
+          BE
+        </p>
+        <p class="text-text-muted m-0 mt-2 text-sm">Based in Belgium</p>
+      </div>
+    </div>
+
+    <!-- Featured Engagements -->
+    <h3 class="font-display text-text-muted mb-6 text-lg tracking-wide">
+      Selected engagements
+    </h3>
+    <div class="max-w-4xl">
       <a
-        href="https://leakix.net"
-        class="card-notebook block no-underline hover:opacity-100"
+        href="https://minaprotocol.com"
+        class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="font-display text-accent mb-2.5 text-2xl">LeakIX</h3>
-        <p class="text-text-muted text-sm">
-          Security research and vulnerability intelligence platform.
-        </p>
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+          <div class="shrink-0 md:w-48">
+            <h4
+              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+            >
+              Mina Protocol
+            </h4>
+            <p class="text-accent-secondary m-0 mt-1 text-xs">
+              Zero-Knowledge Proofs
+            </p>
+          </div>
+          <p class="text-text-muted m-0 text-sm leading-relaxed">
+            Core contributor to the Mina Protocol node. Designed and implemented
+            zero-knowledge proof systems, cryptographic primitives, and
+            protocol-level logic in OCaml and Rust.
+          </p>
+        </div>
       </a>
       <a
         href="https://tezos.com"
-        class="card-notebook block no-underline hover:opacity-100"
+        class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="font-display text-accent mb-2.5 text-2xl">Tezos</h3>
-        <p class="text-text-muted text-sm">
-          Protocol development and ecosystem contributions.
-        </p>
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+          <div class="shrink-0 md:w-48">
+            <h4
+              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+            >
+              Tezos
+            </h4>
+            <p class="text-accent-secondary m-0 mt-1 text-xs">
+              Protocol Development
+            </p>
+          </div>
+          <p class="text-text-muted m-0 text-sm leading-relaxed">
+            Protocol-level development and cryptographic research for the Tezos
+            ecosystem, working with Nomadic Labs on core infrastructure and
+            proof-of-stake consensus mechanisms.
+          </p>
+        </div>
       </a>
       <a
-        href="https://minaprotocol.com"
-        class="card-notebook block no-underline hover:opacity-100"
+        href="https://leakix.net"
+        class="border-border group block border-t py-8 no-underline hover:opacity-100"
         target="_blank"
       >
-        <h3 class="font-display text-accent mb-2.5 text-2xl">Mina Protocol</h3>
-        <p class="text-text-muted text-sm">
-          Zero-knowledge proof systems and protocol development.
-        </p>
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+          <div class="shrink-0 md:w-48">
+            <h4
+              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
+            >
+              LeakIX
+            </h4>
+            <p class="text-accent-secondary m-0 mt-1 text-xs">
+              Security Research
+            </p>
+          </div>
+          <p class="text-text-muted m-0 text-sm leading-relaxed">
+            Cryptographic engineering for a security intelligence platform.
+            Built privacy-preserving systems and secure data processing
+            pipelines.
+          </p>
+        </div>
       </a>
+      <div class="border-border border-t"></div>
+    </div>
+
+    <!-- Additional Clients -->
+    <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+      <p class="text-text-muted m-0 text-sm">Also worked with</p>
       <a
         href="https://www.b2c2.com"
-        class="card-notebook block no-underline hover:opacity-100"
-        target="_blank"
+        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
+        target="_blank">B2C2</a
       >
-        <h3 class="font-display text-accent mb-2.5 text-2xl">B2C2</h3>
-        <p class="text-text-muted text-sm">
-          Institutional crypto liquidity provider.
-        </p>
-      </a>
       <a
         href="https://www.nomadic-labs.com"
-        class="card-notebook block no-underline hover:opacity-100"
-        target="_blank"
+        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
+        target="_blank">Nomadic Labs</a
       >
-        <h3 class="font-display text-accent mb-2.5 text-2xl">Nomadic Labs</h3>
-        <p class="text-text-muted text-sm">
-          Core development and research for the Tezos ecosystem.
-        </p>
-      </a>
     </div>
-    <p class="text-text-muted mt-10">More partners coming soon.</p>
   </section>
 
   <!-- Projects Section: notebook cards -->
