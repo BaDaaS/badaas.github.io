@@ -42,7 +42,13 @@ const jsonLd = JSON.stringify({
 });
 ---
 
-<BaseLayout title={`${title} | BaDaaS Blog`} description={description}>
+<BaseLayout
+  title={`${title} | BaDaaS Blog`}
+  description={description}
+  ogType="article"
+  articleDate={pubDate.toISOString()}
+  articleAuthor="https://badaas.be"
+>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd} />
   </Fragment>
