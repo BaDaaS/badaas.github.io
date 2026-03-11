@@ -6,9 +6,11 @@ interface Props {
   description: string;
   pubDate: Date;
   updatedDate?: Date;
+  author?: string;
 }
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, author = "BaDaaS" } =
+  Astro.props;
 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString("en-US", {
@@ -26,9 +28,8 @@ const jsonLd = JSON.stringify({
   datePublished: pubDate.toISOString(),
   ...(updatedDate && { dateModified: updatedDate.toISOString() }),
   author: {
-    "@type": "Organization",
-    name: "BaDaaS",
-    url: "https://badaas.be",
+    "@type": "Person",
+    name: author,
   },
   publisher: {
     "@type": "Organization",
@@ -54,13 +55,14 @@ const jsonLd = JSON.stringify({
   </Fragment>
   <article class="prose max-w-content mx-auto px-5 pt-24 pb-16">
     <h1 class="mb-2.5 text-4xl md:text-[2.5rem]">{title}</h1>
-    <time
-      class="text-text-muted mb-10 block text-sm"
-      datetime={pubDate.toISOString()}
-    >
-      {formatDate(pubDate)}
-      {updatedDate && <span> (Updated: {formatDate(updatedDate)})</span>}
-    </time>
+    <div class="text-text-muted mb-10 text-sm">
+      <time datetime={pubDate.toISOString()}>
+        {formatDate(pubDate)}
+        {updatedDate && <span> (Updated: {formatDate(updatedDate)})</span>}
+      </time>
+      <span class="mx-2">|</span>
+      <span>{author}</span>
+    </div>
     <slot />
   </article>
 </BaseLayout>
