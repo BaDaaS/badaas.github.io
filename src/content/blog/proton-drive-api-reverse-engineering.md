@@ -1,5 +1,6 @@
 ---
-title: "Syncing Logseq on Android with Proton Drive, and reverse engineering its API"
+title:
+  "Syncing Logseq on Android with Proton Drive, and reverse engineering its API"
 description:
   "A practical guide to syncing Logseq on Android via Termux and rclone, plus a
   deep dive into reverse engineering the undocumented Proton Drive API: SRP
@@ -201,8 +202,7 @@ Logseq will index the graph and you are ready to go.
 ## Tips
 
 - **Rate limiting**: Proton Drive is aggressive with rate limits. Keep
-  `--tpslimit 0.5 --transfers 1` in your sync script. It is slower but
-  reliable.
+  `--tpslimit 0.5 --transfers 1` in your sync script. It is slower but reliable.
 - **Conflict handling**: rclone bisync detects conflicts. If the same file is
   modified on both sides between syncs, rclone will rename one version with a
   `.conflict` suffix. Check the log for these.
@@ -217,13 +217,13 @@ Logseq will index the graph and you are ready to go.
 
 ## Why not other solutions?
 
-| Solution                              | Problem                                                                   |
-| ------------------------------------- | ------------------------------------------------------------------------- |
-| Proton Drive "Make available offline" | Files stay sandboxed in the Proton app. Other apps cannot access them.    |
-| Google Drive                          | Works, but you lose the privacy benefits of Proton.                       |
-| Syncthing                             | Peer-to-peer only. Both devices must be online simultaneously.            |
-| Logseq Sync                           | Paid service.                                                             |
-| SSH/SFTP                              | Requires an open port on the phone.                                       |
+| Solution                              | Problem                                                                |
+| ------------------------------------- | ---------------------------------------------------------------------- |
+| Proton Drive "Make available offline" | Files stay sandboxed in the Proton app. Other apps cannot access them. |
+| Google Drive                          | Works, but you lose the privacy benefits of Proton.                    |
+| Syncthing                             | Peer-to-peer only. Both devices must be online simultaneously.         |
+| Logseq Sync                           | Paid service.                                                          |
+| SSH/SFTP                              | Requires an open port on the phone.                                    |
 
 rclone + Termux gives you full control, zero cost, and keeps everything on
 Proton Drive.
@@ -256,8 +256,8 @@ community work, but it is building on sand.
 ### Known bugs with no upstream fix
 
 The rclone backend has known crashes. For example,
-[rclone/rclone#7959](https://github.com/rclone/rclone/issues/7959) reports a
-nil pointer dereference when encountering native Proton documents (Proton's own
+[rclone/rclone#7959](https://github.com/rclone/rclone/issues/7959) reports a nil
+pointer dereference when encountering native Proton documents (Proton's own
 document format). The fix has been identified but remains unmerged for over a
 year. Because the backend depends on undocumented behavior, fixing bugs requires
 guessing how the API is supposed to work.
@@ -294,12 +294,11 @@ upload files, it is hard to call it supported.
 
 ### The SDK that is not ready
 
-Proton released a
-[Drive SDK preview](https://github.com/ProtonDriveApps/sdk) in C#. The
-repository explicitly states it is not ready for production use or third-party
-integration. It is an internal tool that was open-sourced, not a developer
-platform. There is no package on NuGet, no getting-started guide, no issue
-tracker for external contributors.
+Proton released a [Drive SDK preview](https://github.com/ProtonDriveApps/sdk) in
+C#. The repository explicitly states it is not ready for production use or
+third-party integration. It is an internal tool that was open-sourced, not a
+developer platform. There is no package on NuGet, no getting-started guide, no
+issue tracker for external contributors.
 
 In January 2026, Proton published a
 [blog post about Drive SDK improvements](https://proton.me/blog/drive-sdk-january-2026)
@@ -331,9 +330,9 @@ The login flow:
 4. The hashed password is fed through Proton's custom 2048-bit hash function
    (PMHash: four concatenated SHA-512 digests with different suffixes) to
    produce the SRP private key `x`.
-5. The client computes the SRP client ephemeral `A = g^a mod N` and the
-   client proof `M = H(A, B, K)` where `K` is the shared session key derived
-   from `S = (B - k * g^x) ^ (a + u*x) mod N`.
+5. The client computes the SRP client ephemeral `A = g^a mod N` and the client
+   proof `M = H(A, B, K)` where `K` is the shared session key derived from
+   `S = (B - k * g^x) ^ (a + u*x) mod N`.
 6. `POST /auth` with `ClientEphemeral`, `ClientProof`, and `SRPSession`. The
    server returns `AccessToken`, `RefreshToken`, `UID`, and `ServerProof`.
 7. The client verifies the server proof to confirm mutual authentication.
@@ -341,8 +340,8 @@ The login flow:
    `x-pm-uid: <UID>`.
 
 There is no OAuth 2.0 flow. In rclone, your Proton password is stored in the
-config file (obfuscated, not encrypted). There is no way to use scoped tokens
-or revoke access to a single app without changing your password.
+config file (obfuscated, not encrypted). There is no way to use scoped tokens or
+revoke access to a single app without changing your password.
 
 ### The custom hash function: PMHash
 
