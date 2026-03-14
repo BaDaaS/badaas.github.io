@@ -231,13 +231,43 @@ statement.**
 
 ## Further reading
 
+### Legislation and regulation
+
 - [EU AI Act -- Official Text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689)
-- [Awesome zkML -- curated list of verifiable ML resources](https://github.com/zkml-community/awesome-zkml)
-- [Common Crawl -- open dataset used across AI training](https://commoncrawl.org/)
+- [EU AI Act Explorer -- searchable, annotated version](https://artificialintelligenceact.eu/the-act/)
+- [US Executive Order on AI (October 2023)](https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/)
+- [NIST AI Risk Management Framework](https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-ai)
+- [UK AI Safety Institute](https://www.gov.uk/government/organisations/ai-safety-institute)
+- [Canada's Artificial Intelligence and Data Act (AIDA)](https://ised-isde.canada.ca/site/innovation-better-canada/en/artificial-intelligence-and-data-act)
+- [China's Interim Measures for Generative AI](https://www.chinalawtranslate.com/en/generative-ai-interim/)
+- [OECD AI Policy Observatory -- tracking AI policies across 70+ countries](https://oecd.ai/)
+- [UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)
+
+### Lawsuits and legal proceedings
+
+- [NYT v. OpenAI -- complaint (December 2023)](https://nytco-assets.nytimes.com/2023/12/NYT_Complaint_Dec2023.pdf)
+- [Andersen v. Stability AI -- class action tracker](https://stablediffusionlitigation.com/)
+- [Getty Images v. Stability AI (UK High Court)](https://www.theguardian.com/technology/2023/feb/06/getty-images-sues-stability-ai-for-scraping-its-content-for-training-data)
+- [Thomson Reuters v. ROSS Intelligence -- first AI copyright ruling](https://law.justia.com/cases/federal/district-courts/delaware/dedce/1:2020cv00613/73605/166/)
+- [AI Copyright Litigation Tracker -- Duke University](https://blogs.law.duke.edu/techpolicy/)
+
+### Data licensing and industry responses
+
+- [Reddit's $60M data deal with Google (February 2024)](https://www.reuters.com/technology/reddit-ai-content-licensing-deal-with-google-2024-02-22/)
+- [Stack Overflow's partnership with OpenAI (May 2024)](https://stackoverflow.com/company/press/archive/openai-partnership)
+- [The Financial Times' deal with OpenAI (April 2024)](https://www.ft.com/content/33328743-3f11-4922-ad77-034f78e5b588)
+
+### Data provenance and transparency
+
+- [The Foundation Model Transparency Index](https://crfm.stanford.edu/fmti/)
 - [Data Provenance Initiative -- auditing popular AI datasets](https://www.dataprovenance.org/)
+- [Common Crawl -- open dataset used across AI training](https://commoncrawl.org/)
 - [Spawning.ai -- opt-out infrastructure for AI training](https://spawning.ai/)
 - [Have I Been Trained? -- check if your images are in AI datasets](https://haveibeentrained.com/)
-- [The Foundation Model Transparency Index](https://crfm.stanford.edu/fmti/)
+
+### Cryptographic verification
+
+- [Awesome zkML -- curated list of verifiable ML resources](https://github.com/zkml-community/awesome-zkml)
 
 ---
 
