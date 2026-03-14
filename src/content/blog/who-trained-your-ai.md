@@ -5,7 +5,7 @@ description:
   receipts, and no one can cryptographically prove what trained a model. We
   explore the legal, technical, and mathematical landscape of AI training
   accountability."
-pubDate: 2025-06-14
+pubDate: 2026-03-14
 tags: ["cryptography", "ai", "data-governance", "zero-knowledge-proofs"]
 ---
 
