@@ -49,6 +49,9 @@ jobs:
       - name: Build
         run: make build
 
+      - name: Check links
+        run: make check-links
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

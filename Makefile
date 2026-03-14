@@ -1,5 +1,6 @@
 .PHONY: help install build dev preview clean format format-check \
-	fix-trailing-whitespaces check-trailing-whitespaces
+	fix-trailing-whitespaces check-trailing-whitespaces \
+	check-links
 
 # Detect OS for sed compatibility
 UNAME_S := $(shell uname -s)
@@ -59,6 +60,9 @@ check-trailing-whitespaces: ## Check for trailing whitespaces in files
 	else \
 		echo "No trailing whitespace found"; \
 	fi
+
+check-links: ## Check for dead links in built site
+	@.github/scripts/check-links.sh dist
 
 clean: ## Clean build artifacts and dependencies
 	@rm -rf node_modules dist .astro
