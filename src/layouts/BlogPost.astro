@@ -7,6 +7,7 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   author?: string;
+  authorUrl?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   pubDate,
   updatedDate,
   author = "BaDaaS",
+  authorUrl,
 } = Astro.props;
 
 const formatDate = (date: Date) => {
@@ -35,6 +37,7 @@ const jsonLd = JSON.stringify({
   author: {
     "@type": "Person",
     name: author,
+    ...(authorUrl && { url: authorUrl }),
   },
   publisher: {
     "@type": "Organization",
@@ -66,7 +69,15 @@ const jsonLd = JSON.stringify({
         {updatedDate && <span> (Updated: {formatDate(updatedDate)})</span>}
       </time>
       <span class="mx-2">|</span>
-      <span>{author}</span>
+      {
+        authorUrl ? (
+          <a href={authorUrl} target="_blank" rel="noopener noreferrer">
+            {author}
+          </a>
+        ) : (
+          <span>{author}</span>
+        )
+      }
     </div>
     <slot />
   </article>

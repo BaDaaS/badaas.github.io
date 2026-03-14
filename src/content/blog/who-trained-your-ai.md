@@ -6,6 +6,8 @@ description:
   explore the legal, technical, and mathematical landscape of AI training
   accountability."
 pubDate: 2026-03-14
+author: "Danny Willems"
+authorUrl: "https://dannywillems.github.io"
 tags: ["cryptography", "ai", "data-governance", "zero-knowledge-proofs"]
 ---
 
