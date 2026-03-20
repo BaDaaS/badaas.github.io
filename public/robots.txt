@@ -1,26 +1,62 @@
-# Allow all search engines
+# BaDaaS - https://badaas.be
+# Main site: open to all crawlers including AI.
+# Blog: original content, blocked from AI training crawlers.
+
 User-agent: *
 Allow: /
 Disallow: /.stashed/
 
-# Sitemap
 Sitemap: https://badaas.be/sitemap-index.xml
 
-# AI Crawlers - explicitly allowed
+# AI training crawlers - allowed on main site, blocked on /blog/
+
 User-agent: GPTBot
-Allow: /
+Disallow: /blog/
+
+User-agent: ChatGPT-User
+Disallow: /blog/
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /blog/
+
+User-agent: Claude-Web
+Disallow: /blog/
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /blog/
 
 User-agent: Bytespider
-Allow: /
+Disallow: /blog/
 
 User-agent: CCBot
-Allow: /
+Disallow: /blog/
 
 User-agent: PerplexityBot
-Allow: /
+Disallow: /blog/
+
+User-agent: Amazonbot
+Disallow: /blog/
+
+User-agent: FacebookBot
+Disallow: /blog/
+
+User-agent: Meta-ExternalAgent
+Disallow: /blog/
+
+User-agent: cohere-ai
+Disallow: /blog/
+
+User-agent: Diffbot
+Disallow: /blog/
+
+User-agent: Applebot-Extended
+Disallow: /blog/
+
+User-agent: anthropic-ai
+Disallow: /blog/
+
+User-agent: Omgilibot
+Disallow: /blog/
+
+User-agent: Timpibot
+Disallow: /blog/
