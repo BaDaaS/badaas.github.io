@@ -41,6 +41,12 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="BaDaaS Blog"
+      href="/rss.xml"
+    />
+    <link
       rel="preload"
       href="/fonts/VT323-Regular.ttf"
       as="font"
@@ -381,6 +387,11 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
               href="/blog"
               class="text-text-muted hover:text-accent text-sm transition-colors"
               >Blog</a
+            >
+            <a
+              href="/rss.xml"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >RSS</a
             >
             <a
               href="/#research"
