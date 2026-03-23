@@ -19,7 +19,7 @@
   },
   "homepage": "https://badaas.be",
   "devDependencies": {
-    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/mdx": "^5.0.2",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/typography": "^0.5.16",
