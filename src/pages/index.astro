@@ -14,7 +14,7 @@ const servicesJsonLd = JSON.stringify({
   name: "BaDaaS",
   url: "https://badaas.be",
   description:
-    "From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security.",
+    "BaDaaS is a European applied mathematics lab based in Belgium. Mathematicians turned engineers specialising in cryptography, zero-knowledge proofs, SNARKs, post-quantum cryptography, formal verification in Lean 4, and AI tooling. We build the mathematical foundations that keep the Internet open, private, and correct.",
   areaServed: "Worldwide",
   foundingDate: "2020",
   address: {
@@ -42,7 +42,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Research",
           description:
-            "Mathematics, formal verification, and cryptography. We publish papers, contribute to open knowledge, and advance the foundations that everything else builds on.",
+            "Applied mathematics, cryptography, zero-knowledge proofs, SNARKs, post-quantum cryptography, and formal verification in Lean 4. We contribute to open knowledge and advance the foundations that everything else builds on.",
         },
       },
       {
@@ -78,7 +78,7 @@ const servicesJsonLd = JSON.stringify({
           "@type": "Service",
           name: "Consulting",
           description:
-            "We bridge mathematics and industry. From cryptographic protocol design to security audits, we help organizations apply formal verification, zero-knowledge proofs, and applied cryptography to solve real engineering problems.",
+            "Cryptography consulting in Europe. We bridge mathematics and industry, from cryptographic protocol design to security audits, helping organizations apply formal verification, zero-knowledge proofs, and applied cryptography to solve real engineering problems.",
         },
       },
     ],
@@ -89,7 +89,7 @@ const services = [
   {
     num: "01",
     title: "Research",
-    desc: "Mathematics, formal verification, and cryptography. We publish papers, contribute to open knowledge, and advance the foundations that everything else builds on.",
+    desc: "Applied mathematics, cryptography, zero-knowledge proofs, post-quantum cryptography, and formal verification. We contribute to open knowledge and advance the foundations that everything else builds on.",
   },
   {
     num: "02",
@@ -109,14 +109,14 @@ const services = [
   {
     num: "05",
     title: "Consulting",
-    desc: "We bridge mathematics and industry. From cryptographic protocol design to security audits, we help organizations apply formal verification, zero-knowledge proofs, and applied cryptography to solve real engineering problems.",
+    desc: "We bridge mathematics and industry across Europe. From cryptographic protocol design to security audits, we help organizations apply formal verification, zero-knowledge proofs, and applied cryptography to solve real engineering problems.",
   },
 ];
 ---
 
 <BaseLayout
   title="BaDaaS - Making the Internet Better"
-  description="From abstract mathematics to concrete applications. Formal verification, applied cryptography, and Internet security."
+  description="BaDaaS is a European applied mathematics lab specialising in cryptography, zero-knowledge proofs, SNARKs, post-quantum cryptography, formal verification in Lean 4, and AI tooling."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={servicesJsonLd} />
@@ -146,10 +146,12 @@ const services = [
           We use abstract mathematics to build concrete applications.
         </p>
         <p class="text-text-muted mt-6 text-sm leading-relaxed opacity-70">
-          The original Internet was about open knowledge, free for everyone, and
-          individual freedom. We build the mathematics that keeps it that way:
-          cryptography for privacy and security, formal verification for
-          correctness, and open source so knowledge stays accessible to all.
+          A group of mathematicians turned engineers, based in Belgium, Europe,
+          with broad interests in applied mathematics. We specialise in applied
+          cryptography, formal verification, and AI tooling. From zero-knowledge
+          proof systems to post-quantum cryptography, from machine-checked
+          proofs in Lean 4 to open-source infrastructure, we work across the
+          full stack of mathematical engineering.
         </p>
       </div>
     </div>
@@ -175,15 +177,16 @@ const services = [
         Making the Internet better.
       </p>
       <p class="text-text-muted mb-4 max-w-[540px] text-base leading-relaxed">
-        We research and build projects in cryptography and Internet security.
+        A group of mathematicians turned engineers, based in Belgium, Europe,
+        with broad interests in applied mathematics.
       </p>
       <p
         class="text-text-muted mb-10 max-w-[540px] text-sm leading-relaxed opacity-70 lg:hidden"
       >
-        The original Internet was about open knowledge, free for everyone, and
-        individual freedom. We build the mathematics that keeps it that way:
-        cryptography for privacy and security, formal verification for
-        correctness, and open source so knowledge stays accessible to all.
+        We specialise in applied cryptography, formal verification, and AI
+        tooling. From zero-knowledge proof systems to post-quantum cryptography,
+        from machine-checked proofs in Lean 4 to open-source infrastructure, we
+        work across the full stack of mathematical engineering.
       </p>
       <a href="https://calendly.com/be-danny-willems/30min" class="btn-primary">
         Book a call
