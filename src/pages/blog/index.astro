@@ -46,7 +46,7 @@ const posts = (await getCollection("blog")).sort(
             <div class="border-border border-b py-8 last:border-b-0">
               <h3 class="mb-2.5">
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.id}`}
                   class="text-accent hover:opacity-80"
                 >
                   {post.data.title}
