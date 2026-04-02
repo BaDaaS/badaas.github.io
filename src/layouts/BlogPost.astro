@@ -8,6 +8,7 @@ interface Props {
   updatedDate?: Date;
   author?: string;
   authorUrl?: string;
+  tags?: string[];
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   updatedDate,
   author = "BaDaaS",
   authorUrl,
+  tags = [],
 } = Astro.props;
 
 const formatDate = (date: Date) => {
@@ -39,6 +41,7 @@ const jsonLd = JSON.stringify({
     name: author,
     ...(authorUrl && { url: authorUrl }),
   },
+  ...(tags.length > 0 && { keywords: tags }),
   publisher: {
     "@type": "Organization",
     name: "BaDaaS",
@@ -79,6 +82,17 @@ const jsonLd = JSON.stringify({
         )
       }
     </div>
+    {
+      tags.length > 0 && (
+        <div class="mb-10 flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <a href={`/blog/tags/${tag}`} class="tag-badge-sm">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )
+    }
     <slot />
   </article>
 </BaseLayout>
