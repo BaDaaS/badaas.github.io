@@ -1,6 +1,6 @@
 .PHONY: help install build dev preview clean format format-check \
 	fix-trailing-whitespaces check-trailing-whitespaces \
-	check-links
+	check-links lean-build lean-clean
 
 # Detect OS for sed compatibility
 UNAME_S := $(shell uname -s)
@@ -63,6 +63,12 @@ check-trailing-whitespaces: ## Check for trailing whitespaces in files
 
 check-links: ## Check for dead links in built site
 	@.github/scripts/check-links.sh dist
+
+lean-build: ## Build Lean files (verify blog code compiles)
+	@cd lean && lake build
+
+lean-clean: ## Clean Lean build artifacts
+	@cd lean && lake clean
 
 clean: ## Clean build artifacts and dependencies
 	@rm -rf node_modules dist .astro

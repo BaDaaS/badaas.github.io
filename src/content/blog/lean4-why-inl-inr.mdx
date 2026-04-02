@@ -1,0 +1,182 @@
+---
+title: "Lean 4 Lore: Why inl and inr?"
+description:
+  "If you have ever pattern-matched on Or in Lean 4 and wondered why the
+  branches are called inl and inr instead of left and right, the answer is older
+  than any proof assistant. It comes from category theory."
+pubDate: 2026-04-02
+author: "Danny Willems"
+authorUrl: "https://dannywillems.github.io"
+tags: ["lean4", "lore", "type-theory", "category-theory", "formal-verification"]
+---
+
+import LeanCode from "../../components/LeanCode.astro";
+
+You know that feeling when you're learning a new language, and some naming
+choice seems completely arbitrary? You stare at it, shrug, and move on. This is
+about one of those moments in Lean 4, except the name is not arbitrary at all.
+It is a 70-year-old piece of mathematics hiding in plain sight.
+
+_This is part of a series where we explore Lean 4 from the ground up, linking
+every concept to the mathematics behind it. All code snippets are compiled in
+CI. Click "try it" to run them in your browser._
+
+---
+
+## Wait, what is `inl`?
+
+You are writing your first proof in Lean 4. You have a hypothesis `h : P \/ Q`
+("`P` or `Q`"), and you need to do a case split. You write:
+
+```lean4
+cases h with
+| inl hp => ...   -- hp : P
+| inr hq => ...   -- hq : Q
+```
+
+`inl`? `inr`? That is... not obvious. Every other language would call these
+`left` and `right`. Lean actually _has_ tactics called `left` and `right`. So
+why are the branch names different?
+
+---
+
+## injection left, injection right
+
+`inl` stands for **injection left**. `inr` stands for **injection right**.
+
+The word "injection" here is not about dependency injection or SQL injection. It
+is the mathematical term for a function that embeds one set into a larger one
+without losing information. If you know what an "injective function" is (a
+function where distinct inputs always produce distinct outputs), same word, same
+idea.
+
+The names come from **category theory**, specifically from a construction called
+the [coproduct](https://en.wikipedia.org/wiki/Coproduct).
+
+---
+
+## The 60-second version of coproducts
+
+You have two types, `A` and `B`. Their **coproduct** `A + B` is a new type that
+contains every value from `A` _and_ every value from `B`, with a tag telling you
+which side it came from. If you are a programmer, you already know this. It is a
+**tagged union**. Rust calls it `enum`, TypeScript calls it a discriminated
+union, Haskell calls it `Either`.
+
+The two functions that put values _into_ the union are called the injections:
+
+```
+        inl         inr
+  A ---------> A + B <--------- B
+```
+
+`inl` wraps a value from `A`. `inr` wraps a value from `B`. That is it.
+
+The powerful part is the **universal property**: if you have a function
+`f : A -> C` and a function `g : B -> C`, then there is exactly one function
+`A + B -> C` that dispatches to `f` or `g` depending on the tag. In programming,
+this is pattern matching. You provide one branch for `inl` and one for `inr`,
+and the language builds the dispatcher for you.
+
+This idea was formalized by
+[Mac Lane](https://link.springer.com/book/10.1007/978-1-4757-4721-8) in the
+1970s, but the concept goes back to the 1950s.
+
+---
+
+## Now look at Lean's definition
+
+Lean defines logical "or" as an inductive type with exactly two constructors:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="print-or" />
+
+That is the coproduct diagram above, written as code. `Or.inl` is the left
+injection, `Or.inr` is the right injection. When you do `cases h`, Lean names
+the branches after the constructors. This is consistent everywhere: `cases` on
+`Nat` gives `zero` and `succ`, on `Bool` gives `true` and `false`, on `Or` gives
+`inl` and `inr`.
+
+Here it is in action:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="cases-example" />
+
+We have `h : P \/ Q` and want to prove `Q \/ P`. In the `inl` branch we know `P`
+holds, so we inject it on the right with `Or.inr`. In the `inr` branch we know
+`Q` holds, so we inject it on the left with `Or.inl`. The proof is just swapping
+the sides of a coproduct.
+
+---
+
+## So why do `left` and `right` exist?
+
+Lean separates two operations:
+
+- **Building** a value (introduction): you use the tactics `left` and `right`
+- **Taking apart** a value (elimination): branch names are the constructor names
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="left-right-tactics" />
+
+Under the hood, `left` is just `Or.inl` and `right` is just `Or.inr`. The tactic
+names are ergonomic aliases. The constructor names are the mathematical ones.
+Lean keeps both because they serve different audiences in the same proof:
+`left`/`right` read well when you are _building_ a goal, `inl`/`inr` read well
+when you are _analyzing_ a hypothesis.
+
+---
+
+## The same idea for data: Sum
+
+`Or` lives in `Prop` (the world of proofs). For actual data, Lean has `Sum`:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="print-sum" />
+
+Same constructors, same names. If you have used `Either` in Haskell, this is the
+same thing. `Sum.inl` is `Left`, `Sum.inr` is `Right`.
+
+Here is a function that swaps the two sides:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="sum-example" />
+
+---
+
+## This is not just Lean
+
+Every proof assistant that takes its type theory seriously uses the same naming
+convention, because they all implement the same categorical construction:
+
+| System                                                                    | Left injection       | Right injection      |
+| ------------------------------------------------------------------------- | -------------------- | -------------------- |
+| Lean 4                                                                    | `Or.inl` / `Sum.inl` | `Or.inr` / `Sum.inr` |
+| [Coq](https://coq.inria.fr/doc/v8.18/refman/language/core/inductive.html) | `or_introl`          | `or_intror`          |
+| [Agda](https://agda.readthedocs.io/en/latest/language/data-types.html)    | `inj1`               | `inj2`               |
+| [Idris](https://idris2.readthedocs.io/)                                   | `Left`               | `Right`              |
+
+Coq spells it out: `or_introl` is "or introduction left". Agda numbers them.
+Idris goes with the programmer-friendly names. But they are all implementing the
+same pair of morphisms from the same diagram.
+
+---
+
+## The takeaway
+
+Next time you see `inl` and `inr` in Lean, you are looking at two arrows in a
+category theory diagram that mathematicians have been drawing since the 1950s.
+The proof assistant did not invent cryptic names. It preserved the original
+ones.
+
+That is the nice thing about Lean's naming: once you know the math, the names
+stop being mysterious and start being precise.
+
+---
+
+## References
+
+- Saunders Mac Lane,
+  [_Categories for the Working Mathematician_](https://link.springer.com/book/10.1007/978-1-4757-4721-8),
+  Springer, 1971. Chapter on coproducts and colimits.
+- Per Martin-Lof,
+  [_Intuitionistic Type Theory_](https://archive-pml.github.io/martin-lof/pdfs/Bibliopolis-Book-retypeset-1984.pdf),
+  Bibliopolis, 1984. Disjoint sum type (A + B).
+- Lean 4 source:
+  [`Init.Prelude`](https://github.com/leanprover/lean4/blob/master/src/Init/Prelude.lean),
+  definition of `Or`.

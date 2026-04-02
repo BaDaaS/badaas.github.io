@@ -379,3 +379,35 @@ h6 {
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
+
+/* ==========================================================================
+   LeanCode Component
+   ========================================================================== */
+
+.lean-code-block {
+  margin: 1.5em 0;
+}
+
+.lean-code-block pre {
+  border: 1px solid var(--color-border);
+  margin-bottom: 0;
+}
+
+.lean-code-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  background: var(--color-bg-secondary);
+}
+
+.lean-code-footer a {
+  color: var(--color-text-muted);
+}
+
+.lean-code-footer a:hover {
+  color: var(--color-accent);
+}
