@@ -1,0 +1,72 @@
+---
+/**
+ * LeanCode - Import and render Lean 4 code from compiled source files.
+ *
+ * Props:
+ *   file    - Path relative to the lean/ directory (e.g. "Lore/WhyInlInr.lean")
+ *   snippet - Optional snippet name delimited by `-- SNIPPET: name` / `-- END: name`
+ *             If omitted, the entire file is shown.
+ *
+ * Usage in MDX:
+ *   <LeanCode file="Lore/WhyInlInr.lean" snippet="cases-example" />
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { createHighlighter } from "shiki";
+
+interface Props {
+  file: string;
+  snippet?: string;
+}
+
+const { file, snippet } = Astro.props;
+
+const filePath = path.resolve("lean", file);
+
+if (!fs.existsSync(filePath)) {
+  throw new Error(`LeanCode: file not found: ${filePath}`);
+}
+
+const raw = fs.readFileSync(filePath, "utf-8");
+
+let code: string;
+
+if (snippet) {
+  const startMarker = `-- SNIPPET: ${snippet}`;
+  const endMarker = `-- END: ${snippet}`;
+  const startIdx = raw.indexOf(startMarker);
+  const endIdx = raw.indexOf(endMarker);
+
+  if (startIdx === -1 || endIdx === -1) {
+    throw new Error(`LeanCode: snippet "${snippet}" not found in ${file}`);
+  }
+
+  code = raw
+    .slice(startIdx + startMarker.length, endIdx)
+    .replace(/^\n/, "")
+    .replace(/\n$/, "");
+} else {
+  code = raw.trim();
+}
+
+const highlighter = await createHighlighter({
+  themes: ["github-dark"],
+  langs: ["lean4"],
+});
+
+const html = highlighter.codeToHtml(code, {
+  lang: "lean4",
+  theme: "github-dark",
+});
+
+const sourceUrl = `https://github.com/BaDaaS/badaas.github.io/blob/main/lean/${file}`;
+---
+
+<div class="lean-code-block">
+  <Fragment set:html={html} />
+  <div class="lean-code-source">
+    <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
+      source (compiled in CI)
+    </a>
+  </div>
+</div>

@@ -42,3 +42,7 @@ Thumbs.db
 # Build outputs and logs
 *.log
 .stashed/
+
+# Lean / Lake build artifacts
+lean/.lake/
+lean/lake-packages/

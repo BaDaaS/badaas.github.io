@@ -1,0 +1,9 @@
+name = "blog"
+version = "0.1.0"
+leanOptions = [
+  { name = "autoImplicit", value = false }
+]
+
+[[lean_lib]]
+name = "Lore"
+srcDir = "."

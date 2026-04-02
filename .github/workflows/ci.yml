@@ -29,10 +29,27 @@ jobs:
       - name: Check trailing whitespaces
         run: make check-trailing-whitespaces
 
+  lean:
+    name: Lean
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install elan
+        run: |
+          curl -sSf \
+            https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Build Lean files
+        run: make lean-build
+
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: lint
+    needs: [lint, lean]
     steps:
       - name: Checkout
         uses: actions/checkout@v6

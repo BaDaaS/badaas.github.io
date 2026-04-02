@@ -10,6 +10,8 @@ authorUrl: "https://dannywillems.github.io"
 tags: ["lean4", "lore", "type-theory", "category-theory", "formal-verification"]
 ---
 
+import LeanCode from "../../components/LeanCode.astro";
+
 This is a short article about naming conventions and history. No deep
 prerequisites, no long proofs. Just a naming choice in Lean 4 that traces back
 to category theory and the early days of type theory. The kind of thing that is
@@ -18,7 +20,8 @@ click once you have seen it.
 
 _This is part of a series where we explore Lean 4 from the ground up, linking
 every concept back to the mathematics it encodes. Each post includes real Lean
-code you can compile and check yourself._
+code that is compiled in CI, so every snippet you see here is guaranteed to
+type-check._
 
 _Source material:
 [lean4-courses/lore/why-inl-inr.md](https://github.com/BaDaaS/lean4-courses/blob/main/lore/why-inl-inr.md)_
@@ -75,18 +78,19 @@ For a full treatment, see
 
 ## How Lean defines Or
 
-In Lean 4, propositional disjunction is an inductive type with two constructors:
+In Lean 4, propositional disjunction is an inductive type with two constructors.
+You can verify this yourself:
 
-```lean4
-inductive Or (a b : Prop) where
-  | inl (h : a) : Or a b
-  | inr (h : b) : Or a b
-```
+<LeanCode file="Lore/WhyInlInr.lean" snippet="print-or" />
 
 The constructors are named after the categorical injections. When you do
 `cases h` on `h : P \/ Q`, the branches are named after the constructors of the
 inductive type. `Or` has constructors `Or.inl` and `Or.inr`, so the branches are
 `inl` and `inr`.
+
+Here is a complete example that compiles:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="cases-example" />
 
 This is consistent across all inductive types in Lean. `cases` on `Nat` gives
 branches `zero` and `succ`. On `Bool`, it gives `true` and `false`. On `Or`, it
@@ -98,15 +102,7 @@ gives `inl` and `inr`. The pattern is always: branch names = constructor names.
 
 Lean has tactics called `left` and `right` for **constructing** an `Or`:
 
-```lean4
-example (hp : P) : P \/ Q := by
-  left       -- goal becomes P
-  exact hp
-
-example (hq : Q) : P \/ Q := by
-  right      -- goal becomes Q
-  exact hq
-```
+<LeanCode file="Lore/WhyInlInr.lean" snippet="left-right-tactics" />
 
 Under the hood, `left` applies `Or.inl` and `right` applies `Or.inr`. The tactic
 names are human-friendly aliases for **building** a proof. But when you
@@ -125,14 +121,15 @@ This is a deliberate separation of concerns:
 
 For data (as opposed to propositions), Lean uses `Sum`:
 
-```lean4
-inductive Sum (a b : Type) where
-  | inl (val : a) : Sum a b
-  | inr (val : b) : Sum a b
-```
+<LeanCode file="Lore/WhyInlInr.lean" snippet="print-sum" />
 
 Same names. Same categorical origin. `Or` is the propositional version (living
 in `Prop`), `Sum` is the data version (living in `Type`). Both are coproducts.
+
+Here is a function that swaps the sides of a `Sum`, showing both constructors in
+action:
+
+<LeanCode file="Lore/WhyInlInr.lean" snippet="sum-example" />
 
 ---
 
