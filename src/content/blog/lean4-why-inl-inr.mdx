@@ -12,22 +12,21 @@ tags: ["lean4", "lore", "type-theory", "category-theory", "formal-verification"]
 
 import LeanCode from "../../components/LeanCode.astro";
 
-This is a short article about naming conventions and history. No deep
-prerequisites, no long proofs. Just a naming choice in Lean 4 that traces back
-to category theory and the early days of type theory. The kind of thing that is
-good to know as general computer science culture, and that makes the notation
-click once you have seen it.
+You know that feeling when you're learning a new language, and some naming
+choice seems completely arbitrary? You stare at it, shrug, and move on. This is
+about one of those moments in Lean 4, except the name is not arbitrary at all.
+It is a 70-year-old piece of mathematics hiding in plain sight.
 
 _This is part of a series where we explore Lean 4 from the ground up, linking
-every concept back to the mathematics it encodes. Each post includes real Lean
-code that is compiled in CI, so every snippet you see here is guaranteed to
-type-check._
+every concept to the mathematics behind it. All code snippets are compiled in
+CI. Click "try it" to run them in your browser._
 
 ---
 
-## The question
+## Wait, what is `inl`?
 
-You are pattern-matching on a disjunction `h : P \/ Q` in Lean 4:
+You are writing your first proof in Lean 4. You have a hypothesis `h : P \/ Q`
+("`P` or `Q`"), and you need to do a case split. You write:
 
 ```lean4
 cases h with
@@ -35,105 +34,115 @@ cases h with
 | inr hq => ...   -- hq : Q
 ```
 
-Why `inl`? Why `inr`? Why not `left` and `right`?
+`inl`? `inr`? That is... not obvious. Every other language would call these
+`left` and `right`. Lean actually _has_ tactics called `left` and `right`. So
+why are the branch names different?
 
 ---
 
-## The short answer
+## injection left, injection right
 
-`inl` and `inr` stand for **injection left** and **injection right**. They are
-the two canonical morphisms that define a
-[coproduct](https://en.wikipedia.org/wiki/Coproduct) in category theory.
+`inl` stands for **injection left**. `inr` stands for **injection right**.
+
+The word "injection" here is not about dependency injection or SQL injection. It
+is the mathematical term for a function that embeds one set into a larger one
+without losing information. If you know what an "injective function" is (a
+function where distinct inputs always produce distinct outputs), same word, same
+idea.
+
+The names come from **category theory**, specifically from a construction called
+the [coproduct](https://en.wikipedia.org/wiki/Coproduct).
 
 ---
 
-## Coproducts in category theory
+## The 60-second version of coproducts
 
-Given two objects `A` and `B` in a category, their **coproduct** `A + B` is an
-object equipped with two morphisms:
+You have two types, `A` and `B`. Their **coproduct** `A + B` is a new type that
+contains every value from `A` _and_ every value from `B`, with a tag telling you
+which side it came from. If you are a programmer, you already know this. It is a
+**tagged union**. Rust calls it `enum`, TypeScript calls it a discriminated
+union, Haskell calls it `Either`.
+
+The two functions that put values _into_ the union are called the injections:
 
 ```
         inl         inr
   A ---------> A + B <--------- B
 ```
 
-These morphisms are called **injections** because they embed `A` (respectively
-`B`) into the sum `A + B` without losing information. Every element of `A + B`
-came from exactly one side, and you can always tell which.
+`inl` wraps a value from `A`. `inr` wraps a value from `B`. That is it.
 
-The coproduct satisfies a **universal property**: for any object `C` and any
-pair of morphisms `f : A -> C` and `g : B -> C`, there is a unique morphism
-`[f, g] : A + B -> C` that factors through `inl` and `inr`. This is precisely
-what pattern matching does: you provide one branch for `inl` and one for `inr`,
-and Lean builds the combined function.
+The powerful part is the **universal property**: if you have a function
+`f : A -> C` and a function `g : B -> C`, then there is exactly one function
+`A + B -> C` that dispatches to `f` or `g` depending on the tag. In programming,
+this is pattern matching. You provide one branch for `inl` and one for `inr`,
+and the language builds the dispatcher for you.
 
-For a full treatment, see
-[Mac Lane, _Categories for the Working Mathematician_](https://link.springer.com/book/10.1007/978-1-4757-4721-8)
-(Springer, 1971), chapter on coproducts and colimits.
+This idea was formalized by
+[Mac Lane](https://link.springer.com/book/10.1007/978-1-4757-4721-8) in the
+1970s, but the concept goes back to the 1950s.
 
 ---
 
-## How Lean defines Or
+## Now look at Lean's definition
 
-In Lean 4, propositional disjunction is an inductive type with two constructors.
-You can verify this yourself:
+Lean defines logical "or" as an inductive type with exactly two constructors:
 
 <LeanCode file="Lore/WhyInlInr.lean" snippet="print-or" />
 
-The constructors are named after the categorical injections. When you do
-`cases h` on `h : P \/ Q`, the branches are named after the constructors of the
-inductive type. `Or` has constructors `Or.inl` and `Or.inr`, so the branches are
+That is the coproduct diagram above, written as code. `Or.inl` is the left
+injection, `Or.inr` is the right injection. When you do `cases h`, Lean names
+the branches after the constructors. This is consistent everywhere: `cases` on
+`Nat` gives `zero` and `succ`, on `Bool` gives `true` and `false`, on `Or` gives
 `inl` and `inr`.
 
-Here is a complete example that compiles:
+Here it is in action:
 
 <LeanCode file="Lore/WhyInlInr.lean" snippet="cases-example" />
 
-This is consistent across all inductive types in Lean. `cases` on `Nat` gives
-branches `zero` and `succ`. On `Bool`, it gives `true` and `false`. On `Or`, it
-gives `inl` and `inr`. The pattern is always: branch names = constructor names.
+We have `h : P \/ Q` and want to prove `Q \/ P`. In the `inl` branch we know `P`
+holds, so we inject it on the right with `Or.inr`. In the `inr` branch we know
+`Q` holds, so we inject it on the left with `Or.inl`. The proof is just swapping
+the sides of a coproduct.
 
 ---
 
-## Tactics vs. constructors
+## So why do `left` and `right` exist?
 
-Lean has tactics called `left` and `right` for **constructing** an `Or`:
+Lean separates two operations:
+
+- **Building** a value (introduction): you use the tactics `left` and `right`
+- **Taking apart** a value (elimination): branch names are the constructor names
 
 <LeanCode file="Lore/WhyInlInr.lean" snippet="left-right-tactics" />
 
-Under the hood, `left` applies `Or.inl` and `right` applies `Or.inr`. The tactic
-names are human-friendly aliases for **building** a proof. But when you
-**eliminate** (pattern match on) an `Or`, you see the real constructor names.
-
-This is a deliberate separation of concerns:
-
-- **Introduction** (building a value): tactics can have ergonomic names (`left`,
-  `right`)
-- **Elimination** (pattern matching): branch names reflect the datatype's actual
-  structure (`inl`, `inr`)
+Under the hood, `left` is just `Or.inl` and `right` is just `Or.inr`. The tactic
+names are ergonomic aliases. The constructor names are the mathematical ones.
+Lean keeps both because they serve different audiences in the same proof:
+`left`/`right` read well when you are _building_ a goal, `inl`/`inr` read well
+when you are _analyzing_ a hypothesis.
 
 ---
 
-## The same pattern in Sum types
+## The same idea for data: Sum
 
-For data (as opposed to propositions), Lean uses `Sum`:
+`Or` lives in `Prop` (the world of proofs). For actual data, Lean has `Sum`:
 
 <LeanCode file="Lore/WhyInlInr.lean" snippet="print-sum" />
 
-Same names. Same categorical origin. `Or` is the propositional version (living
-in `Prop`), `Sum` is the data version (living in `Type`). Both are coproducts.
+Same constructors, same names. If you have used `Either` in Haskell, this is the
+same thing. `Sum.inl` is `Left`, `Sum.inr` is `Right`.
 
-Here is a function that swaps the sides of a `Sum`, showing both constructors in
-action:
+Here is a function that swaps the two sides:
 
 <LeanCode file="Lore/WhyInlInr.lean" snippet="sum-example" />
 
 ---
 
-## The same pattern in other proof assistants
+## This is not just Lean
 
-This naming is not a Lean invention. The injection terminology appears across
-the proof assistant ecosystem:
+Every proof assistant that takes its type theory seriously uses the same naming
+convention, because they all implement the same categorical construction:
 
 | System                                                                    | Left injection       | Right injection      |
 | ------------------------------------------------------------------------- | -------------------- | -------------------- |
@@ -142,25 +151,21 @@ the proof assistant ecosystem:
 | [Agda](https://agda.readthedocs.io/en/latest/language/data-types.html)    | `inj1`               | `inj2`               |
 | [Idris](https://idris2.readthedocs.io/)                                   | `Left`               | `Right`              |
 
-The names vary, but they all trace back to the same categorical concept.
+Coq spells it out: `or_introl` is "or introduction left". Agda numbers them.
+Idris goes with the programmer-friendly names. But they are all implementing the
+same pair of morphisms from the same diagram.
 
 ---
 
-## Why this matters
+## The takeaway
 
-Understanding `inl`/`inr` is not trivia. It connects three things:
+Next time you see `inl` and `inr` in Lean, you are looking at two arrows in a
+category theory diagram that mathematicians have been drawing since the 1950s.
+The proof assistant did not invent cryptic names. It preserved the original
+ones.
 
-1. **Category theory** gives the abstract structure (coproducts, universal
-   property)
-2. **Type theory** realises it as an inductive type with two constructors (see
-   [Martin-Lof, _Intuitionistic Type Theory_](https://archive-pml.github.io/martin-lof/pdfs/Bibliopolis-Book-retypeset-1984.pdf),
-   Bibliopolis, 1984, section on disjoint sum types)
-3. **Lean's implementation** makes the connection explicit by using the
-   categorical names
-
-When you see `inl` in Lean, you are looking at the same mathematical object that
-categorists have studied since the 1950s. The proof assistant is not inventing
-jargon. It is preserving it.
+That is the nice thing about Lean's naming: once you know the math, the names
+stop being mysterious and start being precise.
 
 ---
 
