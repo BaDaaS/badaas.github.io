@@ -57,13 +57,13 @@ const html = highlighter.codeToHtml(code, {
 });
 
 const sourceUrl = `https://github.com/BaDaaS/badaas.github.io/blob/main/lean/${file}`;
+const tryUrl = `https://live.lean-lang.org/#code=${encodeURIComponent(code)}`;
 ---
 
 <div class="lean-code-block">
   <Fragment set:html={html} />
-  <div class="lean-code-source">
-    <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
-      source (compiled in CI)
-    </a>
+  <div class="lean-code-footer">
+    <a href={tryUrl} target="_blank" rel="noopener noreferrer"> try it </a>
+    <a href={sourceUrl} target="_blank" rel="noopener noreferrer"> source </a>
   </div>
 </div>
