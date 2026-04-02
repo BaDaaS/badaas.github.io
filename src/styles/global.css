@@ -266,6 +266,68 @@ h6 {
 }
 
 /* ==========================================================================
+   Tag Badges
+   ========================================================================== */
+
+.tag-badge {
+  --tag-padding: 0.5rem 1rem;
+  --tag-font-size: 0.875rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: var(--tag-padding);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--tag-font-size);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tag-badge:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+.tag-count {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.tag-badge-sm {
+  --tag-sm-padding: 0.125rem 0.5rem;
+  --tag-sm-font-size: 0.75rem;
+
+  display: inline-block;
+  padding: var(--tag-sm-padding);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--tag-sm-font-size);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tag-badge-sm:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+.tag-badge-active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tag-count-sm {
+  color: var(--color-accent);
+  font-size: 0.625rem;
+  margin-left: 0.125rem;
+}
+
+/* ==========================================================================
    Typography Plugin Customization
    ========================================================================== */
 

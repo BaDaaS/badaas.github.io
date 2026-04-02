@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  // Collect all unique tags
+  const tags = new Set<string>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      tags.add(tag);
+    }
+  }
+
+  return [...tags].map(tag => ({
+    params: { tag },
+    props: {
+      posts: posts
+        .filter(post => post.data.tags.includes(tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+interface Props {
+  posts: Awaited<ReturnType<typeof getCollection<"blog">>>;
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${tag} | BaDaaS Blog`}
+  description={`Articles tagged "${tag}" on the BaDaaS blog.`}
+>
+  <section class="prose max-w-content mx-auto px-5 pt-32 pb-16">
+    <h1 class="text-4xl md:text-[2.5rem]">
+      Tagged: {tag}
+    </h1>
+    <p class="text-text-muted mb-10">
+      {posts.length} post{posts.length !== 1 ? "s" : ""}
+      <span class="mx-2">|</span>
+      <a href="/blog/tags" class="text-accent text-sm hover:opacity-80">
+        All tags
+      </a>
+      <span class="mx-2">|</span>
+      <a href="/blog" class="text-accent text-sm hover:opacity-80">
+        All posts
+      </a>
+    </p>
+
+    <div>
+      {
+        posts.map(post => (
+          <div class="border-border border-b py-8 last:border-b-0">
+            <h3 class="mb-2.5">
+              <a href={`/blog/${post.id}`} class="text-accent hover:opacity-80">
+                {post.data.title}
+              </a>
+            </h3>
+            <p class="text-text-muted mb-2.5 text-sm">
+              {post.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+            <p class="text-text mb-3">{post.data.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {post.data.tags.map(t => (
+                <a
+                  href={`/blog/tags/${t}`}
+                  class:list={[
+                    "tag-badge-sm",
+                    { "tag-badge-active": t === tag },
+                  ]}
+                >
+                  {t}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

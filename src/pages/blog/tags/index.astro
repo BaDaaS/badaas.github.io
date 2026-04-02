@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+
+// Collect all tags with their post counts
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  }
+}
+
+// Sort alphabetically
+const sortedTags = [...tagCounts.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0]),
+);
+---
+
+<BaseLayout
+  title="Tags | BaDaaS Blog"
+  description="Browse all blog post tags. Filter articles by topic: cryptography, formal verification, Lean 4, and more."
+>
+  <section class="prose max-w-content mx-auto px-5 pt-32 pb-16">
+    <h1 class="text-4xl md:text-[2.5rem]">Tags</h1>
+    <p class="text-text-muted mb-10">
+      Browse articles by topic.
+      <a href="/blog" class="text-accent text-sm hover:opacity-80">
+        View all posts
+      </a>
+    </p>
+
+    {
+      sortedTags.length === 0 ? (
+        <p>No tags yet.</p>
+      ) : (
+        <div class="flex flex-wrap gap-3">
+          {sortedTags.map(([tag, count]) => (
+            <a href={`/blog/tags/${tag}`} class="tag-badge text-sm">
+              {tag}
+              <span class="tag-count">{count}</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

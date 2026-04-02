@@ -5,6 +5,17 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// Collect all tags with counts for the sidebar
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  }
+}
+const sortedTags = [...tagCounts.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0]),
+);
 ---
 
 <BaseLayout
@@ -38,6 +49,19 @@ const posts = (await getCollection("blog")).sort(
     </p>
 
     {
+      sortedTags.length > 0 && (
+        <div class="mb-10 flex flex-wrap gap-2">
+          {sortedTags.map(([tag, count]) => (
+            <a href={`/blog/tags/${tag}`} class="tag-badge-sm">
+              {tag}
+              <span class="tag-count-sm">{count}</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    {
       posts.length === 0 ? (
         <p>No posts yet. Check back soon!</p>
       ) : (
@@ -59,7 +83,16 @@ const posts = (await getCollection("blog")).sort(
                   day: "numeric",
                 })}
               </p>
-              <p class="text-text">{post.data.description}</p>
+              <p class="text-text mb-3">{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map(tag => (
+                    <a href={`/blog/tags/${tag}`} class="tag-badge-sm">
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
