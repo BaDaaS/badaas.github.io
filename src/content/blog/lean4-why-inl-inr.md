@@ -7,7 +7,7 @@ description:
 pubDate: 2026-04-02
 author: "Danny Willems"
 authorUrl: "https://dannywillems.github.io"
-tags: ["lean4", "type-theory", "category-theory", "formal-verification"]
+tags: ["lean4", "lore", "type-theory", "category-theory", "formal-verification"]
 ---
 
 _This is part of a series where we explore Lean 4 from the ground up, linking
