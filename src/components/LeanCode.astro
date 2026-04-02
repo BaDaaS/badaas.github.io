@@ -12,7 +12,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { createHighlighter } from "shiki";
+import { getHighlighter } from "../lib/shiki";
 
 interface Props {
   file: string;
@@ -49,10 +49,7 @@ if (snippet) {
   code = raw.trim();
 }
 
-const highlighter = await createHighlighter({
-  themes: ["github-dark"],
-  langs: ["lean4"],
-});
+const highlighter = await getHighlighter();
 
 const html = highlighter.codeToHtml(code, {
   lang: "lean4",
