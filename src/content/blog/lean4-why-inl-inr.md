@@ -10,6 +10,12 @@ authorUrl: "https://dannywillems.github.io"
 tags: ["lean4", "lore", "type-theory", "category-theory", "formal-verification"]
 ---
 
+This is a short article about naming conventions and history. No deep
+prerequisites, no long proofs. Just a naming choice in Lean 4 that traces back
+to category theory and the early days of type theory. The kind of thing that is
+good to know as general computer science culture, and that makes the notation
+click once you have seen it.
+
 _This is part of a series where we explore Lean 4 from the ground up, linking
 every concept back to the mathematics it encodes. Each post includes real Lean
 code you can compile and check yourself._
