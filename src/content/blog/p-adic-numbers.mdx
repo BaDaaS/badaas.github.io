@@ -120,6 +120,15 @@ $$|a-c|_p = |a-b|_p.$$
 The two largest sides are always equal. If no two sides differ, they were
 already equal to begin with.
 
+Note that this proof uses the group structure of $\mathbb{Q}_p$: the
+decomposition $a - c = (a - b) + (b - c)$ requires addition. The same is true
+for the ball proofs below. These properties hold in any abelian group equipped
+with an ultrametric absolute value (such as $\mathbb{Q}_p$, $\mathbb{Z}_p$, or
+any normed group where $|x + y| \leq \max(|x|, |y|)$). A bare metric space with
+the ultrametric inequality $d(x, z) \leq \max(d(x, y), d(y, z))$ gives you "open
+balls are closed," but the isosceles and center properties need the algebraic
+structure to decompose distances into sums.
+
 **Every point inside a ball is its center.** Take the closed ball
 $B(a, r) = \{x : |x - a|_p \leq r\}$ and pick any $b \in B(a, r)$. For any
 $c \in B(a, r)$:
