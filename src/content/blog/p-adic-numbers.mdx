@@ -101,9 +101,10 @@ $|x + x|_p \leq |x|_p$, not $2|x|_p$.
 This ultrametric property has striking topological consequences. Every triangle
 is isosceles (meaning at least two of its three sides have equal length). Why?
 Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$, $|b-c|_p$, and
-$|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$. Since $a-c = (a-b) + (b-c)$, the
-ultrametric inequality gives $|a-c|_p \leq \max(|a-b|_p, |b-c|_p) = |a-b|_p$.
-For the reverse direction, $a-b = (a-c) + (c-b)$, so
+$|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$. Since $a-c = (a-b) + (b-c)$, applying
+the ultrametric inequality with $x = a-b$ and $y = b-c$ gives
+$|a-c|_p \leq \max(|a-b|_p, |b-c|_p) = |a-b|_p$. For the reverse direction,
+rewrite $a-b = (a-c) + (c-b)$ and apply the same inequality to get
 $|a-b|_p \leq \max(|a-c|_p, |b-c|_p)$. Since $|a-b|_p > |b-c|_p$, the max must
 be $|a-c|_p$, giving $|a-b|_p \leq |a-c|_p$. Combining: $|a-c|_p = |a-b|_p$. The
 two largest sides are always equal. If no two sides differ, they were already
