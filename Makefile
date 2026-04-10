@@ -67,5 +67,8 @@ check-links: ## Check for dead links in built site
 test-sage: ## Run Sage script tests
 	@sage scripts/smart_attack.sage
 
+find-anomalous: ## Find anomalous elliptic curves
+	@sage scripts/find_anomalous_curves.sage
+
 clean: ## Clean build artifacts and dependencies
 	@rm -rf node_modules dist .astro

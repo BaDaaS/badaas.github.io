@@ -143,10 +143,19 @@ def test_smart_attack():
 
         P = E.gens()[0]
 
-        for _ in range(5):
+        for trial in range(5):
             secret = ZZ.random_element(1, p)
             Q = secret * P
             recovered = smart_attack(P, Q, p)
+            print(
+                "  trial %d: secret=%d recovered=%d %s"
+                % (
+                    trial,
+                    secret,
+                    recovered,
+                    "OK" if recovered == secret else "FAIL",
+                )
+            )
             assert recovered == secret, (
                 "Attack failed on p=%d: "
                 "recovered %d, expected %d"
