@@ -28,10 +28,11 @@ particularly close at all?
 The real numbers are built on one specific idea of size: the usual absolute
 value, $|x|$. Two numbers are close when $|x - y|$ is small. We are so used to
 this that it feels like a law of nature. It is not. It is a choice, and
-Ostrowski's theorem tells us exactly what the other choices are. For each prime
-$p$, there is a completely different absolute value on $\mathbb{Q}$, and
-completing the rationals with respect to it gives a completely different number
-system. These are the $p$-adic numbers.
+[Ostrowski's theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem) tells
+us exactly what the other choices are. For each prime $p$, there is a completely
+different absolute value on $\mathbb{Q}$, and completing the rationals with
+respect to it gives a completely different number system. These are the $p$-adic
+numbers.
 
 What makes this more than a curiosity is that these alternative completions turn
 out to be essential. You cannot fully understand the integers without
@@ -209,12 +210,14 @@ was eventually corrected by others, and the underlying framework survived
 intact.
 
 Alexander Ostrowski proved in 1916 what might be the most clarifying result in
-all of number theory. Up to equivalence, the only nontrivial absolute values on
-$\mathbb{Q}$ are the usual one and the $p$-adic ones. That is it. There is no
-hidden fifth option. The real numbers and the family of $p$-adic fields, one for
-each prime, are the _complete_ list of completions of the rationals. When we
-study $\mathbb{Q}$ through the lens of $\mathbb{R}$ alone, we are looking at one
-view in an infinite family.
+all of number theory.
+[His theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem) states that,
+up to equivalence, the only nontrivial absolute values on $\mathbb{Q}$ are the
+usual one and the $p$-adic ones. That is it. There is no hidden fifth option.
+The real numbers and the family of $p$-adic fields, one for each prime, are the
+_complete_ list of completions of the rationals. When we study $\mathbb{Q}$
+through the lens of $\mathbb{R}$ alone, we are looking at one view in an
+infinite family.
 
 Helmut Hasse, in the 1920s, transformed this from a structural observation into
 a working tool. His **local-global principle** (also called the Hasse-Minkowski
