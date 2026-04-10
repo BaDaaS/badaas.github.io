@@ -467,11 +467,21 @@ But there is a degenerate case. If $\#E(\mathbb{F}_p) = p$, the curve is called
 showed in 1999 that the ECDLP on anomalous curves can be solved in linear time.
 The mechanism goes through $p$-adic numbers.
 
-Here is the idea. Lift the curve $E/\mathbb{F}_p$ to a curve
-$\tilde{E}/\mathbb{Q}_p$. Points on $E(\mathbb{F}_p)$ lift to points on
-$\tilde{E}(\mathbb{Q}_p)$. The key object is the **formal group**
-$\hat{E}(p\mathbb{Z}_p)$, which consists of points on $\tilde{E}$ that reduce to
-the identity modulo $p$.
+Here is the idea. Three groups are in play, and the notation can be confusing,
+so let us spell them out:
+
+- $E(\mathbb{F}_p)$: the group of points on the original curve over the finite
+  field. This is where cryptography happens. It is a finite group of $p$ points
+  (since the curve is anomalous).
+- $\tilde{E}(\mathbb{Q}_p)$: the group of points on a **lifted** curve over
+  $\mathbb{Q}_p$. We choose a curve $\tilde{E}$ with $p$-adic coefficients that
+  reduces to $E$ modulo $p$. This is an infinite group. Every point in
+  $E(\mathbb{F}_p)$ lifts to a point in $\tilde{E}(\mathbb{Q}_p)$.
+- $\hat{E}(p\mathbb{Z}_p)$: the **formal group**, consisting of points on
+  $\tilde{E}$ that reduce to the identity (the point at infinity) modulo $p$.
+  This is the kernel of the reduction map
+  $\tilde{E}(\mathbb{Q}_p) \to E(\mathbb{F}_p)$. It captures the "purely
+  $p$-adic" part of the lifted curve.
 
 The formal group carries a **formal logarithm** map:
 
