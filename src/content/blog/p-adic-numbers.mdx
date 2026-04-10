@@ -99,13 +99,20 @@ fails. Repeated addition never makes things grow, because
 $|x + x|_p \leq |x|_p$, not $2|x|_p$.
 
 This ultrametric property has striking topological consequences. Every triangle
-is isosceles (meaning at least two of its three sides have equal length): if
-$|x|_p \neq |y|_p$, then $|x + y|_p = \max(|x|_p, |y|_p)$. The inequality
-becomes an equality when the two sides differ, so the third side always matches
-the longer of the other two. Every open ball is also closed, because a point on
-the boundary of a ball is already inside a smaller ball that fits within the
-original. In fact, every point inside a $p$-adic ball is its center. There are
-no boundary points in the usual sense.
+is isosceles (meaning at least two of its three sides have equal length). Why?
+Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$, $|b-c|_p$, and
+$|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$. Since $a-c = (a-b) + (b-c)$, the
+ultrametric inequality gives $|a-c|_p \leq \max(|a-b|_p, |b-c|_p) = |a-b|_p$.
+For the reverse direction, $a-b = (a-c) + (c-b)$, so
+$|a-b|_p \leq \max(|a-c|_p, |b-c|_p)$. Since $|a-b|_p > |b-c|_p$, the max must
+be $|a-c|_p$, giving $|a-b|_p \leq |a-c|_p$. Combining: $|a-c|_p = |a-b|_p$. The
+two largest sides are always equal. If no two sides differ, they were already
+equal to begin with.
+
+Every open ball is also closed, because a point on the boundary of a ball is
+already inside a smaller ball that fits within the original. In fact, every
+point inside a $p$-adic ball is its center. There are no boundary points in the
+usual sense.
 
 For convergence, this is a gift. A series $\sum a_n$ converges in the $p$-adic
 metric if and only if $|a_n|_p \to 0$. No ratio tests, no comparison tests, no
