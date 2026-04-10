@@ -7,7 +7,13 @@ import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
   site: "https://badaas.be",
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    }),
+    sitemap(),
+  ],
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
