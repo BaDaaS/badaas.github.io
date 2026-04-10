@@ -98,21 +98,45 @@ bound by adding $x$ to itself enough times. In a non-archimedean world, that
 fails. Repeated addition never makes things grow, because
 $|x + x|_p \leq |x|_p$, not $2|x|_p$.
 
-This ultrametric property has striking topological consequences. Every triangle
-is isosceles (meaning at least two of its three sides have equal length). Why?
-Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$, $|b-c|_p$, and
-$|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$. Since $a-c = (a-b) + (b-c)$, the
-ultrametric inequality gives $|a-c|_p \leq \max(|a-b|_p, |b-c|_p) = |a-b|_p$.
-For the reverse direction, $a-b = (a-c) + (c-b)$, so
-$|a-b|_p \leq \max(|a-c|_p, |b-c|_p)$. Since $|a-b|_p > |b-c|_p$, the max must
-be $|a-c|_p$, giving $|a-b|_p \leq |a-c|_p$. Combining: $|a-c|_p = |a-b|_p$. The
-two largest sides are always equal. If no two sides differ, they were already
-equal to begin with.
+This ultrametric property has striking topological consequences.
 
-Every open ball is also closed, because a point on the boundary of a ball is
-already inside a smaller ball that fits within the original. In fact, every
-point inside a $p$-adic ball is its center. There are no boundary points in the
-usual sense.
+**Every triangle is isosceles** (meaning at least two of its three sides have
+equal length). Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$,
+$|b-c|_p$, and $|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$.
+
+Since $a - c = (a - b) + (b - c)$, the ultrametric inequality gives:
+
+$$|a-c|_p \leq \max(|a-b|_p,\ |b-c|_p) = |a-b|_p.$$
+
+For the reverse direction, rewrite $a - b = (a - c) + (c - b)$:
+
+$$|a-b|_p \leq \max(|a-c|_p,\ |b-c|_p).$$
+
+Since $|a-b|_p > |b-c|_p$, the max on the right must be $|a-c|_p$, giving
+$|a-b|_p \leq |a-c|_p$. Combining both inequalities:
+
+$$|a-c|_p = |a-b|_p.$$
+
+The two largest sides are always equal. If no two sides differ, they were
+already equal to begin with.
+
+**Every point inside a ball is its center.** Take the closed ball
+$B(a, r) = \{x : |x - a|_p \leq r\}$ and pick any $b \in B(a, r)$. For any
+$c \in B(a, r)$:
+
+$$|c - b|_p = |(c - a) + (a - b)|_p \leq \max(|c - a|_p,\ |a - b|_p) \leq r.$$
+
+So $c \in B(b, r)$ as well, meaning $B(b, r) \subseteq B(a, r)$. The same
+argument with $a$ and $b$ swapped gives $B(a, r) \subseteq B(b, r)$. Therefore
+$B(a, r) = B(b, r)$. Every point inside the ball is equally valid as its center.
+
+**Every open ball is also closed.** In $\mathbb{R}$, moving from the center of a
+ball to a new point costs you distance, eating into your remaining "budget." In
+the $p$-adic world, the max means you never lose budget by moving within the
+ball. A limit point of an open ball $\{x : |x - a|_p < r\}$ can be approached by
+a point $c$ with $|c - a|_p < r$, and the ultrametric inequality forces the
+limit point itself to satisfy the same bound. The ball contains all its limit
+points, so it is closed. There are no boundary points in the usual sense.
 
 For convergence, this is a gift. A series $\sum a_n$ converges in the $p$-adic
 metric if and only if $|a_n|_p \to 0$. No ratio tests, no comparison tests, no
