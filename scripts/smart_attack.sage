@@ -25,48 +25,56 @@ def smart_attack(P, Q, p):
     """
     E = P.curve()
 
-    # Lift the curve to Q_p. We perturb the a-invariants by
-    # random multiples of p so the lifted curve is not the
-    # canonical lift. On the canonical lift, p * P_lift is the
-    # identity (because E is anomalous), which makes the
-    # logarithm trivially zero. Perturbing gives a different
-    # lift where p * P_lift lands in the formal group kernel
-    # but is nonzero, allowing us to read off the logarithm.
-    ainvs = E.a_invariants()
-    lifted = [
-        ZZ(t) + ZZ.random_element(0, p) * p for t in ainvs
-    ]
-    Ep = EllipticCurve(Qp(p, 8), lifted)
+    # We try multiple random lifts of the curve. The lift
+    # perturbs the a-invariants by random multiples of p so
+    # the lifted curve is not the canonical lift (where
+    # p * P_lift would be zero). Some perturbations can
+    # produce incorrect results due to the choice of
+    # y-coordinate branch, so we verify and retry.
+    for attempt in range(20):
+        ainvs = E.a_invariants()
+        lifted = [
+            ZZ(t) + ZZ.random_element(0, p) * p
+            for t in ainvs
+        ]
+        Ep = EllipticCurve(Qp(p, 8), lifted)
 
-    # Lift points: find the root of lift_x whose y-coordinate
-    # reduces to the correct value mod p.
-    def lift_point(R):
-        x, y = R.xy()
-        candidates = Ep.lift_x(ZZ(x), all=True)
-        for pt in candidates:
-            if GF(p)(pt.xy()[1]) == y:
-                return pt
-        raise ValueError("Could not lift point %s" % R)
+        # Lift points: find the root of lift_x whose
+        # y-coordinate reduces to the correct value mod p.
+        def lift_point(R):
+            x, y = R.xy()
+            candidates = Ep.lift_x(ZZ(x), all=True)
+            for pt in candidates:
+                if GF(p)(pt.xy()[1]) == y:
+                    return pt
+            return None
 
-    P_lift = lift_point(P)
-    Q_lift = lift_point(Q)
+        P_lift = lift_point(P)
+        Q_lift = lift_point(Q)
+        if P_lift is None or Q_lift is None:
+            continue
 
-    # Map into the formal group via p-multiplication.
-    # For a non-canonical lift, p * P_lift reduces to the
-    # identity mod p (since P has order p in E(F_p)), so it
-    # lies in the kernel of reduction, i.e. the formal group.
-    pP = p * P_lift
-    pQ = p * Q_lift
+        # Map into the formal group via p-multiplication.
+        pP = p * P_lift
+        pQ = p * Q_lift
+        if pP.is_zero() or pQ.is_zero():
+            continue
 
-    # Extract the formal group logarithm.
-    # For a point (x, y) in the formal group with v(x) < 0,
-    # the local parameter is t = -x/y, and log(t) = t + ...
-    # To first order, the logarithm is just t itself.
-    log_P = -(pP.xy()[0] / pP.xy()[1])
-    log_Q = -(pQ.xy()[0] / pQ.xy()[1])
+        # Extract the formal group logarithm.
+        log_P = -(pP.xy()[0] / pP.xy()[1])
+        log_Q = -(pQ.xy()[0] / pQ.xy()[1])
 
-    # Discrete log is now division in Q_p, reduced mod p.
-    return ZZ(log_Q / log_P) % p
+        # Discrete log is now division in Q_p, reduced mod p.
+        n = ZZ(log_Q / log_P) % p
+
+        # Verify: some lifts give incorrect results due to
+        # the y-coordinate branch choice. Retry if wrong.
+        if n * P == Q:
+            return n
+
+    raise ValueError(
+        "Smart's attack failed after 20 attempts"
+    )
 
 
 def test_smart_attack():
