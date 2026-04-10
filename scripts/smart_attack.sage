@@ -25,22 +25,39 @@ def smart_attack(P, Q, p):
     """
     E = P.curve()
 
-    # We try multiple random lifts of the curve. The lift
-    # perturbs the a-invariants by random multiples of p so
-    # the lifted curve is not the canonical lift (where
-    # p * P_lift would be zero). Some perturbations can
-    # produce incorrect results due to the choice of
-    # y-coordinate branch, so we verify and retry.
+    # Sage notation guide:
+    #   ZZ = the ring of integers
+    #   GF(p) = the finite field with p elements
+    #   Qp(p, prec) = the p-adic numbers with `prec`
+    #       digits of precision
+    #   E.a_invariants() = the five coefficients
+    #       [a1, a2, a3, a4, a6] of the general
+    #       Weierstrass model y^2 + a1*x*y + a3*y
+    #       = x^3 + a2*x^2 + a4*x + a6.
+    #       For short Weierstrass (y^2 = x^3 + a*x + b),
+    #       a1=a2=a3=0, a4=a, a6=b.
+    #   Ep.lift_x(x, all=True) = find all points on Ep
+    #       with the given x-coordinate
+    #   pt.xy() = the (x, y) coordinates of a point
+
+    # We try multiple random lifts. Perturbing the
+    # a-invariants by random multiples of p gives a
+    # curve over Q_p that reduces to E mod p, but is
+    # not the canonical lift (where p*P_lift would be
+    # zero). Some perturbations give incorrect results
+    # due to the y-branch choice, so we verify and retry.
     for attempt in range(20):
         ainvs = E.a_invariants()
         lifted = [
             ZZ(t) + ZZ.random_element(0, p) * p
             for t in ainvs
         ]
+        # Lifted curve over Q_p with 8 digits of precision
         Ep = EllipticCurve(Qp(p, 8), lifted)
 
-        # Lift points: find the root of lift_x whose
-        # y-coordinate reduces to the correct value mod p.
+        # Lift a point: solve the lifted curve equation
+        # for the given x-coordinate, pick the y-root
+        # that reduces to the original y mod p.
         def lift_point(R):
             x, y = R.xy()
             candidates = Ep.lift_x(ZZ(x), all=True)
@@ -54,21 +71,25 @@ def smart_attack(P, Q, p):
         if P_lift is None or Q_lift is None:
             continue
 
-        # Map into the formal group via p-multiplication.
+        # Step 3: multiply by p to land in the formal group.
+        # Since P has order p in E(F_p), p*P_lift reduces
+        # to the identity mod p, so its coordinates are in
+        # pZ_p.
         pP = p * P_lift
         pQ = p * Q_lift
         if pP.is_zero() or pQ.is_zero():
             continue
 
-        # Extract the formal group logarithm.
+        # Step 4: extract the formal logarithm.
+        # The local parameter t = -x/y maps the formal
+        # group to pZ_p. To first order, log(t) = t.
         log_P = -(pP.xy()[0] / pP.xy()[1])
         log_Q = -(pQ.xy()[0] / pQ.xy()[1])
 
-        # Discrete log is now division in Q_p, reduced mod p.
+        # Step 5: discrete log is division in Q_p mod p.
         n = ZZ(log_Q / log_P) % p
 
-        # Verify: some lifts give incorrect results due to
-        # the y-coordinate branch choice. Retry if wrong.
+        # Verify: retry with a fresh perturbation if wrong.
         if n * P == Q:
             return n
 
