@@ -13,26 +13,34 @@ const { code } = Astro.props;
 </div>
 
 <script>
-  function watchForCodeMirror() {
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll(".sage-cell .CodeMirror").forEach(el => {
-        const cm = (el as any).CodeMirror;
-        if (cm) {
-          cm.setSize(null, "auto");
-          cm.refresh();
-          observer.disconnect();
-        }
-      });
+  function expandEditors() {
+    const els = document.querySelectorAll(".sage-cell .CodeMirror");
+    if (els.length === 0) return false;
+    let expanded = false;
+    els.forEach(el => {
+      const cm = (el as any).CodeMirror;
+      if (cm) {
+        cm.setSize(null, "auto");
+        cm.refresh();
+        expanded = true;
+      }
+      // Fallback: force via inline style
+      (el as HTMLElement).style.height = "auto";
     });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    return expanded;
+  }
+
+  function pollExpand() {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (expandEditors() || attempts > 50) {
+        clearInterval(interval);
+      }
+    }, 200);
   }
 
   function initSageCells() {
-    watchForCodeMirror();
-
     const opts = {
       inputLocation: ".sage-cell",
       linked: true,
@@ -45,6 +53,7 @@ const { code } = Astro.props;
       script.src = "https://sagecell.sagemath.org/static/embedded_sagecell.js";
       script.onload = () => {
         (window as any).sagecell.makeSagecell(opts);
+        pollExpand();
       };
       document.head.appendChild(script);
 
@@ -54,6 +63,7 @@ const { code } = Astro.props;
       document.head.appendChild(link);
     } else {
       (window as any).sagecell.makeSagecell(opts);
+      pollExpand();
     }
   }
 
