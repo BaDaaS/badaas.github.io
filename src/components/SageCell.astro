@@ -1,0 +1,48 @@
+---
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+const id = `sage-cell-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div id={id} class="sage-cell">
+  <script type="text/x-sage" set:text={code} />
+</div>
+
+<script>
+  function initSageCells() {
+    if (typeof sagecell === "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://sagecell.sagemath.org/static/embedded_sagecell.js";
+      script.onload = () => {
+        (window as any).sagecell.makeSagecell({
+          inputLocation: ".sage-cell",
+          linked: true,
+          languages: ["sage"],
+          evalButtonText: "Run",
+        });
+      };
+      document.head.appendChild(script);
+
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://sagecell.sagemath.org/static/sagecell_embed.css";
+      document.head.appendChild(link);
+    } else {
+      (window as any).sagecell.makeSagecell({
+        inputLocation: ".sage-cell",
+        linked: true,
+        languages: ["sage"],
+        evalButtonText: "Run",
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSageCells);
+  } else {
+    initSageCells();
+  }
+</script>

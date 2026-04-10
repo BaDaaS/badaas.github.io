@@ -19,6 +19,7 @@ tags:
 ---
 
 import { Code } from "astro:components";
+import SageCell from "../../components/SageCell.astro";
 import smartAttackCode from "../../../scripts/smart_attack.sage?raw";
 
 ## What does "close" mean?
@@ -335,9 +336,10 @@ underlying the curve arithmetic. The anomalous condition simply makes it visible
 and exploitable.
 
 Here is the full implementation in Sage
-([source](https://github.com/BaDaaS/badaas.github.io/blob/main/scripts/smart_attack.sage)):
+([source](https://github.com/BaDaaS/badaas.github.io/blob/main/scripts/smart_attack.sage)).
+You can edit and run it directly in your browser:
 
-<Code code={smartAttackCode} lang="python" theme="github-dark" />
+<SageCell code={smartAttackCode} />
 
 The entire ECDLP, normally requiring $O(\sqrt{p})$ operations, collapses to a
 handful of $p$-adic arithmetic steps.
