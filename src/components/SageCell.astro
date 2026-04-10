@@ -13,17 +13,30 @@ const { code } = Astro.props;
 </div>
 
 <script>
+  function expandEditors() {
+    document.querySelectorAll(".sage-cell .CodeMirror").forEach(el => {
+      const cm = (el as any).CodeMirror;
+      if (cm) {
+        cm.setSize(null, "auto");
+        cm.refresh();
+      }
+    });
+  }
+
   function initSageCells() {
+    const opts = {
+      inputLocation: ".sage-cell",
+      linked: true,
+      languages: ["sage"],
+      evalButtonText: "Run",
+      callback: () => setTimeout(expandEditors, 100),
+    };
+
     if (typeof sagecell === "undefined") {
       const script = document.createElement("script");
       script.src = "https://sagecell.sagemath.org/static/embedded_sagecell.js";
       script.onload = () => {
-        (window as any).sagecell.makeSagecell({
-          inputLocation: ".sage-cell",
-          linked: true,
-          languages: ["sage"],
-          evalButtonText: "Run",
-        });
+        (window as any).sagecell.makeSagecell(opts);
       };
       document.head.appendChild(script);
 
@@ -32,12 +45,7 @@ const { code } = Astro.props;
       link.href = "https://sagecell.sagemath.org/static/sagecell_embed.css";
       document.head.appendChild(link);
     } else {
-      (window as any).sagecell.makeSagecell({
-        inputLocation: ".sage-cell",
-        linked: true,
-        languages: ["sage"],
-        evalButtonText: "Run",
-      });
+      (window as any).sagecell.makeSagecell(opts);
     }
   }
 
