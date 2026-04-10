@@ -105,30 +105,41 @@ const jsonLd = JSON.stringify({
   </div>
 
   <script>
-    function buildToc() {
+    function getVisibleText(el: Element): string {
+      // Clone the heading and strip hidden KaTeX MathML spans,
+      // then extract the visible text content.
+      const clone = el.cloneNode(true) as Element;
+      clone.querySelectorAll(".katex-mathml").forEach(m => m.remove());
+      // The .katex-html aria-hidden spans contain the visible rendering.
+      // Their textContent is the rendered math as plain text.
+      return clone.textContent?.trim() || "";
+    }
+
+    function buildToc(): void {
       const article = document.querySelector(".prose");
       const list = document.getElementById("blog-toc-list");
       if (!article || !list) return;
 
       const headings = article.querySelectorAll("h2, h3");
       if (headings.length === 0) {
-        // Hide ToC if no headings
         const toc = document.getElementById("blog-toc");
         if (toc) toc.style.display = "none";
         return;
       }
 
-      headings.forEach(function (h) {
+      headings.forEach((h: Element) => {
+        // Use the existing ID from Astro's markdown processing
         if (!h.id) {
-          h.id = h
-            .textContent!.toLowerCase()
+          const text = getVisibleText(h);
+          h.id = text
+            .toLowerCase()
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-|-$/g, "");
         }
         const li = document.createElement("li");
         const a = document.createElement("a");
         a.href = "#" + h.id;
-        a.textContent = h.textContent;
+        a.textContent = getVisibleText(h);
         if (h.tagName === "H3") {
           li.classList.add("toc-h3");
         }
@@ -139,15 +150,12 @@ const jsonLd = JSON.stringify({
       // Highlight current section on scroll
       const links = list.querySelectorAll("a");
       const observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
+        (entries: IntersectionObserverEntry[]) => {
+          entries.forEach((entry: IntersectionObserverEntry) => {
             if (entry.isIntersecting) {
-              links.forEach(function (l) {
-                l.classList.remove("toc-active");
-              });
-              const active = list.querySelector(
-                'a[href="#' + entry.target.id + '"]',
-              );
+              links.forEach(l => l.classList.remove("toc-active"));
+              const id = CSS.escape(entry.target.id);
+              const active = list.querySelector('a[href="#' + id + '"]');
               if (active) active.classList.add("toc-active");
             }
           });
@@ -155,9 +163,7 @@ const jsonLd = JSON.stringify({
         { rootMargin: "-80px 0px -60% 0px", threshold: 0 },
       );
 
-      headings.forEach(function (h) {
-        observer.observe(h);
-      });
+      headings.forEach((h: Element) => observer.observe(h));
     }
 
     buildToc();
