@@ -157,11 +157,19 @@ delicate estimates. The terms just need to get $p$-adically small, and the
 ultrametric inequality handles the rest. This is why $p$-adic analysis, once you
 accept the unfamiliar geometry, is in many ways simpler than real analysis.
 
-The tree below shows how the 5-adic distance organizes the integers 0 through
-24\. Numbers sharing the same residue mod 5 are grouped in the same branch;
-numbers in the same branch are closer (distance at most $1/5$) than numbers in
-different branches (distance 1). Click two leaves to compute their 5-adic
-distance.
+The tree below makes this concrete. It shows integers 0 through 24, grouped by
+residue mod 5. The tree structure _is_ the metric: the distance between two
+numbers is determined by where their paths diverge. The deeper you go before
+paths split, the closer the numbers are. Click 7 and 12 (same branch, distance
+$1/5$), then click 7 and 8 (different branches, distance 1), and you can feel
+the inversion: numbers that look "near" in the usual sense can be far apart
+$p$-adically.
+
+If you have seen a trie (prefix tree) in computer science, the structure is
+familiar, except $p$-adic numbers share suffixes (low-order digits) rather than
+prefixes. And notice that every subtree looks the same as every other at the
+same level. There is no distinguished center, which is exactly the "every point
+is a center" property made visual.
 
 <UltrametricTree />
 
