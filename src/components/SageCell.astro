@@ -18,14 +18,28 @@ const { code } = Astro.props;
     if (els.length === 0) return false;
     let expanded = false;
     els.forEach(el => {
+      const htmlEl = el as HTMLElement;
+      // Try the CodeMirror API first
       const cm = (el as any).CodeMirror;
       if (cm) {
         cm.setSize(null, "auto");
         cm.refresh();
         expanded = true;
       }
-      // Fallback: force via inline style
-      (el as HTMLElement).style.height = "auto";
+      // Force all height constraints via inline styles
+      htmlEl.style.setProperty("height", "auto", "important");
+      htmlEl.style.setProperty("max-height", "none", "important");
+      const scroll = htmlEl.querySelector(".CodeMirror-scroll") as HTMLElement;
+      if (scroll) {
+        scroll.style.setProperty("height", "auto", "important");
+        scroll.style.setProperty("max-height", "none", "important");
+        scroll.style.setProperty("overflow", "visible", "important");
+        expanded = true;
+      }
+      const sizer = htmlEl.querySelector(".CodeMirror-sizer") as HTMLElement;
+      if (sizer) {
+        sizer.style.setProperty("min-height", "0", "important");
+      }
     });
     return expanded;
   }
