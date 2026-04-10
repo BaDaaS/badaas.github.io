@@ -399,9 +399,11 @@ reconstructions all use this idea in some form.
 
 This is where $p$-adic numbers deliver a direct cryptographic kill.
 
-Let $E$ be an elliptic curve over $\mathbb{F}_p$. Normally, the elliptic curve
-discrete logarithm problem (ECDLP) on $E(\mathbb{F}_p)$ is hard. That hardness
-is the foundation of ECDSA, ECDH, and most elliptic curve cryptography.
+Let $E$ be an elliptic curve over $\mathbb{F}_p$, with a generator $P$. In
+elliptic curve cryptography, the secret key is an integer $n$ and the public key
+is the point $Q = nP$. The elliptic curve discrete logarithm problem (ECDLP)
+asks: given $P$ and $Q$, recover $n$. Normally this is hard. That hardness is
+the foundation of ECDSA, ECDH, and most elliptic curve cryptography.
 
 But there is a degenerate case. If $\#E(\mathbb{F}_p) = p$, the curve is called
 **anomalous**.
