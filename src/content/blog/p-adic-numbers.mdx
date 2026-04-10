@@ -440,27 +440,14 @@ $\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Q}_7$.
 This is not abstract. Every time you solve a system of polynomial equations over
 $\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
 doing $p$-adic computation.
-[Groebner basis](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis) algorithms
-over local rings use Hensel lifting to solve multivariate polynomial systems
-that arise in algebraic cryptanalysis. This is directly relevant to modern
-ZK-friendly hash functions like [Poseidon](https://www.poseidon-hash.info/),
-which operate over prime fields using low-degree S-boxes ($x \mapsto x^\alpha$
-for small $\alpha$). Because the entire hash computation is polynomial, an
-attacker can write it as a system of equations over $\mathbb{F}_p$ and attempt
-to solve it via Groebner basis algorithms (F4, F5). The security of Poseidon
-depends on making this system hard enough that the degree of regularity (the
-degree at which the computation becomes tractable) stays out of reach. When
-working over $\mathbb{Z}/p^n\mathbb{Z}$ rather than $\mathbb{F}_p$, the Hensel
-connection becomes explicit: compute the Groebner basis mod $p$ first, then lift
-the solution to higher precision.
 [Lattice-based attacks](https://en.wikipedia.org/wiki/Lattice-based_cryptography)
 on number-theoretic problems (such as Coppersmith's method for finding small
 roots of polynomials modulo $N$) rely on lifting approximate solutions to exact
 ones. And
 [CRT-based reconstructions](https://en.wikipedia.org/wiki/Chinese_remainder_theorem)
 combine solutions modulo different primes, which is the global counterpart to
-the local lifting that Hensel provides at each prime. We plan to explore
-Groebner bases and lattice attacks in more detail in a future article.
+the local lifting that Hensel provides at each prime. We plan to explore lattice
+attacks and their connection to $p$-adic methods in a future article.
 
 ### Smart's attack on anomalous elliptic curves
 
