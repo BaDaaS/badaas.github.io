@@ -149,6 +149,14 @@ can have infinitely many. We write "$\ldots$" on the left to indicate this. So
 $\ldots d_3 d_2 d_1 d_0$ means $a_0 = d_0$, $a_1 = d_1$, $a_2 = d_2$, and so on.
 Read right to left to recover the coefficients in order.
 
+This left-extending convention is the most common in the literature (Gouvea,
+Serre, Koblitz all use it). It mirrors positional notation and makes carry
+arithmetic feel natural. Some authors instead write the expansion left to right
+as $a_0 + a_1 p + a_2 p^2 + \cdots$ (which is just the series itself) or as the
+sequence $(a_0, a_1, a_2, \ldots)$. These are all the same object; the
+"$\ldots$-on-the-left" form is simply the one best suited to doing arithmetic by
+hand, since carries propagate leftward just as in grade-school addition.
+
 There is one more way to say this, and it is the one algebraists prefer. The
 maps $\mathbb{Z}/p^{n+1}\mathbb{Z} \to \mathbb{Z}/p^n\mathbb{Z}$ (reduce mod
 $p^n$) form a projective system. The $p$-adic integers are its inverse limit:
@@ -217,18 +225,19 @@ outside the unit ball. It lives in $\mathbb{Q}_5$ but not $\mathbb{Z}_5$.
 
 ## A short, honest history
 
-Kurt Hensel introduced the $p$-adic numbers in 1897, motivated by a striking
-analogy. Algebraic number theory studies number fields, which resemble the
-function fields of algebraic curves. Completing a function field at a point
-gives a ring of formal power series. Hensel asked: what happens if you
-"complete" the rationals at a prime $p$ the same way? The answer was
-$\mathbb{Q}_p$. His instinct was brilliant, but his early work was marred by a
-famously wrong proof that $e$ is transcendental over $\mathbb{Q}_p$. The error
-was eventually corrected by others, and the underlying framework survived
-intact.
+[Kurt Hensel](https://en.wikipedia.org/wiki/Kurt_Hensel) introduced the $p$-adic
+numbers in 1897, motivated by a striking analogy. Algebraic number theory
+studies number fields, which resemble the function fields of algebraic curves.
+Completing a function field at a point gives a ring of formal power series.
+Hensel asked: what happens if you "complete" the rationals at a prime $p$ the
+same way? The answer was $\mathbb{Q}_p$. His instinct was brilliant, but his
+early work was marred by a
+[famously wrong proof](https://en.wikipedia.org/wiki/P-adic_number#History) that
+$e$ is transcendental over $\mathbb{Q}_p$. The error was eventually corrected by
+others, and the underlying framework survived intact.
 
-Alexander Ostrowski proved in 1916 what might be the most clarifying result in
-all of number theory.
+[Alexander Ostrowski](https://en.wikipedia.org/wiki/Alexander_Ostrowski) proved
+in 1916 what might be the most clarifying result in all of number theory.
 [His theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem) states that,
 up to equivalence, the only nontrivial absolute values on $\mathbb{Q}$ are the
 usual one and the $p$-adic ones. That is it. There is no hidden fifth option.
@@ -237,28 +246,33 @@ _complete_ list of completions of the rationals. When we study $\mathbb{Q}$
 through the lens of $\mathbb{R}$ alone, we are looking at one view in an
 infinite family.
 
-Helmut Hasse, in the 1920s, transformed this from a structural observation into
-a working tool. His **local-global principle** (also called the Hasse-Minkowski
-theorem) states that a quadratic form over $\mathbb{Q}$ has a rational solution
-if and only if it has a solution in $\mathbb{R}$ and in every $\mathbb{Q}_p$.
-You break a hard global question into infinitely many local ones, each of which
-is tractable. The principle does not hold for all equations (cubic forms can
-fail it), but where it applies, it is devastatingly effective.
+[Helmut Hasse](https://en.wikipedia.org/wiki/Helmut_Hasse), in the 1920s,
+transformed this from a structural observation into a working tool. His
+**[local-global principle](https://en.wikipedia.org/wiki/Hasse%E2%80%93Minkowski_theorem)**
+(also called the Hasse-Minkowski theorem) states that a quadratic form over
+$\mathbb{Q}$ has a rational solution if and only if it has a solution in
+$\mathbb{R}$ and in every $\mathbb{Q}_p$. You break a hard global question into
+infinitely many local ones, each of which is tractable. The principle does not
+hold for all equations (cubic forms can fail it), but where it applies, it is
+devastatingly effective.
 
-John Tate's 1950 doctoral thesis, often called "Tate's thesis," rebuilt the
+[John Tate](<https://en.wikipedia.org/wiki/John_Tate_(mathematician)>)'s 1950
+doctoral thesis, often called
+"[Tate's thesis](https://en.wikipedia.org/wiki/Tate%27s_thesis)," rebuilt the
 analytic theory of $L$-functions using harmonic analysis on the group of adeles,
 a structure that packages $\mathbb{R}$ and all the $\mathbb{Q}_p$ together. What
 had been a collection of ad hoc calculations became a single, uniform argument.
 The thesis circulated for years before formal publication and reshaped the way
 number theorists think about zeta functions and their generalizations.
 
-Peter Scholze's introduction of perfectoid spaces in 2012 opened the most recent
-chapter. Perfectoid spaces provide a way to move between characteristic 0 (like
-$\mathbb{Q}_p$) and characteristic $p$ (like $\mathbb{F}_p$), making problems in
-one world solvable via the other. The theory earned Scholze a Fields Medal in
-2018 and has already produced results that seemed out of reach a decade earlier.
-The details are formidable, but the underlying impulse is Hensel's original
-analogy, taken to its logical extreme.
+[Peter Scholze](https://en.wikipedia.org/wiki/Peter_Scholze)'s introduction of
+[perfectoid spaces](https://en.wikipedia.org/wiki/Perfectoid_space) in 2012
+opened the most recent chapter. Perfectoid spaces provide a way to move between
+characteristic 0 (like $\mathbb{Q}_p$) and characteristic $p$ (like
+$\mathbb{F}_p$), making problems in one world solvable via the other. The theory
+earned Scholze a Fields Medal in 2018 and has already produced results that
+seemed out of reach a decade earlier. The details are formidable, but the
+underlying impulse is Hensel's original analogy, taken to its logical extreme.
 
 ## Why cryptographers care
 
@@ -287,8 +301,10 @@ discrete logarithm problem (ECDLP) on $E(\mathbb{F}_p)$ is hard. That hardness
 is the foundation of ECDSA, ECDH, and most elliptic curve cryptography.
 
 But there is a degenerate case. If $\#E(\mathbb{F}_p) = p$, the curve is called
-**anomalous**. Nigel Smart showed in 1999 that the ECDLP on anomalous curves can
-be solved in linear time. The mechanism goes through $p$-adic numbers.
+**anomalous**.
+[Nigel Smart](<https://en.wikipedia.org/wiki/Nigel_Smart_(cryptographer)>)
+showed in 1999 that the ECDLP on anomalous curves can be solved in linear time.
+The mechanism goes through $p$-adic numbers.
 
 Here is the idea. Lift the curve $E/\mathbb{F}_p$ to a curve
 $\tilde{E}/\mathbb{Q}_p$. Points on $E(\mathbb{F}_p)$ lift to points on
