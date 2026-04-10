@@ -13,23 +13,31 @@ const { code } = Astro.props;
 </div>
 
 <script>
-  function expandEditors() {
-    document.querySelectorAll(".sage-cell .CodeMirror").forEach(el => {
-      const cm = (el as any).CodeMirror;
-      if (cm) {
-        cm.setSize(null, "auto");
-        cm.refresh();
-      }
+  function watchForCodeMirror() {
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll(".sage-cell .CodeMirror").forEach(el => {
+        const cm = (el as any).CodeMirror;
+        if (cm) {
+          cm.setSize(null, "auto");
+          cm.refresh();
+          observer.disconnect();
+        }
+      });
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
     });
   }
 
   function initSageCells() {
+    watchForCodeMirror();
+
     const opts = {
       inputLocation: ".sage-cell",
       linked: true,
       languages: ["sage"],
       evalButtonText: "Run",
-      callback: () => setTimeout(expandEditors, 100),
     };
 
     if (typeof sagecell === "undefined") {
