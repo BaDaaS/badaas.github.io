@@ -141,6 +141,14 @@ terminates (all subsequent digits are 0). For negative integers and fractions,
 it runs forever, producing the infinite expansions that make $\mathbb{Z}_p$
 genuinely larger than $\mathbb{Z}$.
 
+A note on notation. We write $p$-adic expansions the same way we write ordinary
+base-$p$ numbers: the rightmost digit is $a_0$ (the "ones place"), and digits
+for higher powers of $p$ go to the left. The difference is that ordinary
+integers have finitely many digits extending leftward, while $p$-adic integers
+can have infinitely many. We write "$\ldots$" on the left to indicate this. So
+$\ldots d_3 d_2 d_1 d_0$ means $a_0 = d_0$, $a_1 = d_1$, $a_2 = d_2$, and so on.
+Read right to left to recover the coefficients in order.
+
 There is one more way to say this, and it is the one algebraists prefer. The
 maps $\mathbb{Z}/p^{n+1}\mathbb{Z} \to \mathbb{Z}/p^n\mathbb{Z}$ (reduce mod
 $p^n$) form a projective system. The $p$-adic integers are its inverse limit:
