@@ -439,9 +439,18 @@ $\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Q}_7$.
 
 This is not abstract. Every time you solve a system of polynomial equations over
 $\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
-doing $p$-adic computation. Groebner basis algorithms over local rings,
-lattice-based attacks on number-theoretic problems, and CRT-based
-reconstructions all use this idea in some form.
+doing $p$-adic computation.
+[Groebner basis](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis) algorithms
+over local rings use Hensel lifting to solve multivariate polynomial systems
+that arise in algebraic cryptanalysis.
+[Lattice-based attacks](https://en.wikipedia.org/wiki/Lattice-based_cryptography)
+on number-theoretic problems (such as Coppersmith's method for finding small
+roots of polynomials modulo $N$) rely on lifting approximate solutions to exact
+ones. And
+[CRT-based reconstructions](https://en.wikipedia.org/wiki/Chinese_remainder_theorem)
+combine solutions modulo different primes, which is the global counterpart to
+the local lifting that Hensel provides at each prime. We plan to explore
+Groebner bases and lattice attacks in more detail in a future article.
 
 ### Smart's attack on anomalous elliptic curves
 
