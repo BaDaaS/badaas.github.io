@@ -24,58 +24,112 @@ def smart_attack(P, Q, p):
     - n such that Q = n * P
     """
     E = P.curve()
-    Ep = EllipticCurve(Qp(p, 5), [Qp(p, 5)(a) for a in E.a_invariants()])
 
-    # Lift points to Q_p
-    P_lift = Ep.lift_x(Qp(p, 5)(int(P.xy()[0])))
-    Q_lift = Ep.lift_x(Qp(p, 5)(int(Q.xy()[0])))
+    # Lift the curve to Q_p. We perturb the a-invariants by
+    # random multiples of p so the lifted curve is not the
+    # canonical lift. On the canonical lift, p * P_lift is the
+    # identity (because E is anomalous), which makes the
+    # logarithm trivially zero. Perturbing gives a different
+    # lift where p * P_lift lands in the formal group kernel
+    # but is nonzero, allowing us to read off the logarithm.
+    ainvs = E.a_invariants()
+    lifted = [
+        ZZ(t) + ZZ.random_element(0, p) * p for t in ainvs
+    ]
+    Ep = EllipticCurve(Qp(p, 8), lifted)
 
-    # Compute p * lifted_point, extract formal group element
+    # Lift points: find the root of lift_x whose y-coordinate
+    # reduces to the correct value mod p.
+    def lift_point(R):
+        x, y = R.xy()
+        candidates = Ep.lift_x(ZZ(x), all=True)
+        for pt in candidates:
+            if GF(p)(pt.xy()[1]) == y:
+                return pt
+        raise ValueError("Could not lift point %s" % R)
+
+    P_lift = lift_point(P)
+    Q_lift = lift_point(Q)
+
+    # Map into the formal group via p-multiplication.
+    # For a non-canonical lift, p * P_lift reduces to the
+    # identity mod p (since P has order p in E(F_p)), so it
+    # lies in the kernel of reduction, i.e. the formal group.
     pP = p * P_lift
     pQ = p * Q_lift
 
-    # Read off the formal logarithm from the x/y coordinate
-    log_P = -pP.xy()[0] / pP.xy()[1]
-    log_Q = -pQ.xy()[0] / pQ.xy()[1]
+    # Extract the formal group logarithm.
+    # For a point (x, y) in the formal group with v(x) < 0,
+    # the local parameter is t = -x/y, and log(t) = t + ...
+    # To first order, the logarithm is just t itself.
+    log_P = -(pP.xy()[0] / pP.xy()[1])
+    log_Q = -(pQ.xy()[0] / pQ.xy()[1])
 
-    # Discrete log is now just division in Q_p
-    n = log_Q / log_P
-    return ZZ(n)
+    # Discrete log is now division in Q_p, reduced mod p.
+    return ZZ(log_Q / log_P) % p
 
 
 def test_smart_attack():
     """
-    Test Smart's attack on a known anomalous curve.
+    Test Smart's attack on known anomalous curves.
 
-    We use a small prime for testing. The curve y^2 = x^3 + x + 1
-    over GF(43) has exactly 43 points, making it anomalous.
+    We verify the attack across several primes and secrets.
+    A curve y^2 = x^3 + a*x + b over GF(p) is anomalous
+    when #E(GF(p)) = p.
     """
-    p = 43
-    F = GF(p)
-    E = EllipticCurve(F, [1, 1])
-
-    # Verify the curve is anomalous
-    order = E.order()
-    assert order == p, (
-        "Curve is not anomalous: #E(F_%d) = %d != %d" % (p, order, p)
+    # (p, a, b) triples for anomalous curves
+    # Small primes for fast sanity checks
+    p_43 = 43
+    p_97 = 97
+    p_157 = 157
+    # 256-bit prime (constructed via CM with j=0, trace=1)
+    p_256 = Integer(
+        "868440669279871465676782387565159309016"
+        "92230158002800019079611962330850525581"
+    )
+    # 380-bit prime (constructed via CM with j=0, trace=1)
+    p_380 = Integer(
+        "184696904045599121307558000469423189711"
+        "311277830306781316503193307190956665360"
+        "5953071682581549594926623032013275521"
     )
 
-    # Pick a generator and compute a known multiple
-    P = E.gens()[0]
-    secret = 17
-    Q = secret * P
+    test_curves = [
+        (p_43, 1, 14),
+        (p_97, 1, 1),
+        (p_157, 1, 57),
+        (p_256, 0, 2),
+        (p_380, 0, 13),
+    ]
 
-    # Run the attack
-    recovered = smart_attack(P, Q, p)
-    assert recovered == secret, (
-        "Attack failed: recovered %d, expected %d" % (recovered, secret)
-    )
+    for p, a, b in test_curves:
+        F = GF(p)
+        E = EllipticCurve(F, [a, b])
 
-    print("Smart's attack test passed.")
-    print("  Curve: y^2 = x^3 + x + 1 over GF(%d)" % p)
-    print("  #E(F_p) = %d (anomalous)" % order)
-    print("  Secret: %d" % secret)
-    print("  Recovered: %d" % recovered)
+        order = E.order()
+        assert order == p, (
+            "Curve is not anomalous: "
+            "#E(F_%d) = %d != %d" % (p, order, p)
+        )
+
+        P = E.gens()[0]
+
+        for _ in range(5):
+            secret = ZZ.random_element(1, p)
+            Q = secret * P
+            recovered = smart_attack(P, Q, p)
+            assert recovered == secret, (
+                "Attack failed on p=%d: "
+                "recovered %d, expected %d"
+                % (p, recovered, secret)
+            )
+
+        print(
+            "PASS: y^2 = x^3 + %d*x + %d over GF(%d-bit)"
+            % (a, b, p.nbits())
+        )
+
+    print("All Smart's attack tests passed.")
 
 
 if __name__ == "__main__":
