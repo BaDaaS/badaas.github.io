@@ -21,7 +21,6 @@ tags:
 import { Code } from "astro:components";
 import SageCell from "../../components/SageCell.astro";
 import UltrametricTree from "../../components/UltrametricTree.astro";
-import CarryAnimation from "../../components/CarryAnimation.astro";
 import smartAttackCode from "../../../scripts/smart_attack.sage?raw";
 
 ## What does "close" mean?
@@ -261,10 +260,7 @@ $$-1 = 4 + 4 \cdot 5 + 4 \cdot 5^2 + 4 \cdot 5^3 + \cdots = \ldots 44444_5.$$
 Does this check out? Add 1 to it. The digit $a_0 = 4$ plus 1 gives 5, which is
 $0$ with a carry of 1. The next digit: $4 + 1 = 5$, again $0$ with a carry. This
 propagates forever, leaving all zeros. So
-$\ldots 44444_5 + 1 = \ldots 00000_5 = 0$. Exactly right. Step through it
-yourself:
-
-<CarryAnimation />
+$\ldots 44444_5 + 1 = \ldots 00000_5 = 0$. Exactly right.
 
 If this reminds you of two's complement, it should. In a 32-bit unsigned
 integer, $-1$ is represented as `0xFFFFFFFF`, all bits set. The $p$-adic
