@@ -379,3 +379,8 @@ h6 {
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
+
+.prose .katex-display {
+  text-align: center;
+  margin: 1.5em 0;
+}
