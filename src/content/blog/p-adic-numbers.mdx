@@ -197,13 +197,24 @@ series in powers of $p$:
 
 $$x = \sum_{i=0}^{\infty} a_i p^i = a_0 + a_1 p + a_2 p^2 + a_3 p^3 + \cdots$$
 
-where each $a_i \in \{0, 1, \ldots, p-1\}$. This series converges in the
-$p$-adic metric because the terms $a_i p^i$ get $p$-adically smaller as $i$
-grows: $|a_i p^i|_p \leq p^{-i} \to 0$. Just as a real number is the limit of an
-infinite decimal expansion (itself a Cauchy sequence of partial sums in the
-usual metric), a $p$-adic integer is the limit of the partial sums
-$\sum_{i=0}^{n} a_i p^i$ in the $p$-adic metric. The partial sum up to $p^n$
-gives $x \bmod p^{n+1}$, each one refining the previous approximation.
+where each $a_i \in \{0, 1, \ldots, p-1\}$. How does this connect to the Cauchy
+sequence construction? The series is shorthand for the sequence of partial sums
+
+$$s_n = \sum_{i=0}^{n} a_i p^i$$
+
+and each $s_n$ is an ordinary integer in $\mathbb{Z} \subset \mathbb{Q}$. This
+sequence is Cauchy in the $p$-adic metric because for $m > n$:
+
+$$s_m - s_n = a_{n+1} p^{n+1} + \cdots + a_m p^m = p^{n+1} \cdot (\text{something})$$
+
+so $v_p(s_m - s_n) \geq n + 1$, giving $|s_m - s_n|_p \leq p^{-(n+1)} \to 0$.
+Since $\mathbb{Q}_p$ is complete, the Cauchy sequence $(s_n)$ has a limit. That
+limit is the $p$-adic integer $x$. The equivalence class of $(s_n)$ in the
+Cauchy construction and the digit series $\sum a_i p^i$ are the same object,
+connected through partial sums.
+
+Each partial sum $s_n$ gives $x \bmod p^{n+1}$, refining the previous
+approximation by one more digit.
 
 This looks like writing a number in base $p$, except the expansion goes to the
 _right_ (toward higher powers of $p$) rather than to the left. Ordinary base-$p$
