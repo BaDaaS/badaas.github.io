@@ -89,11 +89,27 @@ $1/125 \leq
 \max(1/25, 1/25) = 1/25$. The sum is actually _smaller_ than either
 term.
 
-This ultrametric property has a famous consequence: every triangle is isosceles.
-If two sides have different lengths, the third side equals the longer one. This
-is not a curiosity. It fundamentally changes the topology, making every open
-ball also closed, and making convergence far easier to control than in
-$\mathbb{R}$.
+Compare this to the ordinary triangle inequality $|x + y| \leq |x| + |y|$. The
+ultrametric version replaces the sum on the right with a max, which is a
+strictly stronger bound. Any absolute value satisfying the ultrametric
+inequality is called a **non-archimedean** absolute value. The usual absolute
+value on $\mathbb{R}$ is archimedean: given any $x > 0$, you can exceed any
+bound by adding $x$ to itself enough times. In a non-archimedean world, that
+fails. Repeated addition never makes things grow, because
+$|x + x|_p \leq |x|_p$, not $2|x|_p$.
+
+This ultrametric property has striking topological consequences. Every triangle
+is isosceles: if $|x|_p \neq |y|_p$, then $|x + y|_p = \max(|x|_p, |y|_p)$. (The
+inequality becomes an equality when the two sides differ.) Every open ball is
+also closed, because a point on the boundary of a ball is already inside a
+smaller ball that fits within the original. In fact, every point inside a
+$p$-adic ball is its center. There are no boundary points in the usual sense.
+
+For convergence, this is a gift. A series $\sum a_n$ converges in the $p$-adic
+metric if and only if $|a_n|_p \to 0$. No ratio tests, no comparison tests, no
+delicate estimates. The terms just need to get $p$-adically small, and the
+ultrametric inequality handles the rest. This is why $p$-adic analysis, once you
+accept the unfamiliar geometry, is in many ways simpler than real analysis.
 
 ## Construction of $\mathbb{Z}_p$
 
