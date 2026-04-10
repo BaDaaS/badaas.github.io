@@ -85,10 +85,8 @@ html {
 
 body {
   background-color: var(--color-bg);
-  background-image: linear-gradient(
-      var(--color-grid) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--color-text);
@@ -382,14 +380,15 @@ h6 {
 
 /* Display math: remark-math/rehype-katex in MDX wraps display
    equations in <p><span class="katex"> instead of a proper
-   katex-display div. Target paragraphs that contain only a
-   katex span (no other text). */
+   katex-display div. We mark display-only paragraphs via JS
+   since CSS cannot distinguish "only katex, no text" from
+   "katex mixed with text" reliably. */
 .prose .katex-display {
   text-align: center;
   margin: 1.5em 0;
 }
 
-.prose p:has(> .katex:only-child) {
+.prose p.math-display {
   text-align: center;
   margin: 1.5em 0;
 }

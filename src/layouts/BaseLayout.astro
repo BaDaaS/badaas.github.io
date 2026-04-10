@@ -451,5 +451,26 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
         </p>
       </div>
     </footer>
+    <script>
+      // Tag display-math paragraphs: <p> elements inside .prose
+      // whose only children are .katex spans (no text nodes).
+      document.querySelectorAll(".prose p").forEach(function (p) {
+        var dominated = true;
+        for (var i = 0; i < p.childNodes.length; i++) {
+          var n = p.childNodes[i];
+          if (n.nodeType === 3 && n.textContent.trim() !== "") {
+            dominated = false;
+            break;
+          }
+          if (n.nodeType === 1 && !n.classList.contains("katex")) {
+            dominated = false;
+            break;
+          }
+        }
+        if (dominated && p.querySelector(".katex")) {
+          p.classList.add("math-display");
+        }
+      });
+    </script>
   </body>
 </html>
