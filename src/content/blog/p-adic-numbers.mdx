@@ -325,10 +325,19 @@ $17 + 1 \cdot 25 = 42$, and $42 \cdot 3 = 126
 \equiv 1 \pmod{125}$. Each
 truncation is the multiplicative inverse of 3 modulo the appropriate power of 5.
 
-Why does $1/3$ have a 5-adic expansion at all? Because 3 is coprime to 5. The
-element $3$ is a unit in $\mathbb{Z}_5$, so its inverse exists. On the other
-hand, $1/5$ does _not_ live in $\mathbb{Z}_5$. Since $|1/5|_5 = 5 > 1$, it falls
-outside the unit ball. It lives in $\mathbb{Q}_5$ but not $\mathbb{Z}_5$.
+Why does $1/3$ have a 5-adic expansion at all? To be clear: every integer lives
+in $\mathbb{Z}_5$, whether or not it is coprime to 5. The integers $\mathbb{Z}$
+embed as finite digit expansions. The question is which rationals $1/q$ also
+live there. The answer: $1/q \in \mathbb{Z}_p$ if and only if $\gcd(q, p) = 1$.
+The elements with $|x|_p = 1$ are the **units** (invertible elements) of
+$\mathbb{Z}_p$, and for integers that means exactly those not divisible by $p$.
+Since $\gcd(3, 5) = 1$, the element 3 is a unit in $\mathbb{Z}_5$, its inverse
+$1/3$ exists, and the digit expansion above computes it. On the other hand,
+$1/5$ does _not_ live in $\mathbb{Z}_5$. Since $|1/5|_5 = 5 > 1$, it falls
+outside the unit ball. It lives in $\mathbb{Q}_5$ but not $\mathbb{Z}_5$. The
+element 5 itself is in $\mathbb{Z}_5$ (it is just the digit expansion
+$0 + 1 \cdot 5$), but it is not a unit; it is the **uniformizer**, the generator
+of the unique maximal ideal $p\mathbb{Z}_5$.
 
 ## A short, honest history
 
