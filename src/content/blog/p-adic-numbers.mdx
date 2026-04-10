@@ -20,6 +20,8 @@ tags:
 
 import { Code } from "astro:components";
 import SageCell from "../../components/SageCell.astro";
+import UltrametricTree from "../../components/UltrametricTree.astro";
+import CarryAnimation from "../../components/CarryAnimation.astro";
 import smartAttackCode from "../../../scripts/smart_attack.sage?raw";
 
 ## What does "close" mean?
@@ -155,6 +157,14 @@ delicate estimates. The terms just need to get $p$-adically small, and the
 ultrametric inequality handles the rest. This is why $p$-adic analysis, once you
 accept the unfamiliar geometry, is in many ways simpler than real analysis.
 
+The tree below shows how the 5-adic distance organizes the integers 0 through
+24\. Numbers sharing the same residue mod 5 are grouped in the same branch;
+numbers in the same branch are closer (distance at most $1/5$) than numbers in
+different branches (distance 1). Click two leaves to compute their 5-adic
+distance.
+
+<UltrametricTree />
+
 ## Construction of $\mathbb{Z}_p$
 
 How do we build the $p$-adic integers? The approach is the same one used to
@@ -243,7 +253,10 @@ $$-1 = 4 + 4 \cdot 5 + 4 \cdot 5^2 + 4 \cdot 5^3 + \cdots = \ldots 44444_5.$$
 Does this check out? Add 1 to it. The digit $a_0 = 4$ plus 1 gives 5, which is
 $0$ with a carry of 1. The next digit: $4 + 1 = 5$, again $0$ with a carry. This
 propagates forever, leaving all zeros. So
-$\ldots 44444_5 + 1 = \ldots 00000_5 = 0$. Exactly right.
+$\ldots 44444_5 + 1 = \ldots 00000_5 = 0$. Exactly right. Step through it
+yourself:
+
+<CarryAnimation />
 
 If this reminds you of two's complement, it should. In a 32-bit unsigned
 integer, $-1$ is represented as `0xFFFFFFFF`, all bits set. The $p$-adic

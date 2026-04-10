@@ -1,0 +1,265 @@
+---
+// Interactive carry animation: shows -1 = ...44444 in Z_5
+// by adding 1 and watching carries propagate forever.
+---
+
+<div class="carry-anim">
+  <svg id="carry-svg" viewBox="0 0 520 120" preserveAspectRatio="xMidYMid meet">
+  </svg>
+  <div class="carry-controls">
+    <button id="carry-step" type="button">Step</button>
+    <button id="carry-auto" type="button">Auto-play</button>
+    <button id="carry-reset" type="button">Reset</button>
+  </div>
+  <p class="carry-status" id="carry-status">
+    Click <strong>Step</strong> to add 1, or <strong>Auto-play</strong> to watch the
+    carry propagate.
+  </p>
+</div>
+
+<script>
+  const NUM_DIGITS = 8;
+  const CELL_W = 48;
+  const CELL_H = 48;
+  const GAP = 8;
+  const CARRY_Y = 10;
+  const DIGIT_Y = 50;
+  const TOTAL_W = (CELL_W + GAP) * NUM_DIGITS + 40;
+
+  let digits: number[] = [];
+  let carries: (number | null)[] = [];
+  let cursor = 0;
+  let carry = 1;
+  let done = false;
+  let autoInterval: ReturnType<typeof setInterval> | null = null;
+
+  function getColor(name: string): string {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+  }
+
+  function reset() {
+    digits = Array(NUM_DIGITS).fill(4);
+    carries = Array(NUM_DIGITS).fill(null);
+    cursor = NUM_DIGITS - 1;
+    carry = 1;
+    done = false;
+    if (autoInterval) {
+      clearInterval(autoInterval);
+      autoInterval = null;
+    }
+    const btn = document.getElementById("carry-auto");
+    if (btn) btn.textContent = "Auto-play";
+    const status = document.getElementById("carry-status");
+    if (status)
+      status.innerHTML =
+        "Click <strong>Step</strong> to add 1, or " +
+        "<strong>Auto-play</strong> to watch the carry propagate.";
+    render();
+  }
+
+  function step() {
+    if (done) return;
+
+    const sum = digits[cursor] + carry;
+    digits[cursor] = sum % 5;
+    carry = Math.floor(sum / 5);
+    carries[cursor] = carry;
+
+    cursor--;
+
+    if (cursor < 0) {
+      done = true;
+      if (autoInterval) {
+        clearInterval(autoInterval);
+        autoInterval = null;
+        const btn = document.getElementById("carry-auto");
+        if (btn) btn.textContent = "Auto-play";
+      }
+      const status = document.getElementById("carry-status");
+      if (status)
+        status.innerHTML =
+          "Every digit becomes 0. The carry propagates forever: " +
+          "<strong>...44444 + 1 = ...00000 = 0</strong>.";
+    }
+
+    render();
+  }
+
+  function toggleAuto() {
+    if (autoInterval) {
+      clearInterval(autoInterval);
+      autoInterval = null;
+      const btn = document.getElementById("carry-auto");
+      if (btn) btn.textContent = "Auto-play";
+    } else {
+      if (done) reset();
+      autoInterval = setInterval(step, 700);
+      const btn = document.getElementById("carry-auto");
+      if (btn) btn.textContent = "Pause";
+    }
+  }
+
+  function render() {
+    const svg = document.getElementById("carry-svg");
+    if (!svg) return;
+
+    const bg = getColor("--color-bg-secondary");
+    const border = getColor("--color-border");
+    const accent = getColor("--color-accent");
+    const accentSec = getColor("--color-accent-secondary");
+    const text = getColor("--color-text");
+    const muted = getColor("--color-text-muted");
+
+    let html = "";
+
+    // Ellipsis on the left
+    html +=
+      '<text x="10" y="' +
+      (DIGIT_Y + CELL_H / 2 + 6) +
+      '" fill="' +
+      muted +
+      '" font-size="20" font-family="var(--font-mono)">...</text>';
+
+    for (let i = 0; i < NUM_DIGITS; i++) {
+      const x = 40 + i * (CELL_W + GAP);
+
+      // Carry indicator above
+      if (carries[i] !== null) {
+        html +=
+          '<text x="' +
+          (x + CELL_W / 2) +
+          '" y="' +
+          (CARRY_Y + 16) +
+          '" text-anchor="middle" fill="' +
+          accentSec +
+          '" font-size="14" font-family="var(--font-mono)">+' +
+          carries[i] +
+          "</text>";
+      }
+
+      // Active cell highlight
+      const isActive = i === cursor + 1 && !done && cursor >= -1;
+      const isProcessed = i > cursor;
+      const strokeColor = isActive ? accent : border;
+      const strokeWidth = isActive ? 2.5 : 1;
+
+      html +=
+        '<rect x="' +
+        x +
+        '" y="' +
+        DIGIT_Y +
+        '" width="' +
+        CELL_W +
+        '" height="' +
+        CELL_H +
+        '" fill="' +
+        bg +
+        '" stroke="' +
+        strokeColor +
+        '" stroke-width="' +
+        strokeWidth +
+        '" />';
+
+      // Digit
+      const digitColor = isProcessed ? accent : text;
+      html +=
+        '<text x="' +
+        (x + CELL_W / 2) +
+        '" y="' +
+        (DIGIT_Y + CELL_H / 2 + 7) +
+        '" text-anchor="middle" fill="' +
+        digitColor +
+        '" font-size="22" font-weight="600" font-family="var(--font-mono)">' +
+        digits[i] +
+        "</text>";
+    }
+
+    // Show the "+1" label on the right
+    const lastX = 40 + (NUM_DIGITS - 1) * (CELL_W + GAP) + CELL_W + 8;
+    if (!done) {
+      html +=
+        '<text x="' +
+        lastX +
+        '" y="' +
+        (DIGIT_Y + CELL_H / 2 + 7) +
+        '" fill="' +
+        accentSec +
+        '" font-size="18" font-weight="600" font-family="var(--font-mono)">+ 1</text>';
+    } else {
+      html +=
+        '<text x="' +
+        lastX +
+        '" y="' +
+        (DIGIT_Y + CELL_H / 2 + 7) +
+        '" fill="' +
+        accent +
+        '" font-size="18" font-weight="600" font-family="var(--font-mono)">= 0</text>';
+    }
+
+    svg.innerHTML = html;
+  }
+
+  // Wire up buttons
+  document.getElementById("carry-step")?.addEventListener("click", step);
+  document.getElementById("carry-auto")?.addEventListener("click", toggleAuto);
+  document.getElementById("carry-reset")?.addEventListener("click", reset);
+
+  // Theme change observer
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  reset();
+</script>
+
+<style is:global>
+  .carry-anim {
+    margin: 2rem 0;
+  }
+
+  .carry-anim svg {
+    width: 100%;
+    max-width: 560px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .carry-controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+
+  .carry-controls button {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .carry-controls button:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .carry-status {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .carry-status strong {
+    color: var(--color-accent);
+  }
+</style>
