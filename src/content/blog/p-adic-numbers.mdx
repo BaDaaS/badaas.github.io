@@ -613,6 +613,36 @@ future post.
 - J. Silverman, _The Arithmetic of Elliptic Curves_, 2nd ed., Springer GTM
   106, 2009. (Chapter IV covers formal groups and the p-adic logarithm.)
 
+### Smart's attack: further reading
+
+- N. Smart, "The Discrete Logarithm Problem on Elliptic Curves of Trace One",
+  original HP Labs technical report, 1997.
+  ([PDF](https://www.hpl.hp.com/techreports/97/HPL-97-128.pdf))
+- T. Bradley, "A Cryptographic Attack: Finding the Discrete Logarithm on
+  Elliptic Curves of Trace One", Scripps Senior Thesis, 2015. An accessible
+  undergraduate thesis that walks through the full theory and implementation.
+  ([PDF](https://scholarship.claremont.edu/cgi/viewcontent.cgi?article=1633&context=scripps_theses))
+- J. Monnerat, "Generating Anomalous Elliptic Curves", EPFL, 2002. Explains how
+  to construct anomalous curves and implements the attack.
+  ([PDF](http://www.monnerat.info/publications/anomalous.pdf))
+- P. Novotney, "Weak Curves in Elliptic Curve Cryptography", 2010. A survey of
+  ECC attacks including Smart's, with Sage code.
+  ([PDF](https://wstein.org/edu/2010/414/projects/novotney.pdf))
+- J. Silverman, _The Arithmetic of Elliptic Curves_, Chapter IV (formal groups)
+  and Chapter VII (elliptic curves over local fields). These two chapters
+  contain the mathematical foundations for the formal group logarithm.
+  ([Springer](https://link.springer.com/book/10.1007/978-0-387-09494-6))
+- I. Blake, G. Seroussi, N. Smart, _Elliptic Curves in Cryptography_, London
+  Mathematical Society Lecture Note Series 265, Cambridge University
+  Press, 1999. Chapter 5 covers anomalous curves and the attack by one of its
+  inventors.
+- jvdsn/crypto-attacks, a Python/Sage repository with a clean implementation of
+  Smart's attack alongside many other ECC attacks.
+  ([GitHub](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py))
+- "Smart Attack on Elliptic Curves for Programmers", LeetArxiv, 2024. A
+  programmer-oriented walkthrough with code.
+  ([Substack](https://leetarxiv.substack.com/p/smart-attack-on-elliptic-curves-for))
+
 ---
 
 _This article was generated using Claude Opus 4.6, with the author reviewing and
