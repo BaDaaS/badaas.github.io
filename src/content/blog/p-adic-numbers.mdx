@@ -397,10 +397,45 @@ concrete algorithms and concrete attacks.
 
 ### Hensel lifting
 
-The most direct application is Hensel's lemma itself. If you can find a root of
-a polynomial modulo $p$, and the derivative does not vanish there, you can lift
-the root to a solution modulo $p^2$, then $p^3$, and so on. Each step is a
-single Newton iteration in the $p$-adic metric.
+[Hensel's lemma](https://en.wikipedia.org/wiki/Hensel%27s_lemma) is the $p$-adic
+analogue of Newton's method. In real analysis, Newton's method refines an
+approximate root of $f(x) = 0$: given $x_n$ with $f(x_n) \approx 0$, compute
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+doubling the precision each step. Hensel's lemma does the same thing modulo
+powers of $p$. Suppose $f(x)$ is a polynomial with integer coefficients, and you
+find $a_0$ such that $f(a_0) \equiv 0 \pmod{p}$ with
+$f'(a_0) \not\equiv 0 \pmod{p}$ (the derivative does not vanish, just as
+Newton's method requires a nonzero derivative). Then you can lift this root:
+
+1. Start with $a_0$ satisfying $f(a_0) \equiv 0 \pmod{p}$.
+2. Compute $a_1 = a_0 - f(a_0) \cdot f'(a_0)^{-1} \pmod{p^2}$, so that
+   $f(a_1) \equiv 0 \pmod{p^2}$.
+3. Repeat, doubling the precision each step: mod $p^4$, mod $p^8$, and so on.
+
+The sequence $(a_n)$ converges in $\mathbb{Z}_p$ to an exact root of $f$.
+
+A concrete example makes this vivid. Let us find $\sqrt{2}$ in $\mathbb{Z}_7$,
+i.e. solve $f(x) = x^2 - 2 = 0$.
+
+Mod 7: $3^2 = 9 \equiv 2$, so $a_0 = 3$. The derivative $f'(3) = 6$, which is
+nonzero mod 7, so Hensel applies.
+
+Lift to mod 49:
+
+$$a_1 = 3 - \frac{3^2 - 2}{2 \cdot 3} = 3 - \frac{7}{6}.$$
+
+We need $6^{-1} \pmod{49}$. Since $6 \cdot 8 = 48 \equiv -1$ and
+$6 \cdot 41 = 246 = 5 \cdot 49 + 1$, we get $6^{-1} \equiv 41 \pmod{49}$. So
+$a_1 = 3 - 7 \cdot 41 = 3 - 287 \equiv 10 \pmod{49}$.
+
+Check: $10^2 = 100 = 2 \cdot 49 + 2$, so $10^2 \equiv 2 \pmod{49}$. The root has
+been lifted from one digit of precision to two.
+
+Continue this process and you get an element of $\mathbb{Z}_7$ whose square is
+exactly 2. Not approximately 2, exactly. The square root of 2 is irrational in
+$\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Q}_7$.
 
 This is not abstract. Every time you solve a system of polynomial equations over
 $\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
