@@ -1,0 +1,349 @@
+---
+// p-adic number line: nested discs showing Z_5 as a fractal.
+// Top level: 5 discs (residues mod 5). Click to zoom in,
+// revealing 5 sub-discs (residues mod 25), and so on.
+---
+
+<div class="padic-discs">
+  <canvas id="padic-canvas" width="600" height="600"></canvas>
+  <div class="padic-controls">
+    <button id="padic-back" type="button" disabled>Back</button>
+    <span class="padic-breadcrumb" id="padic-breadcrumb">
+      Z<sub>5</sub>
+    </span>
+  </div>
+  <p class="padic-info" id="padic-info">
+    Click a disc to zoom in. Each disc contains 5 sub-discs, one level deeper in
+    the p-adic expansion.
+  </p>
+</div>
+
+<script>
+  const P = 5;
+  const MAX_DEPTH = 6;
+
+  type Disc = {
+    residue: number;
+    modulus: number;
+    depth: number;
+    label: string;
+    cx: number;
+    cy: number;
+    r: number;
+    children?: Disc[];
+  };
+
+  let history: Disc[] = [];
+  let currentRoot: Disc | null = null;
+
+  function getColor(name: string): string {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+  }
+
+  function buildDisc(
+    residue: number,
+    modulus: number,
+    depth: number,
+    cx: number,
+    cy: number,
+    r: number,
+  ): Disc {
+    const label = depth === 0 ? "Z_5" : residue + " mod " + modulus;
+    const disc: Disc = { residue, modulus, depth, label, cx, cy, r };
+
+    if (depth < MAX_DEPTH) {
+      disc.children = [];
+      // Arrange P child discs in a circle inside this disc
+      const childR = (r / (1 + 1 / Math.sin(Math.PI / P))) * 0.95;
+      const ringR = r - childR - 2;
+      for (let i = 0; i < P; i++) {
+        const angle = (i / P) * 2 * Math.PI - Math.PI / 2;
+        const childCx = cx + Math.cos(angle) * ringR;
+        const childCy = cy + Math.sin(angle) * ringR;
+        const childResidue = residue + i * modulus;
+        const childModulus = modulus * P;
+        disc.children.push(
+          buildDisc(
+            childResidue,
+            childModulus,
+            depth + 1,
+            childCx,
+            childCy,
+            childR,
+          ),
+        );
+      }
+    }
+
+    return disc;
+  }
+
+  function buildRoot(canvasW: number, canvasH: number): Disc {
+    const r = Math.min(canvasW, canvasH) / 2 - 10;
+    return buildDisc(0, 1, 0, canvasW / 2, canvasH / 2, r);
+  }
+
+  // Color palette for depth levels
+  function depthColor(depth: number, alpha: number): string {
+    const accent = getColor("--color-accent");
+    const accentSec = getColor("--color-accent-secondary");
+    const bg = getColor("--color-bg-secondary");
+    const border = getColor("--color-border");
+
+    // Parse hex to rgb
+    function hexToRgb(hex: string): [number, number, number] {
+      hex = hex.replace("#", "");
+      return [
+        parseInt(hex.substring(0, 2), 16),
+        parseInt(hex.substring(2, 4), 16),
+        parseInt(hex.substring(4, 6), 16),
+      ];
+    }
+
+    const colors = [
+      hexToRgb(accent),
+      hexToRgb(accentSec),
+      hexToRgb(border),
+      hexToRgb(accent),
+      hexToRgb(accentSec),
+    ];
+    const [r, g, b] = colors[depth % colors.length];
+    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+  }
+
+  function render() {
+    const canvas = document.getElementById("padic-canvas") as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Handle high-DPI
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    const w = rect.width;
+    const h = rect.height;
+
+    const bg = getColor("--color-bg");
+    const text = getColor("--color-text");
+    const muted = getColor("--color-text-muted");
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    if (!currentRoot) {
+      currentRoot = buildRoot(w, h);
+    }
+
+    function drawDisc(disc: Disc) {
+      // Draw this disc
+      ctx!.beginPath();
+      ctx!.arc(disc.cx, disc.cy, disc.r, 0, Math.PI * 2);
+      ctx!.fillStyle = depthColor(disc.depth, 0.15);
+      ctx!.fill();
+      ctx!.strokeStyle = depthColor(disc.depth, 0.6);
+      ctx!.lineWidth = 1.5;
+      ctx!.stroke();
+
+      if (disc.children) {
+        disc.children.forEach(drawDisc);
+      }
+
+      // Label for leaf-level discs or if no children
+      if (!disc.children || disc.depth >= MAX_DEPTH - 1) {
+        const fontSize = Math.max(9, disc.r / 3);
+        ctx!.font = "600 " + fontSize + "px SourceCodePro, monospace";
+        ctx!.fillStyle = text;
+        ctx!.textAlign = "center";
+        ctx!.textBaseline = "middle";
+
+        if (disc.depth === 0) {
+          ctx!.font = "700 " + fontSize * 1.5 + "px SourceCodePro, monospace";
+          ctx!.fillText("Z_5", disc.cx, disc.cy);
+        } else {
+          const mod = disc.modulus;
+          const res = disc.residue % mod;
+          // Only label deepest visible level
+          if (!disc.children) {
+            ctx!.fillStyle = muted;
+            ctx!.fillText(String(res), disc.cx, disc.cy);
+          }
+        }
+      }
+    }
+
+    drawDisc(currentRoot);
+  }
+
+  function handleCanvasClick(e: MouseEvent) {
+    const canvas = document.getElementById("padic-canvas") as HTMLCanvasElement;
+    if (!canvas || !currentRoot) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Find the deepest disc containing the click
+    function findClickedDisc(disc: Disc): Disc | null {
+      if (disc.children) {
+        for (const child of disc.children) {
+          const dx = x - child.cx;
+          const dy = y - child.cy;
+          if (dx * dx + dy * dy <= child.r * child.r) {
+            const deeper = findClickedDisc(child);
+            return deeper || child;
+          }
+        }
+      }
+      return null;
+    }
+
+    const clicked = findClickedDisc(currentRoot);
+    if (clicked && clicked.depth < MAX_DEPTH) {
+      // Zoom into this disc
+      history.push(currentRoot);
+      // Rebuild the tree centered on the clicked disc
+      const canvas2 = document.getElementById(
+        "padic-canvas",
+      ) as HTMLCanvasElement;
+      const rect2 = canvas2.getBoundingClientRect();
+      const w = rect2.width;
+      const h = rect2.height;
+      const r = Math.min(w, h) / 2 - 10;
+      currentRoot = buildDisc(
+        clicked.residue,
+        clicked.modulus,
+        clicked.depth,
+        w / 2,
+        h / 2,
+        r,
+      );
+      updateBreadcrumb();
+      render();
+    }
+  }
+
+  function goBack() {
+    if (history.length > 0) {
+      const prev = history.pop()!;
+      const canvas = document.getElementById(
+        "padic-canvas",
+      ) as HTMLCanvasElement;
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      const r = Math.min(w, h) / 2 - 10;
+      currentRoot = buildDisc(
+        prev.residue,
+        prev.modulus,
+        prev.depth,
+        w / 2,
+        h / 2,
+        r,
+      );
+      updateBreadcrumb();
+      render();
+    }
+  }
+
+  function updateBreadcrumb() {
+    const el = document.getElementById("padic-breadcrumb");
+    const btn = document.getElementById("padic-back") as HTMLButtonElement;
+    if (!el || !btn || !currentRoot) return;
+
+    btn.disabled = history.length === 0;
+
+    if (currentRoot.depth === 0) {
+      el.innerHTML = "Z<sub>5</sub>";
+    } else {
+      const res = currentRoot.residue % currentRoot.modulus;
+      el.innerHTML = "Z<sub>5</sub> > " + res + " mod " + currentRoot.modulus;
+    }
+  }
+
+  // Wire up
+  document
+    .getElementById("padic-canvas")
+    ?.addEventListener("click", handleCanvasClick);
+  document.getElementById("padic-back")?.addEventListener("click", goBack);
+
+  // Theme observer
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  // Resize handler
+  window.addEventListener("resize", () => {
+    currentRoot = null;
+    history = [];
+    updateBreadcrumb();
+    render();
+  });
+
+  render();
+</script>
+
+<style is:global>
+  .padic-discs {
+    margin: 2rem 0;
+  }
+
+  .padic-discs canvas {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 1;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+  .padic-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+
+  .padic-controls button {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .padic-controls button:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .padic-controls button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .padic-breadcrumb {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .padic-info {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+</style>
