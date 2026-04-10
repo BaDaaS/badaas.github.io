@@ -1,7 +1,6 @@
 ---
 // p-adic number line: nested discs showing Z_5 as a fractal.
-// Top level: 5 discs (residues mod 5). Click to zoom in,
-// revealing 5 sub-discs (residues mod 25), and so on.
+// Click to zoom in, revealing deeper levels of the expansion.
 ---
 
 <div class="padic-discs">
@@ -20,21 +19,25 @@
 
 <script>
   const P = 5;
-  const MAX_DEPTH = 6;
+  // Only build/render 3 levels from current view; zoom reveals more
+  const VISIBLE_DEPTH = 3;
 
   type Disc = {
     residue: number;
     modulus: number;
     depth: number;
-    label: string;
+    localDepth: number;
     cx: number;
     cy: number;
     r: number;
     children?: Disc[];
   };
 
-  let history: Disc[] = [];
+  let history: { residue: number; modulus: number; depth: number }[] = [];
   let currentRoot: Disc | null = null;
+  let rootResidue = 0;
+  let rootModulus = 1;
+  let rootDepth = 0;
 
   function getColor(name: string): string {
     return getComputedStyle(document.documentElement)
@@ -42,36 +45,68 @@
       .trim();
   }
 
+  // Layout: 1 disc in center, 4 around it in a ring.
+  // This gives much larger children than packing 5 in a ring.
+  function layoutChildren(
+    cx: number,
+    cy: number,
+    parentR: number,
+  ): { cx: number; cy: number; r: number }[] {
+    // Center child gets ~38% of parent radius
+    // Ring children get ~38% too, placed at ~58% of parent radius
+    const childR = parentR * 0.38;
+    const ringR = parentR * 0.58;
+    const result: { cx: number; cy: number; r: number }[] = [];
+
+    // Center child
+    result.push({ cx, cy, r: childR });
+
+    // 4 children in a ring
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * 2 * Math.PI - Math.PI / 4;
+      result.push({
+        cx: cx + Math.cos(angle) * ringR,
+        cy: cy + Math.sin(angle) * ringR,
+        r: childR,
+      });
+    }
+
+    return result;
+  }
+
   function buildDisc(
     residue: number,
     modulus: number,
     depth: number,
+    localDepth: number,
     cx: number,
     cy: number,
     r: number,
   ): Disc {
-    const label = depth === 0 ? "Z_5" : residue + " mod " + modulus;
-    const disc: Disc = { residue, modulus, depth, label, cx, cy, r };
+    const disc: Disc = {
+      residue,
+      modulus,
+      depth,
+      localDepth,
+      cx,
+      cy,
+      r,
+    };
 
-    if (depth < MAX_DEPTH) {
+    if (localDepth < VISIBLE_DEPTH && r > 3) {
       disc.children = [];
-      // Arrange P child discs in a circle inside this disc
-      const childR = (r / (1 + 1 / Math.sin(Math.PI / P))) * 0.95;
-      const ringR = r - childR - 2;
+      const positions = layoutChildren(cx, cy, r);
       for (let i = 0; i < P; i++) {
-        const angle = (i / P) * 2 * Math.PI - Math.PI / 2;
-        const childCx = cx + Math.cos(angle) * ringR;
-        const childCy = cy + Math.sin(angle) * ringR;
-        const childResidue = residue + i * modulus;
-        const childModulus = modulus * P;
+        const pos = positions[i];
         disc.children.push(
           buildDisc(
-            childResidue,
-            childModulus,
+            residue + i * modulus,
+            modulus * P,
             depth + 1,
-            childCx,
-            childCy,
-            childR,
+            localDepth + 1,
+            pos.cx,
+            pos.cy,
+            pos.r,
           ),
         );
       }
@@ -80,37 +115,16 @@
     return disc;
   }
 
-  function buildRoot(canvasW: number, canvasH: number): Disc {
-    const r = Math.min(canvasW, canvasH) / 2 - 10;
-    return buildDisc(0, 1, 0, canvasW / 2, canvasH / 2, r);
-  }
-
-  // Color palette for depth levels
-  function depthColor(depth: number, alpha: number): string {
-    const accent = getColor("--color-accent");
-    const accentSec = getColor("--color-accent-secondary");
-    const bg = getColor("--color-bg-secondary");
-    const border = getColor("--color-border");
-
-    // Parse hex to rgb
-    function hexToRgb(hex: string): [number, number, number] {
-      hex = hex.replace("#", "");
-      return [
-        parseInt(hex.substring(0, 2), 16),
-        parseInt(hex.substring(2, 4), 16),
-        parseInt(hex.substring(4, 6), 16),
-      ];
+  function hexToRgb(hex: string): [number, number, number] {
+    hex = hex.replace("#", "");
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     }
-
-    const colors = [
-      hexToRgb(accent),
-      hexToRgb(accentSec),
-      hexToRgb(border),
-      hexToRgb(accent),
-      hexToRgb(accentSec),
+    return [
+      parseInt(hex.substring(0, 2), 16),
+      parseInt(hex.substring(2, 4), 16),
+      parseInt(hex.substring(4, 6), 16),
     ];
-    const [r, g, b] = colors[depth % colors.length];
-    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
   }
 
   function render() {
@@ -119,7 +133,6 @@
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Handle high-DPI
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * dpr;
@@ -131,52 +144,74 @@
     const bg = getColor("--color-bg");
     const text = getColor("--color-text");
     const muted = getColor("--color-text-muted");
+    const accent = getColor("--color-accent");
+    const accentSec = getColor("--color-accent-secondary");
+    const border = getColor("--color-border");
+
+    const accentRgb = hexToRgb(accent);
+    const accentSecRgb = hexToRgb(accentSec);
+    const borderRgb = hexToRgb(border);
 
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
-    if (!currentRoot) {
-      currentRoot = buildRoot(w, h);
-    }
+    const r = Math.min(w, h) / 2 - 10;
+    currentRoot = buildDisc(
+      rootResidue,
+      rootModulus,
+      rootDepth,
+      0,
+      w / 2,
+      h / 2,
+      r,
+    );
+
+    // Color by local depth: deeper = more distinct
+    const fillColors = [
+      "rgba(" + accentRgb.join(",") + ",0.12)",
+      "rgba(" + accentSecRgb.join(",") + ",0.2)",
+      "rgba(" + borderRgb.join(",") + ",0.25)",
+      "rgba(" + accentRgb.join(",") + ",0.3)",
+    ];
+    const strokeColors = [
+      "rgba(" + accentRgb.join(",") + ",0.5)",
+      "rgba(" + accentSecRgb.join(",") + ",0.7)",
+      "rgba(" + borderRgb.join(",") + ",0.8)",
+      "rgba(" + accentRgb.join(",") + ",0.9)",
+    ];
 
     function drawDisc(disc: Disc) {
-      // Draw this disc
       ctx!.beginPath();
       ctx!.arc(disc.cx, disc.cy, disc.r, 0, Math.PI * 2);
-      ctx!.fillStyle = depthColor(disc.depth, 0.15);
+      ctx!.fillStyle = fillColors[disc.localDepth % fillColors.length];
       ctx!.fill();
-      ctx!.strokeStyle = depthColor(disc.depth, 0.6);
-      ctx!.lineWidth = 1.5;
+      ctx!.strokeStyle = strokeColors[disc.localDepth % strokeColors.length];
+      ctx!.lineWidth = disc.localDepth === 0 ? 2 : 1;
       ctx!.stroke();
 
       if (disc.children) {
         disc.children.forEach(drawDisc);
-      }
-
-      // Label for leaf-level discs or if no children
-      if (!disc.children || disc.depth >= MAX_DEPTH - 1) {
-        const fontSize = Math.max(9, disc.r / 3);
+      } else if (disc.r > 8) {
+        // Label leaf discs
+        const res = disc.residue % disc.modulus;
+        const fontSize = Math.max(7, Math.min(14, disc.r / 2.5));
         ctx!.font = "600 " + fontSize + "px SourceCodePro, monospace";
-        ctx!.fillStyle = text;
+        ctx!.fillStyle = muted;
         ctx!.textAlign = "center";
         ctx!.textBaseline = "middle";
-
-        if (disc.depth === 0) {
-          ctx!.font = "700 " + fontSize * 1.5 + "px SourceCodePro, monospace";
-          ctx!.fillText("Z_5", disc.cx, disc.cy);
-        } else {
-          const mod = disc.modulus;
-          const res = disc.residue % mod;
-          // Only label deepest visible level
-          if (!disc.children) {
-            ctx!.fillStyle = muted;
-            ctx!.fillText(String(res), disc.cx, disc.cy);
-          }
-        }
+        ctx!.fillText(String(res), disc.cx, disc.cy);
       }
     }
 
     drawDisc(currentRoot);
+
+    // Label the root
+    if (rootDepth === 0) {
+      ctx.font = "700 18px SourceCodePro, monospace";
+      ctx.fillStyle = accent;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+    }
   }
 
   function handleCanvasClick(e: MouseEvent) {
@@ -187,14 +222,14 @@
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Find the deepest disc containing the click
-    function findClickedDisc(disc: Disc): Disc | null {
+    function findClickedChild(disc: Disc): Disc | null {
       if (disc.children) {
         for (const child of disc.children) {
           const dx = x - child.cx;
           const dy = y - child.cy;
           if (dx * dx + dy * dy <= child.r * child.r) {
-            const deeper = findClickedDisc(child);
+            // Prefer deeper match
+            const deeper = findClickedChild(child);
             return deeper || child;
           }
         }
@@ -202,27 +237,17 @@
       return null;
     }
 
-    const clicked = findClickedDisc(currentRoot);
-    if (clicked && clicked.depth < MAX_DEPTH) {
-      // Zoom into this disc
-      history.push(currentRoot);
-      // Rebuild the tree centered on the clicked disc
-      const canvas2 = document.getElementById(
-        "padic-canvas",
-      ) as HTMLCanvasElement;
-      const rect2 = canvas2.getBoundingClientRect();
-      const w = rect2.width;
-      const h = rect2.height;
-      const r = Math.min(w, h) / 2 - 10;
-      currentRoot = buildDisc(
-        clicked.residue,
-        clicked.modulus,
-        clicked.depth,
-        w / 2,
-        h / 2,
-        r,
-      );
-      updateBreadcrumb();
+    const clicked = findClickedChild(currentRoot);
+    if (clicked && clicked.localDepth > 0) {
+      history.push({
+        residue: rootResidue,
+        modulus: rootModulus,
+        depth: rootDepth,
+      });
+      rootResidue = clicked.residue;
+      rootModulus = clicked.modulus;
+      rootDepth = clicked.depth;
+      updateUI();
       render();
     }
   }
@@ -230,60 +255,43 @@
   function goBack() {
     if (history.length > 0) {
       const prev = history.pop()!;
-      const canvas = document.getElementById(
-        "padic-canvas",
-      ) as HTMLCanvasElement;
-      const rect = canvas.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
-      const r = Math.min(w, h) / 2 - 10;
-      currentRoot = buildDisc(
-        prev.residue,
-        prev.modulus,
-        prev.depth,
-        w / 2,
-        h / 2,
-        r,
-      );
-      updateBreadcrumb();
+      rootResidue = prev.residue;
+      rootModulus = prev.modulus;
+      rootDepth = prev.depth;
+      updateUI();
       render();
     }
   }
 
-  function updateBreadcrumb() {
+  function updateUI() {
     const el = document.getElementById("padic-breadcrumb");
     const btn = document.getElementById("padic-back") as HTMLButtonElement;
-    if (!el || !btn || !currentRoot) return;
+    if (!el || !btn) return;
 
     btn.disabled = history.length === 0;
 
-    if (currentRoot.depth === 0) {
+    if (rootDepth === 0) {
       el.innerHTML = "Z<sub>5</sub>";
     } else {
-      const res = currentRoot.residue % currentRoot.modulus;
-      el.innerHTML = "Z<sub>5</sub> > " + res + " mod " + currentRoot.modulus;
+      el.innerHTML =
+        "Z<sub>5</sub> > <strong>" +
+        rootResidue +
+        "</strong> mod " +
+        rootModulus;
     }
   }
 
-  // Wire up
   document
     .getElementById("padic-canvas")
     ?.addEventListener("click", handleCanvasClick);
   document.getElementById("padic-back")?.addEventListener("click", goBack);
 
-  // Theme observer
   new MutationObserver(render).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
 
-  // Resize handler
-  window.addEventListener("resize", () => {
-    currentRoot = null;
-    history = [];
-    updateBreadcrumb();
-    render();
-  });
+  window.addEventListener("resize", render);
 
   render();
 </script>
@@ -295,7 +303,7 @@
 
   .padic-discs canvas {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
     height: auto;
     aspect-ratio: 1;
     display: block;
@@ -338,6 +346,10 @@
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     font-size: 0.85rem;
+  }
+
+  .padic-breadcrumb strong {
+    color: var(--color-accent);
   }
 
   .padic-info {
