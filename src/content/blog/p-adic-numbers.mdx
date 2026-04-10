@@ -442,9 +442,14 @@ $\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
 doing $p$-adic computation. Hensel lifting appears in modular algorithms for
 computing [Groebner bases](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis)
 over $\mathbb{Q}$ (compute mod $p$ first, then lift to avoid coefficient
-explosion), in factoring polynomials over local rings, and in
-[CRT-based reconstructions](https://en.wikipedia.org/wiki/Chinese_remainder_theorem)
-that combine solutions modulo different primes.
+explosion) and in factoring polynomials over local rings. When solving equations
+modulo a composite $N = p_1^{e_1} \cdots p_k^{e_k}$, the standard approach uses
+Hensel lifting at each prime (lifting a root mod $p_i$ to mod $p_i^{e_i}$), then
+the
+[Chinese remainder theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem)
+to glue the local solutions into a global one. Hensel handles the vertical
+direction (one prime, increasing powers), CRT handles the horizontal (different
+primes, combined).
 
 ### Smart's attack on anomalous elliptic curves
 
