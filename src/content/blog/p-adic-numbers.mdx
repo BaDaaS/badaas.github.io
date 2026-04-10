@@ -21,7 +21,6 @@ tags:
 import { Code } from "astro:components";
 import SageCell from "../../components/SageCell.astro";
 import UltrametricTree from "../../components/UltrametricTree.astro";
-import PadicDiscs from "../../components/PadicDiscs.astro";
 import smartAttackCode from "../../../scripts/smart_attack.sage?raw";
 
 ## What does "close" mean?
@@ -244,16 +243,6 @@ $p^n$) form a projective system. The $p$-adic integers are its inverse limit:
 $\mathbb{Z}_p = \varprojlim \mathbb{Z}/p^n\mathbb{Z}$. An element is a
 compatible sequence of residues, one for each level, which is exactly the digit
 expansion above packaged differently.
-
-The fractal below makes this inverse limit visible. The large disc represents
-$\mathbb{Z}_5$. Inside it sit 5 sub-discs, one for each residue class mod 5.
-Each of those contains 5 sub-discs for residues mod 25, and so on. Click a disc
-to zoom in; each level reveals the next layer of the expansion. This is
-$\mathbb{Z}_5$ as a topological space: self-similar at every scale, with the
-nested structure encoding exactly the compatible sequence of residues that
-defines a $p$-adic integer.
-
-<PadicDiscs />
 
 ## Worked examples
 
