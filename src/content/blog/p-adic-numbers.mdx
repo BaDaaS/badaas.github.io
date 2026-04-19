@@ -465,34 +465,44 @@ integrals, and power series are defined the same way as over $\mathbb{R}$
 (limits of difference quotients, Riemann sums, infinite sums), but the
 ultrametric changes what converges and how functions behave.
 
-**Power series.** A series $\sum a_n x^n$ converges in $\mathbb{Q}_p$ if and
-only if $|a_n x^n|_p \to 0$. No root test or ratio test needed. The radius of
+**[Power series](https://en.wikipedia.org/wiki/P-adic_analysis#Operations_on_p-adic_numbers).**
+A series $\sum a_n x^n$ converges in $\mathbb{Q}_p$ if and only if
+$|a_n x^n|_p \to 0$. No root test or ratio test needed. The radius of
 convergence is still well-defined, but the series converges on the boundary too
-(closed disk, not open). The $p$-adic exponential $\exp(x) = \sum x^n/n!$ only
-converges for $|x|_p < p^{-1/(p-1)}$ because the factorials $n!$ have large
-$p$-adic valuations (they contain many factors of $p$). In $\mathbb{R}$, $\exp$
-converges everywhere.
+(closed disk, not open). The
+[$p$-adic exponential](https://en.wikipedia.org/wiki/P-adic_exponential_function)
+$\exp(x) = \sum x^n/n!$ only converges for $|x|_p < p^{-1/(p-1)}$ because the
+factorials $n!$ have large $p$-adic valuations (they contain many factors of
+$p$). In $\mathbb{R}$, $\exp$ converges everywhere.
 
-**The $p$-adic logarithm.** $\log(1+x) = x - x^2/2 + x^3/3 - \cdots$ converges
-for $|x|_p < 1$, a larger domain than the exponential. So $\exp$ and $\log$ are
-not inverses on the same domain, unlike in real analysis.
+**The
+[$p$-adic logarithm](https://en.wikipedia.org/wiki/P-adic_exponential_function#p-adic_logarithm_function).**
+$\log(1+x) = x - x^2/2 + x^3/3 - \cdots$ converges for $|x|_p < 1$, a larger
+domain than the exponential. So $\exp$ and $\log$ are not inverses on the same
+domain, unlike in real analysis.
 
 **Differentiability is weaker.** A function can be differentiable everywhere on
 $\mathbb{Z}_p$ without being "nice" in the way you would expect. The notion that
-matters is **strict differentiability**: the difference quotient
-$(f(x)-f(y))/(x-y)$ must converge uniformly as $x, y \to a$ independently, not
-just as $x \to a$ with $y = a$ fixed.
+matters is
+**[strict differentiability](https://en.wikipedia.org/wiki/P-adic_analysis#P-adic_derivatives)**:
+the difference quotient $(f(x)-f(y))/(x-y)$ must converge uniformly as
+$x, y \to a$ independently, not just as $x \to a$ with $y = a$ fixed.
 
-**Integration.** There are multiple theories. The Volkenborn integral integrates
-continuous functions on $\mathbb{Z}_p$ and produces Bernoulli numbers naturally.
-There is no direct analogue of the Lebesgue measure on $\mathbb{Q}_p$ that
-behaves like the real one, but there is a Haar measure on $\mathbb{Z}_p$: the
-unique translation-invariant probability measure.
+**Integration.** There are multiple theories. The
+[Volkenborn integral](https://en.wikipedia.org/wiki/Volkenborn_integral)
+integrates continuous functions on $\mathbb{Z}_p$ and produces Bernoulli numbers
+naturally. There is no direct analogue of the Lebesgue measure on $\mathbb{Q}_p$
+that behaves like the real one, but there is a
+[Haar measure](https://en.wikipedia.org/wiki/Haar_measure) on $\mathbb{Z}_p$:
+the unique translation-invariant probability measure.
 
-**No intermediate value theorem.** $\mathbb{Q}_p$ is totally disconnected (every
-point is both open and closed). Continuous functions can jump between values
-without hitting anything in between. This kills most topological arguments from
-real analysis.
+**No
+[intermediate value theorem](https://en.wikipedia.org/wiki/Intermediate_value_theorem).**
+$\mathbb{Q}_p$ is
+[totally disconnected](https://en.wikipedia.org/wiki/Totally_disconnected_space)
+(every point is both open and closed). Continuous functions can jump between
+values without hitting anything in between. This kills most topological
+arguments from real analysis.
 
 ## References
 
