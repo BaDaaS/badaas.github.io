@@ -90,11 +90,16 @@ bound by adding $x$ to itself enough times. In a non-archimedean world, that
 fails. Repeated addition never makes things grow, because
 $|x + x|_p \leq |x|_p$, not $2|x|_p$.
 
-This ultrametric property has striking topological consequences.
+## Ultrametric geometry
 
-**Every triangle is isosceles** (meaning at least two of its three sides have
-equal length). Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$,
-$|b-c|_p$, and $|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$.
+The ultrametric inequality has consequences that break every geometric intuition
+trained on $\mathbb{R}$.
+
+### Every triangle is isosceles
+
+Every triangle is isosceles (meaning at least two of its three sides have equal
+length). Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$, $|b-c|_p$,
+and $|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$.
 
 Since $a - c = (a - b) + (b - c)$, the ultrametric inequality gives:
 
@@ -121,9 +126,10 @@ the ultrametric inequality $d(x, z) \leq \max(d(x, y), d(y, z))$ gives you "open
 balls are closed," but the isosceles and center properties need the algebraic
 structure to decompose distances into sums.
 
-**Every point inside a ball is its center.** Take the closed ball
-$B(a, r) = \{x : |x - a|_p \leq r\}$ and pick any $b \in B(a, r)$. For any
-$c \in B(a, r)$:
+### Every point inside a ball is its center
+
+Take the closed ball $B(a, r) = \{x : |x - a|_p \leq r\}$ and pick any
+$b \in B(a, r)$. For any $c \in B(a, r)$:
 
 $$|c - b|_p = |(c - a) + (a - b)|_p \leq \max(|c - a|_p,\ |a - b|_p) \leq r.$$
 
@@ -131,19 +137,23 @@ So $c \in B(b, r)$ as well, meaning $B(b, r) \subseteq B(a, r)$. The same
 argument with $a$ and $b$ swapped gives $B(a, r) \subseteq B(b, r)$. Therefore
 $B(a, r) = B(b, r)$. Every point inside the ball is equally valid as its center.
 
-**Every open ball is also closed.** In $\mathbb{R}$, moving from the center of a
-ball to a new point costs you distance, eating into your remaining "budget." In
-the $p$-adic world, the max means you never lose budget by moving within the
-ball. A limit point of an open ball $\{x : |x - a|_p < r\}$ can be approached by
-a point $c$ with $|c - a|_p < r$, and the ultrametric inequality forces the
-limit point itself to satisfy the same bound. The ball contains all its limit
-points, so it is closed. There are no boundary points in the usual sense.
+### Every open ball is also closed
 
-For convergence, this is a gift. A series $\sum a_n$ converges in the $p$-adic
-metric if and only if $|a_n|_p \to 0$. No ratio tests, no comparison tests, no
-delicate estimates. The terms just need to get $p$-adically small, and the
-ultrametric inequality handles the rest. This is why $p$-adic analysis, once you
-accept the unfamiliar geometry, is in many ways simpler than real analysis.
+In $\mathbb{R}$, moving from the center of a ball to a new point costs you
+distance, eating into your remaining "budget." In the $p$-adic world, the max
+means you never lose budget by moving within the ball. A limit point of an open
+ball $\{x : |x - a|_p < r\}$ can be approached by a point $c$ with
+$|c - a|_p < r$, and the ultrametric inequality forces the limit point itself to
+satisfy the same bound. The ball contains all its limit points, so it is closed.
+There are no boundary points in the usual sense.
+
+### Convergence is simple
+
+A series $\sum a_n$ converges in the $p$-adic metric if and only if
+$|a_n|_p \to 0$. No ratio tests, no comparison tests, no delicate estimates. The
+terms just need to get $p$-adically small, and the ultrametric inequality
+handles the rest. This is why $p$-adic analysis, once you accept the unfamiliar
+geometry, is in many ways simpler than real analysis.
 
 The tree below makes this concrete. It shows integers 0 through 24, grouped by
 residue mod 5. The tree structure _is_ the metric: the distance between two
@@ -328,7 +338,7 @@ element 5 itself is in $\mathbb{Z}_5$ (it is just the digit expansion
 $0 + 1 \cdot 5$), but it is not a unit; it is the **uniformizer**, the generator
 of the unique maximal ideal $p\mathbb{Z}_5$.
 
-## A short, honest history
+## A short history
 
 [Kurt Hensel](https://en.wikipedia.org/wiki/Kurt_Hensel) introduced the $p$-adic
 numbers in 1897, motivated by a striking analogy. Algebraic number theory
@@ -437,19 +447,19 @@ primes, combined).
 
 ## Closing
 
-Hensel started with an analogy: primes are like points on a curve, and maybe we
-should treat them that way. A century later, that analogy has become one of the
-load-bearing walls of modern mathematics. The $p$-adic numbers did not just add
-a new tool to the kit. They revealed that the rationals have a richer geometry
-than anyone had imagined, one prime at a time.
+Ostrowski's theorem says the real absolute value and the $p$-adic absolute
+values are the only games in town. If you want to understand $\mathbb{Q}$, you
+have to look at it through every one of these lenses. The real numbers give you
+one view. Each prime gives you another. None of them is redundant.
 
-This article has only scratched the surface. We have not touched $p$-adic
-analysis (integration, differentiation, $p$-adic power series) or the rich
-theory of $p$-adic differential equations. And we have not yet seen what happens
-when $p$-adic numbers meet elliptic curve cryptography. In a follow-up article,
-we will use the tools developed here to walk through Smart's attack, a $p$-adic
-algorithm that breaks the discrete logarithm problem on anomalous elliptic
-curves in linear time.
+We have covered the basics here: the $p$-adic absolute value, the ultrametric
+geometry it produces, the construction of $\mathbb{Z}_p$, and Hensel lifting.
+There is more to say. $p$-adic analysis (integration, differentiation, power
+series convergence) behaves differently from real analysis in ways that matter.
+We have also not yet seen what happens when $p$-adic numbers meet elliptic curve
+cryptography. In a follow-up article, we will use the tools developed here to
+walk through Smart's attack, a $p$-adic algorithm that solves the discrete
+logarithm problem on anomalous elliptic curves in linear time.
 
 ## References
 
