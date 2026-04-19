@@ -45,3 +45,4 @@ Thumbs.db
 
 # Sage scripts
 **/sage.py
+**/*.sage.py
