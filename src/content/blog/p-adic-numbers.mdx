@@ -453,13 +453,46 @@ have to look at it through every one of these lenses. The real numbers give you
 one view. Each prime gives you another. None of them is redundant.
 
 We have covered the basics here: the $p$-adic absolute value, the ultrametric
-geometry it produces, the construction of $\mathbb{Z}_p$, and Hensel lifting.
-There is more to say. $p$-adic analysis (integration, differentiation, power
-series convergence) behaves differently from real analysis in ways that matter.
-We have also not yet seen what happens when $p$-adic numbers meet elliptic curve
-cryptography. In a follow-up article, we will use the tools developed here to
-walk through Smart's attack, a $p$-adic algorithm that solves the discrete
-logarithm problem on anomalous elliptic curves in linear time.
+geometry it produces, the construction of $\mathbb{Z}_p$, and Hensel lifting. In
+a follow-up article, we will use the tools developed here to walk through
+Smart's attack, a $p$-adic algorithm that solves the discrete logarithm problem
+on anomalous elliptic curves in linear time.
+
+## To go deeper: $p$-adic analysis
+
+Once you have $\mathbb{Q}_p$, you can do calculus over it. Derivatives,
+integrals, and power series are defined the same way as over $\mathbb{R}$
+(limits of difference quotients, Riemann sums, infinite sums), but the
+ultrametric changes what converges and how functions behave.
+
+**Power series.** A series $\sum a_n x^n$ converges in $\mathbb{Q}_p$ if and
+only if $|a_n x^n|_p \to 0$. No root test or ratio test needed. The radius of
+convergence is still well-defined, but the series converges on the boundary too
+(closed disk, not open). The $p$-adic exponential $\exp(x) = \sum x^n/n!$ only
+converges for $|x|_p < p^{-1/(p-1)}$ because the factorials $n!$ have large
+$p$-adic valuations (they contain many factors of $p$). In $\mathbb{R}$, $\exp$
+converges everywhere.
+
+**The $p$-adic logarithm.** $\log(1+x) = x - x^2/2 + x^3/3 - \cdots$ converges
+for $|x|_p < 1$, a larger domain than the exponential. So $\exp$ and $\log$ are
+not inverses on the same domain, unlike in real analysis.
+
+**Differentiability is weaker.** A function can be differentiable everywhere on
+$\mathbb{Z}_p$ without being "nice" in the way you would expect. The notion that
+matters is **strict differentiability**: the difference quotient
+$(f(x)-f(y))/(x-y)$ must converge uniformly as $x, y \to a$ independently, not
+just as $x \to a$ with $y = a$ fixed.
+
+**Integration.** There are multiple theories. The Volkenborn integral integrates
+continuous functions on $\mathbb{Z}_p$ and produces Bernoulli numbers naturally.
+There is no direct analogue of the Lebesgue measure on $\mathbb{Q}_p$ that
+behaves like the real one, but there is a Haar measure on $\mathbb{Z}_p$: the
+unique translation-invariant probability measure.
+
+**No intermediate value theorem.** $\mathbb{Q}_p$ is totally disconnected (every
+point is both open and closed). Continuous functions can jump between values
+without hitting anything in between. This kills most topological arguments from
+real analysis.
 
 ## References
 
