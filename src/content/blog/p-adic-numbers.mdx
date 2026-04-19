@@ -150,10 +150,11 @@ There are no boundary points in the usual sense.
 ### Convergence is simple
 
 A series $\sum a_n$ converges in the $p$-adic metric if and only if
-$|a_n|_p \to 0$. No ratio tests, no comparison tests, no delicate estimates. The
-terms just need to get $p$-adically small, and the ultrametric inequality
-handles the rest. This is why $p$-adic analysis, once you accept the unfamiliar
-geometry, is in many ways simpler than real analysis.
+$|a_n|_p \to 0$. The reason: the ultrametric inequality gives
+$|s_m - s_n|_p \leq \max(|a_{n+1}|_p, \ldots, |a_m|_p)$, so partial sums are
+Cauchy whenever the terms shrink. No ratio tests, no comparison tests. This is
+why $p$-adic analysis, once you accept the unfamiliar geometry, is in many ways
+simpler than real analysis.
 
 The tree below makes this concrete. It shows integers 0 through 24, grouped by
 residue mod 5. The tree structure _is_ the metric: the distance between two
@@ -243,9 +244,10 @@ terminates (all subsequent digits are 0). For negative integers and fractions,
 it runs forever, producing the infinite expansions that make $\mathbb{Z}_p$
 genuinely larger than $\mathbb{Z}$. How much larger? An element of
 $\mathbb{Z}_p$ is a sequence of digits in $\{0, \ldots, p-1\}$, one for each
-natural number, so $|\mathbb{Z}_p| = p^{\aleph_0} = 2^{\aleph_0}$, the
-cardinality of the continuum. The $p$-adic integers are the same size as
-$\mathbb{R}$, and strictly larger than $\mathbb{Z}$ or $\mathbb{Q}$.
+natural number, so $|\mathbb{Z}_p| = 2^{\aleph_0}$, the cardinality of the
+continuum (any finite base $\geq 2$ raised to $\aleph_0$ gives the same
+cardinality). The $p$-adic integers are the same size as $\mathbb{R}$, and
+strictly larger than $\mathbb{Z}$ or $\mathbb{Q}$.
 
 A note on notation. We write $p$-adic expansions the same way we write ordinary
 base-$p$ numbers: the rightmost digit is $a_0$ (the "ones place"), and digits
@@ -345,21 +347,21 @@ numbers in 1897, motivated by a striking analogy. Algebraic number theory
 studies number fields, which resemble the function fields of algebraic curves.
 Completing a function field at a point gives a ring of formal power series.
 Hensel asked: what happens if you "complete" the rationals at a prime $p$ the
-same way? The answer was $\mathbb{Q}_p$. His instinct was brilliant, but his
-early work was marred by a
+same way? The answer was $\mathbb{Q}_p$. The idea was right, but his early work
+included a
 [famously wrong proof](https://en.wikipedia.org/wiki/P-adic_number#History) that
 $e$ is transcendental over $\mathbb{Q}_p$. The error was eventually corrected by
 others, and the underlying framework survived intact.
 
 [Alexander Ostrowski](https://en.wikipedia.org/wiki/Alexander_Ostrowski) proved
-in 1916 what might be the most clarifying result in all of number theory.
-[His theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem) states that,
-up to equivalence, the only nontrivial absolute values on $\mathbb{Q}$ are the
-usual one and the $p$-adic ones. That is it. There is no hidden fifth option.
-The real numbers and the family of $p$-adic fields, one for each prime, are the
-_complete_ list of completions of the rationals. When we study $\mathbb{Q}$
-through the lens of $\mathbb{R}$ alone, we are looking at one view in an
-infinite family.
+in 1916 a theorem that pins down exactly what absolute values exist on
+$\mathbb{Q}$. [His theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem)
+states that, up to equivalence, the only nontrivial absolute values on
+$\mathbb{Q}$ are the usual one and the $p$-adic ones. That is it. There is no
+hidden fifth option. The real numbers and the family of $p$-adic fields, one for
+each prime, are the _complete_ list of completions of the rationals. When we
+study $\mathbb{Q}$ through the lens of $\mathbb{R}$ alone, we are looking at one
+view in an infinite family.
 
 [Helmut Hasse](https://en.wikipedia.org/wiki/Helmut_Hasse), in the 1920s,
 transformed this from a structural observation into a working tool. His
@@ -368,8 +370,8 @@ transformed this from a structural observation into a working tool. His
 $\mathbb{Q}$ has a rational solution if and only if it has a solution in
 $\mathbb{R}$ and in every $\mathbb{Q}_p$. You break a hard global question into
 infinitely many local ones, each of which is tractable. The principle does not
-hold for all equations (cubic forms can fail it), but where it applies, it is
-devastatingly effective.
+hold for all equations (cubic forms can fail it), but where it applies, it
+reduces a single hard problem to many easy ones.
 
 [John Tate](<https://en.wikipedia.org/wiki/John_Tate_(mathematician)>)'s 1950
 doctoral thesis, often called
@@ -386,8 +388,7 @@ opened the most recent chapter. Perfectoid spaces provide a way to move between
 characteristic 0 (like $\mathbb{Q}_p$) and characteristic $p$ (like
 $\mathbb{F}_p$), making problems in one world solvable via the other. The theory
 earned Scholze a Fields Medal in 2018 and has already produced results that
-seemed out of reach a decade earlier. The details are formidable, but the
-underlying impulse is Hensel's original analogy, taken to its logical extreme.
+seemed out of reach a decade earlier.
 
 ## Hensel lifting
 
@@ -429,7 +430,7 @@ been lifted from one digit of precision to two.
 
 Continue this process and you get an element of $\mathbb{Z}_7$ whose square is
 exactly 2. Not approximately 2, exactly. The square root of 2 is irrational in
-$\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Q}_7$.
+$\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Z}_7$.
 
 This is not abstract. Every time you solve a system of polynomial equations over
 $\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
