@@ -42,3 +42,6 @@ Thumbs.db
 # Build outputs and logs
 *.log
 .stashed/
+
+# Sage scripts
+**/sage.py
