@@ -4,7 +4,7 @@ import Logo from "../components/Logo.astro";
 import MathWatermark from "../components/MathWatermark.astro";
 import { getCollection } from "astro:content";
 
-const recentPosts = (await getCollection("blog"))
+const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
