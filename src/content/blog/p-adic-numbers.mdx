@@ -1,0 +1,530 @@
+---
+title: "p-adic Numbers: A Different Idea of Closeness"
+description:
+  "An introduction to p-adic numbers for developers and engineers. We build the
+  p-adic integers from scratch, work through concrete examples, trace the
+  history from Hensel to Scholze, and see how Hensel lifting turns mod-p
+  solutions into exact p-adic roots."
+pubDate: 2026-04-10
+author: "Danny Willems"
+authorUrl: "https://dannywillems.github.io"
+tags: ["number-theory", "p-adic-numbers", "mathematics"]
+---
+
+import UltrametricTree from "../../components/UltrametricTree.astro";
+
+## What does "close" mean?
+
+How close are 1 and 1000001? In the usual sense, they are a million apart. But
+what if I told you there is a perfectly rigorous, perfectly useful notion of
+distance under which 1 and 1000001 are extremely close, while 1 and 2 are not
+particularly close at all?
+
+The real numbers are built on one specific idea of size: the usual absolute
+value, $|x|$. Two numbers are close when $|x - y|$ is small. We are so used to
+this that it feels like a law of nature. It is not. It is a choice, and
+[Ostrowski's theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem) tells
+us exactly what the other choices are. For each prime $p$, there is a completely
+different absolute value on $\mathbb{Q}$, and completing the rationals with
+respect to it gives a completely different number system, written $\mathbb{Q}_p$
+and called the $p$-adic numbers. The subring of elements with absolute value at
+most 1 is $\mathbb{Z}_p$, the $p$-adic integers. We will construct both
+precisely later, but the notation appears throughout.
+
+What makes this more than a curiosity is that these alternative completions turn
+out to be essential. You cannot fully understand the integers without
+understanding them locally at every prime.
+
+## The p-adic absolute value
+
+Everything starts with a simple counting function. Given a prime $p$ and a
+nonzero integer $n$, define $v_p(n)$ to be the largest power of $p$ that divides
+$n$. This is the **p-adic valuation**.
+
+Let us work with $p = 5$ throughout.
+
+- $v_5(75) = 2$, because $75 = 3 \cdot 5^2$.
+- $v_5(12) = 0$, because 5 does not divide 12.
+- $v_5(500) = 3$, because $500 = 4 \cdot 5^3$.
+
+For rationals, extend by the rule $v_5(a/b) = v_5(a) - v_5(b)$. So
+$v_5(3/25) = 0 - 2 = -2$.
+
+Now define the **5-adic absolute value**:
+
+$$|x|_5 = 5^{-v_5(x)}, \qquad |0|_5 = 0.$$
+
+Read that definition twice. It inverts the valuation. The more times 5 divides
+$x$, the _smaller_ $|x|_5$ becomes. Numbers that are highly divisible by 5 are
+$p$-adically tiny.
+
+Concretely:
+
+- $|75|_5 = 5^{-2} = 1/25$. So 75, a number that feels large in the usual sense,
+  is 5-adically small.
+- $|12|_5 = 5^{0} = 1$. Nothing special.
+- $|1/25|_5 = 5^{-(-2)} = 5^2 = 25$. And $1/25$, ordinarily a small number, is
+  5-adically large.
+
+This is the key inversion. In the 5-adic world, multiples of high powers of 5
+vanish, while fractions with 5 in the denominator blow up.
+
+The $p$-adic absolute value satisfies something stronger than the triangle
+inequality. It satisfies the **ultrametric inequality**:
+
+$$|x + y|_p \leq \max(|x|_p, |y|_p).$$
+
+Check it: let $x = 75$ and $y = 50$. Then $x + y = 125$. We have $|75|_5 =
+1/25$,
+$|50|_5 = 1/25$, and $|125|_5 = 5^{-3} = 1/125$. Indeed
+$1/125 \leq
+\max(1/25, 1/25) = 1/25$. The sum is actually _smaller_ than either
+term.
+
+Compare this to the ordinary triangle inequality $|x + y| \leq |x| + |y|$. The
+ultrametric version replaces the sum on the right with a max, which is a
+strictly stronger bound. Any absolute value satisfying the ultrametric
+inequality is called a **non-archimedean** absolute value. The usual absolute
+value on $\mathbb{R}$ is archimedean: given any $x > 0$, you can exceed any
+bound by adding $x$ to itself enough times. In a non-archimedean world, that
+fails. Repeated addition never makes things grow, because
+$|x + x|_p \leq |x|_p$, not $2|x|_p$.
+
+## Ultrametric geometry
+
+The ultrametric inequality has consequences that break every geometric intuition
+trained on $\mathbb{R}$.
+
+### Every triangle is isosceles
+
+Every triangle is isosceles (meaning at least two of its three sides have equal
+length). Take three points $a$, $b$, $c$ with side lengths $|a-b|_p$, $|b-c|_p$,
+and $|a-c|_p$. Suppose $|a-b|_p > |b-c|_p$.
+
+Since $a - c = (a - b) + (b - c)$, the ultrametric inequality gives:
+
+$$|a-c|_p \leq \max(|a-b|_p,\ |b-c|_p) = |a-b|_p.$$
+
+For the reverse direction, rewrite $a - b = (a - c) + (c - b)$:
+
+$$|a-b|_p \leq \max(|a-c|_p,\ |b-c|_p).$$
+
+Since $|a-b|_p > |b-c|_p$, the max on the right must be $|a-c|_p$, giving
+$|a-b|_p \leq |a-c|_p$. Combining both inequalities:
+
+$$|a-c|_p = |a-b|_p.$$
+
+The two largest sides are always equal. If no two sides differ, they were
+already equal to begin with.
+
+Note that this proof uses the group structure of $\mathbb{Q}_p$: the
+decomposition $a - c = (a - b) + (b - c)$ requires addition. The same is true
+for the ball proofs below. These properties hold in any abelian group equipped
+with an ultrametric absolute value (such as $\mathbb{Q}_p$, $\mathbb{Z}_p$, or
+any normed group where $|x + y| \leq \max(|x|, |y|)$). A bare metric space with
+the ultrametric inequality $d(x, z) \leq \max(d(x, y), d(y, z))$ gives you "open
+balls are closed," but the isosceles and center properties need the algebraic
+structure to decompose distances into sums.
+
+### Every point inside a ball is its center
+
+Take the closed ball $B(a, r) = \{x : |x - a|_p \leq r\}$ and pick any
+$b \in B(a, r)$. For any $c \in B(a, r)$:
+
+$$|c - b|_p = |(c - a) + (a - b)|_p \leq \max(|c - a|_p,\ |a - b|_p) \leq r.$$
+
+So $c \in B(b, r)$ as well, meaning $B(b, r) \subseteq B(a, r)$. The same
+argument with $a$ and $b$ swapped gives $B(a, r) \subseteq B(b, r)$. Therefore
+$B(a, r) = B(b, r)$. Every point inside the ball is equally valid as its center.
+
+### Every open ball is also closed
+
+In $\mathbb{R}$, moving from the center of a ball to a new point costs you
+distance, eating into your remaining "budget." In the $p$-adic world, the max
+means you never lose budget by moving within the ball. A limit point of an open
+ball $\{x : |x - a|_p < r\}$ can be approached by a point $c$ with
+$|c - a|_p < r$, and the ultrametric inequality forces the limit point itself to
+satisfy the same bound. The ball contains all its limit points, so it is closed.
+There are no boundary points in the usual sense.
+
+### Convergence is simple
+
+A series $\sum a_n$ converges in the $p$-adic metric if and only if
+$|a_n|_p \to 0$. The reason: the ultrametric inequality gives
+$|s_m - s_n|_p \leq \max(|a_{n+1}|_p, \ldots, |a_m|_p)$, so partial sums are
+Cauchy whenever the terms shrink. No ratio tests, no comparison tests. This is
+why $p$-adic analysis, once you accept the unfamiliar geometry, is in many ways
+simpler than real analysis.
+
+The tree below makes this concrete. It shows integers 0 through 24, grouped by
+residue mod 5. The tree structure _is_ the metric: the distance between two
+numbers is determined by where their paths diverge. The deeper you go before
+paths split, the closer the numbers are. Click 7 and 12 (same branch, distance
+$1/5$), then click 7 and 8 (different branches, distance 1), and you can feel
+the inversion: numbers that look "near" in the usual sense can be far apart
+$p$-adically.
+
+If you have seen a trie (prefix tree) in computer science, the structure is
+familiar, except $p$-adic numbers share suffixes (low-order digits) rather than
+prefixes. And notice that every subtree looks the same as every other at the
+same level. There is no distinguished center, which is exactly the "every point
+is a center" property made visual.
+
+<UltrametricTree />
+
+## Construction of $\mathbb{Z}_p$
+
+How do we build the $p$-adic integers? The approach is the same one used to
+construct the reals, but with a different measuring stick.
+
+Recall how $\mathbb{R}$ is built. Start with $\mathbb{Q}$. A sequence $(a_n)$ of
+rationals is _Cauchy_ with respect to the usual absolute value if, for every
+$\varepsilon > 0$, eventually $|a_m - a_n| < \varepsilon$. The real numbers are
+equivalence classes of such Cauchy sequences, where two sequences are equivalent
+if their difference converges to zero.
+
+Now do the same thing with $|\cdot|_p$ instead of $|\cdot|$. A sequence of
+rationals is $p$-adically Cauchy if $|a_m - a_n|_p$ eventually becomes
+arbitrarily small, meaning $a_m \equiv a_n \pmod{p^N}$ for arbitrarily large
+$N$. The completion is $\mathbb{Q}_p$, the field of $p$-adic numbers. The
+subring of elements with $|x|_p \leq 1$ is $\mathbb{Z}_p$, the $p$-adic
+integers.
+
+That is clean, but what do elements of $\mathbb{Z}_p$ actually look like?
+
+Every element of $\mathbb{Z}_p$ has a unique representation as an infinite
+series in powers of $p$:
+
+$$x = \sum_{i=0}^{\infty} a_i p^i = a_0 + a_1 p + a_2 p^2 + a_3 p^3 + \cdots$$
+
+where each $a_i \in \{0, 1, \ldots, p-1\}$. How does this connect to the Cauchy
+sequence construction? The series is shorthand for the sequence of partial sums
+
+$$s_n = \sum_{i=0}^{n} a_i p^i$$
+
+and each $s_n$ is an ordinary integer in $\mathbb{Z} \subset \mathbb{Q}$. This
+sequence is Cauchy in the $p$-adic metric because for $m > n$:
+
+$$s_m - s_n = a_{n+1} p^{n+1} + \cdots + a_m p^m = p^{n+1} \cdot (\text{something})$$
+
+so $v_p(s_m - s_n) \geq n + 1$, giving $|s_m - s_n|_p \leq p^{-(n+1)} \to 0$.
+Since $\mathbb{Q}_p$ is complete, the Cauchy sequence $(s_n)$ has a limit. That
+limit is the $p$-adic integer $x$. The equivalence class of $(s_n)$ in the
+Cauchy construction and the digit series $\sum a_i p^i$ are the same object,
+connected through partial sums.
+
+Each partial sum $s_n$ gives $x \bmod p^{n+1}$, refining the previous
+approximation by one more digit.
+
+You might wonder: do these limits get names, the way $\pi$ and $e$ do in
+$\mathbb{R}$? Mostly, no. The culture of $p$-adic mathematics is different from
+real analysis. In $\mathbb{R}$, we name special constants that arise from
+geometry and analysis. In $\mathbb{Q}_p$, the interesting elements tend to be
+rational numbers (which already have names like $-1$ or $1/3$), roots of
+polynomials (a square root of 2 exists in $\mathbb{Q}_7$, for instance, since
+$3^2 \equiv 2 \pmod{7}$ and Hensel lifting produces the rest of the digits), or
+structural objects like
+[Teichmuller representatives](https://en.wikipedia.org/wiki/Teichm%C3%BCller_character)
+(the $(p-1)$-th roots of unity in $\mathbb{Z}_p$). The emphasis is on naming
+structures, not constants.
+
+This looks like writing a number in base $p$, except the expansion goes to the
+_right_ (toward higher powers of $p$) rather than to the left. Ordinary base-$p$
+notation is a finite sum; this is an infinite one.
+
+How do you find this expansion for a given rational? The algorithm is direct.
+Given $x \in \mathbb{Z}_p$:
+
+1. Set $a_0 = x \bmod p$.
+2. Replace $x$ with $(x - a_0) / p$.
+3. Repeat: $a_n = x \bmod p$, then $x \leftarrow (x - a_n)/p$.
+
+Each step peels off one digit. For ordinary positive integers, the process
+terminates (all subsequent digits are 0). For negative integers and fractions,
+it runs forever, producing the infinite expansions that make $\mathbb{Z}_p$
+genuinely larger than $\mathbb{Z}$. How much larger? An element of
+$\mathbb{Z}_p$ is a sequence of digits in $\{0, \ldots, p-1\}$, one for each
+natural number, so $|\mathbb{Z}_p| = 2^{\aleph_0}$, the cardinality of the
+continuum (any finite base $\geq 2$ raised to $\aleph_0$ gives the same
+cardinality). The $p$-adic integers are the same size as $\mathbb{R}$, and
+strictly larger than $\mathbb{Z}$ or $\mathbb{Q}$.
+
+A note on notation. We write $p$-adic expansions the same way we write ordinary
+base-$p$ numbers: the rightmost digit is $a_0$ (the "ones place"), and digits
+for higher powers of $p$ go to the left. The difference is that ordinary
+integers have finitely many digits extending leftward, while $p$-adic integers
+can have infinitely many. We write "$\ldots$" on the left to indicate this. So
+$\ldots d_3 d_2 d_1 d_0$ means $a_0 = d_0$, $a_1 = d_1$, $a_2 = d_2$, and so on.
+Read right to left to recover the coefficients in order.
+
+This left-extending convention is the most common in the literature (Gouvea,
+Serre, Koblitz all use it). It mirrors positional notation and makes carry
+arithmetic feel natural. Some authors instead write the expansion left to right
+as $a_0 + a_1 p + a_2 p^2 + \cdots$ (which is just the series itself) or as the
+sequence $(a_0, a_1, a_2, \ldots)$. These are all the same object; the
+"$\ldots$-on-the-left" form is simply the one best suited to doing arithmetic by
+hand, since carries propagate leftward just as in grade-school addition.
+
+There is one more way to say this, and it is the one algebraists prefer. The
+maps $\mathbb{Z}/p^{n+1}\mathbb{Z} \to \mathbb{Z}/p^n\mathbb{Z}$ (reduce mod
+$p^n$) form a projective system. The $p$-adic integers are its inverse limit:
+$\mathbb{Z}_p = \varprojlim \mathbb{Z}/p^n\mathbb{Z}$. An element is a
+compatible sequence of residues, one for each level, which is exactly the digit
+expansion above packaged differently.
+
+## Worked examples
+
+Abstract definitions earn their keep when you compute with them. Let us work in
+$\mathbb{Z}_5$.
+
+### $-1$ in $\mathbb{Z}_5$
+
+Apply the algorithm. We need $a_0 \equiv -1 \pmod{5}$. That gives $a_0 = 4$. Now
+compute $((-1) - 4)/5 = -5/5 = -1$. We are back where we started. So $a_1 = 4$,
+and the pattern repeats forever:
+
+$$-1 = 4 + 4 \cdot 5 + 4 \cdot 5^2 + 4 \cdot 5^3 + \cdots = \ldots 44444_5.$$
+
+Does this check out? Add 1 to it. The digit $a_0 = 4$ plus 1 gives 5, which is
+$0$ with a carry of 1. The next digit: $4 + 1 = 5$, again $0$ with a carry. This
+propagates forever, leaving all zeros. So
+$\ldots 44444_5 + 1 = \ldots 00000_5 = 0$. Exactly right.
+
+If this reminds you of two's complement, it should. In a 32-bit unsigned
+integer, $-1$ is represented as `0xFFFFFFFF`, all bits set. The $p$-adic
+representation is the same idea, except with no word-length bound. Two's
+complement is a finite truncation of the 2-adic expansion.
+
+### $1/3$ in $\mathbb{Z}_5$
+
+We need $x$ such that $3x = 1$ in $\mathbb{Z}_5$. Apply the algorithm to $1/3$.
+
+Step 0: Find $a_0$ such that $3 a_0 \equiv 1 \pmod{5}$. Since
+$3 \cdot 2 = 6
+\equiv 1$, we get $a_0 = 2$.
+
+Now compute $(1/3 - 2)/5$. We have $1/3 - 2 = -5/3$, so $(-5/3)/5 = -1/3$.
+
+Step 1: Find $a_1$ such that $3 a_1 \equiv -1 \pmod{5}$. Since
+$3 \cdot 3 = 9
+\equiv -1$, we get $a_1 = 3$.
+
+Now $((-1/3) - 3)/5 = (-10/3)/5 = -2/3$.
+
+Step 2: $3 a_2 \equiv -2 \pmod{5}$. Since $3 \cdot 1 = 3 \equiv -2$, we get
+$a_2 = 1$.
+
+Now $((-2/3) - 1)/5 = (-5/3)/5 = -1/3$. We are back to the state after step 0.
+The expansion is periodic:
+
+$$1/3 = 2 + 3 \cdot 5 + 1 \cdot 5^2 + 3 \cdot 5^3 + 1 \cdot 5^4 + \cdots = \ldots 13132_5.$$
+
+Verify: the partial sum $2 + 3 \cdot 5 = 17$, and
+$17 \cdot 3 = 51 \equiv 1
+\pmod{25}$. The next partial sum
+$17 + 1 \cdot 25 = 42$, and $42 \cdot 3 = 126
+\equiv 1 \pmod{125}$. Each
+truncation is the multiplicative inverse of 3 modulo the appropriate power of 5.
+
+Why does $1/3$ have a 5-adic expansion at all? To be clear: every integer lives
+in $\mathbb{Z}_5$, whether or not it is coprime to 5. The integers $\mathbb{Z}$
+embed as finite digit expansions. The question is which rationals $1/q$ also
+live there. The answer: $1/q \in \mathbb{Z}_p$ if and only if $\gcd(q, p) = 1$.
+The elements with $|x|_p = 1$ are the **units** (invertible elements) of
+$\mathbb{Z}_p$, and for integers that means exactly those not divisible by $p$.
+Since $\gcd(3, 5) = 1$, the element 3 is a unit in $\mathbb{Z}_5$, its inverse
+$1/3$ exists, and the digit expansion above computes it. On the other hand,
+$1/5$ does _not_ live in $\mathbb{Z}_5$. Since $|1/5|_5 = 5 > 1$, it falls
+outside the unit ball. It lives in $\mathbb{Q}_5$ but not $\mathbb{Z}_5$. The
+element 5 itself is in $\mathbb{Z}_5$ (it is just the digit expansion
+$0 + 1 \cdot 5$), but it is not a unit; it is the **uniformizer**, the generator
+of the unique maximal ideal $p\mathbb{Z}_5$.
+
+## A short history
+
+[Kurt Hensel](https://en.wikipedia.org/wiki/Kurt_Hensel) introduced the $p$-adic
+numbers in 1897, motivated by a striking analogy. Algebraic number theory
+studies number fields, which resemble the function fields of algebraic curves.
+Completing a function field at a point gives a ring of formal power series.
+Hensel asked: what happens if you "complete" the rationals at a prime $p$ the
+same way? The answer was $\mathbb{Q}_p$. The idea was right, but his early work
+included a
+[famously wrong proof](https://en.wikipedia.org/wiki/P-adic_number#History) that
+$e$ is transcendental over $\mathbb{Q}_p$. The error was eventually corrected by
+others, and the underlying framework survived intact.
+
+[Alexander Ostrowski](https://en.wikipedia.org/wiki/Alexander_Ostrowski) proved
+in 1916 a theorem that pins down exactly what absolute values exist on
+$\mathbb{Q}$. [His theorem](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem)
+states that, up to equivalence, the only nontrivial absolute values on
+$\mathbb{Q}$ are the usual one and the $p$-adic ones. That is it. There is no
+hidden fifth option. The real numbers and the family of $p$-adic fields, one for
+each prime, are the _complete_ list of completions of the rationals. When we
+study $\mathbb{Q}$ through the lens of $\mathbb{R}$ alone, we are looking at one
+view in an infinite family.
+
+[Helmut Hasse](https://en.wikipedia.org/wiki/Helmut_Hasse), in the 1920s,
+transformed this from a structural observation into a working tool. His
+**[local-global principle](https://en.wikipedia.org/wiki/Hasse%E2%80%93Minkowski_theorem)**
+(also called the Hasse-Minkowski theorem) states that a quadratic form over
+$\mathbb{Q}$ has a rational solution if and only if it has a solution in
+$\mathbb{R}$ and in every $\mathbb{Q}_p$. You break a hard global question into
+infinitely many local ones, each of which is tractable. The principle does not
+hold for all equations (cubic forms can fail it), but where it applies, it
+reduces a single hard problem to many easy ones.
+
+[John Tate](<https://en.wikipedia.org/wiki/John_Tate_(mathematician)>)'s 1950
+doctoral thesis, often called
+"[Tate's thesis](https://en.wikipedia.org/wiki/Tate%27s_thesis)," rebuilt the
+analytic theory of $L$-functions using harmonic analysis on the group of adeles,
+a structure that packages $\mathbb{R}$ and all the $\mathbb{Q}_p$ together. What
+had been a collection of ad hoc calculations became a single, uniform argument.
+The thesis circulated for years before formal publication and reshaped the way
+number theorists think about zeta functions and their generalizations.
+
+[Peter Scholze](https://en.wikipedia.org/wiki/Peter_Scholze)'s introduction of
+[perfectoid spaces](https://en.wikipedia.org/wiki/Perfectoid_space) in 2012
+opened the most recent chapter. Perfectoid spaces provide a way to move between
+characteristic 0 (like $\mathbb{Q}_p$) and characteristic $p$ (like
+$\mathbb{F}_p$), making problems in one world solvable via the other. The theory
+earned Scholze a Fields Medal in 2018 and has already produced results that
+seemed out of reach a decade earlier.
+
+## Hensel lifting
+
+[Hensel's lemma](https://en.wikipedia.org/wiki/Hensel%27s_lemma) is the $p$-adic
+analogue of Newton's method. In real analysis, Newton's method refines an
+approximate root of $f(x) = 0$: given $x_n$ with $f(x_n) \approx 0$, compute
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+doubling the precision each step. Hensel's lemma does the same thing modulo
+powers of $p$. Suppose $f(x)$ is a polynomial with integer coefficients, and you
+find $a_0$ such that $f(a_0) \equiv 0 \pmod{p}$ with
+$f'(a_0) \not\equiv 0 \pmod{p}$ (the derivative does not vanish, just as
+Newton's method requires a nonzero derivative). Then you can lift this root:
+
+1. Start with $a_0$ satisfying $f(a_0) \equiv 0 \pmod{p}$.
+2. Compute $a_1 = a_0 - f(a_0) \cdot f'(a_0)^{-1} \pmod{p^2}$, so that
+   $f(a_1) \equiv 0 \pmod{p^2}$.
+3. Repeat, doubling the precision each step: mod $p^4$, mod $p^8$, and so on.
+
+The sequence $(a_n)$ converges in $\mathbb{Z}_p$ to an exact root of $f$.
+
+A concrete example makes this vivid. Let us find $\sqrt{2}$ in $\mathbb{Z}_7$,
+i.e. solve $f(x) = x^2 - 2 = 0$.
+
+Mod 7: $3^2 = 9 \equiv 2$, so $a_0 = 3$. The derivative $f'(3) = 6$, which is
+nonzero mod 7, so Hensel applies.
+
+Lift to mod 49:
+
+$$a_1 = 3 - \frac{3^2 - 2}{2 \cdot 3} = 3 - \frac{7}{6}.$$
+
+We need $6^{-1} \pmod{49}$. Since $6 \cdot 8 = 48 \equiv -1$ and
+$6 \cdot 41 = 246 = 5 \cdot 49 + 1$, we get $6^{-1} \equiv 41 \pmod{49}$. So
+$a_1 = 3 - 7 \cdot 41 = 3 - 287 \equiv 10 \pmod{49}$.
+
+Check: $10^2 = 100 = 2 \cdot 49 + 2$, so $10^2 \equiv 2 \pmod{49}$. The root has
+been lifted from one digit of precision to two.
+
+Continue this process and you get an element of $\mathbb{Z}_7$ whose square is
+exactly 2. Not approximately 2, exactly. The square root of 2 is irrational in
+$\mathbb{R}$, but it is a perfectly good $p$-adic integer in $\mathbb{Z}_7$.
+
+This is not abstract. Every time you solve a system of polynomial equations over
+$\mathbb{Z}/p^n\mathbb{Z}$ by first solving mod $p$ and then lifting, you are
+doing $p$-adic computation. Hensel lifting appears in modular algorithms for
+computing [Groebner bases](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis)
+over $\mathbb{Q}$ (compute mod $p$ first, then lift to avoid coefficient
+explosion) and in factoring polynomials over local rings. When solving equations
+modulo a composite $N = p_1^{e_1} \cdots p_k^{e_k}$, the standard approach uses
+Hensel lifting at each prime (lifting a root mod $p_i$ to mod $p_i^{e_i}$), then
+the
+[Chinese remainder theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem)
+to glue the local solutions into a global one. Hensel handles the vertical
+direction (one prime, increasing powers), CRT handles the horizontal (different
+primes, combined).
+
+## Closing
+
+Ostrowski's theorem says the real absolute value and the $p$-adic absolute
+values are the only games in town. If you want to understand $\mathbb{Q}$, you
+have to look at it through every one of these lenses. The real numbers give you
+one view. Each prime gives you another. None of them is redundant.
+
+We have covered the basics here: the $p$-adic absolute value, the ultrametric
+geometry it produces, the construction of $\mathbb{Z}_p$, and Hensel lifting. In
+a follow-up article, we will use the tools developed here to walk through
+Smart's attack, a $p$-adic algorithm that solves the discrete logarithm problem
+on anomalous elliptic curves in linear time.
+
+## To go deeper: $p$-adic analysis
+
+Once you have $\mathbb{Q}_p$, you can do calculus over it. Derivatives,
+integrals, and power series are defined the same way as over $\mathbb{R}$
+(limits of difference quotients, Riemann sums, infinite sums), but the
+ultrametric changes what converges and how functions behave.
+
+**[Power series](https://en.wikipedia.org/wiki/P-adic_analysis#Operations_on_p-adic_numbers).**
+A series $\sum a_n x^n$ converges in $\mathbb{Q}_p$ if and only if
+$|a_n x^n|_p \to 0$. No root test or ratio test needed. The radius of
+convergence is still well-defined, but the series converges on the boundary too
+(closed disk, not open). The
+[$p$-adic exponential](https://en.wikipedia.org/wiki/P-adic_exponential_function)
+$\exp(x) = \sum x^n/n!$ only converges for $|x|_p < p^{-1/(p-1)}$ because the
+factorials $n!$ have large $p$-adic valuations (they contain many factors of
+$p$). In $\mathbb{R}$, $\exp$ converges everywhere.
+
+**The
+[$p$-adic logarithm](https://en.wikipedia.org/wiki/P-adic_exponential_function#p-adic_logarithm_function).**
+$\log(1+x) = x - x^2/2 + x^3/3 - \cdots$ converges for $|x|_p < 1$, a larger
+domain than the exponential. So $\exp$ and $\log$ are not inverses on the same
+domain, unlike in real analysis.
+
+**Differentiability is weaker.** A function can be differentiable everywhere on
+$\mathbb{Z}_p$ without being "nice" in the way you would expect. The notion that
+matters is
+**[strict differentiability](https://en.wikipedia.org/wiki/P-adic_analysis#P-adic_derivatives)**:
+the difference quotient $(f(x)-f(y))/(x-y)$ must converge uniformly as
+$x, y \to a$ independently, not just as $x \to a$ with $y = a$ fixed.
+
+**Integration.** There are multiple theories. The
+[Volkenborn integral](https://en.wikipedia.org/wiki/Volkenborn_integral)
+integrates continuous functions on $\mathbb{Z}_p$ and produces Bernoulli numbers
+naturally. There is no direct analogue of the Lebesgue measure on $\mathbb{Q}_p$
+that behaves like the real one, but there is a
+[Haar measure](https://en.wikipedia.org/wiki/Haar_measure) on $\mathbb{Z}_p$:
+the unique translation-invariant probability measure.
+
+**No
+[intermediate value theorem](https://en.wikipedia.org/wiki/Intermediate_value_theorem).**
+$\mathbb{Q}_p$ is
+[totally disconnected](https://en.wikipedia.org/wiki/Totally_disconnected_space)
+(every point is both open and closed). Continuous functions can jump between
+values without hitting anything in between. This kills most topological
+arguments from real analysis.
+
+## References
+
+- K. Hensel, _Theorie der algebraischen Zahlen_, Teubner, 1908.
+- A. Ostrowski, "Uber einige Losungen der Funktionalgleichung
+  $\varphi(x) \cdot \varphi(y) = \varphi(xy)$", _Acta Mathematica_, vol. 41,
+  1916, pp. 271--282.
+  ([Wikipedia](https://en.wikipedia.org/wiki/Ostrowski%27s_theorem))
+- H. Hasse, "Uber die Aquivalenz quadratischer Formen im Korper der rationalen
+  Zahlen", _Journal fur die reine und angewandte Mathematik_, vol. 152, 1923,
+  pp. 205--224.
+- J. Tate, "Fourier analysis in number fields and Hecke's zeta-functions", Ph.D.
+  thesis, Princeton University, 1950. Reprinted in _Algebraic Number Theory_
+  (Cassels and Frohlich, eds.), Academic Press, 1967.
+- P. Scholze, "Perfectoid spaces", _Publications mathematiques de l'IHES_, vol.
+  116, 2012, pp. 245--313. ([arXiv](https://arxiv.org/abs/1111.4914))
+- F. Gouvea, _p-adic Numbers: An Introduction_, 2nd ed., Springer
+  Universitext, 1997. (The standard introduction for working mathematicians.)
+
+---
+
+_This article was generated using Claude Opus 4.6, with the author reviewing and
+correcting throughout. The process also served as an educational exercise for
+the author._

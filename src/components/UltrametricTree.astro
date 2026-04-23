@@ -1,0 +1,366 @@
+---
+// Ultrametric tree: visualizes the 5-adic distance structure.
+// Numbers 0-24 as leaves, grouped by residue mod 5, mod 25.
+// Click two leaves to see their 5-adic distance.
+---
+
+<div class="ultra-tree">
+  <svg
+    id="ultra-tree-svg"
+    viewBox="-260 -260 520 520"
+    preserveAspectRatio="xMidYMid meet"
+  >
+  </svg>
+  <p class="ultra-tree-info" id="ultra-tree-info">
+    Click two numbers to see their 5-adic distance.
+  </p>
+</div>
+
+<script>
+  type TreeNode = {
+    name: string;
+    value?: number;
+    children?: TreeNode[];
+  };
+
+  let selectedA: number | null = null;
+  let selectedB: number | null = null;
+
+  function padicValuation(n: number, p: number): number {
+    if (n === 0) return Infinity;
+    let v = 0;
+    let x = Math.abs(n);
+    while (x % p === 0) {
+      x /= p;
+      v++;
+    }
+    return v;
+  }
+
+  function padicDist(a: number, b: number, p: number): string {
+    if (a === b) return "0";
+    const v = padicValuation(a - b, p);
+    if (v === 0) return "1";
+    if (v === 1) return "1/" + p;
+    return "1/" + Math.pow(p, v);
+  }
+
+  function buildTree(): TreeNode {
+    const root: TreeNode = { name: "Z_5", children: [] };
+    for (let r0 = 0; r0 < 5; r0++) {
+      const branch: TreeNode = {
+        name: "=" + r0 + " mod 5",
+        children: [],
+      };
+      for (let r1 = 0; r1 < 5; r1++) {
+        const val = r0 + r1 * 5;
+        branch.children!.push({ name: String(val), value: val });
+      }
+      root.children!.push(branch);
+    }
+    return root;
+  }
+
+  function getColor(name: string): string {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+  }
+
+  function render() {
+    const svg = document.getElementById("ultra-tree-svg");
+    if (!svg) return;
+
+    const accent = getColor("--color-accent");
+    const accentSec = getColor("--color-accent-secondary");
+    const text = getColor("--color-text");
+    const muted = getColor("--color-text-muted");
+    const border = getColor("--color-border");
+
+    const tree = buildTree();
+    const leaves = tree.children!.flatMap(b => b.children!);
+
+    // Radial layout parameters
+    const innerR = 60;
+    const midR = 130;
+    const outerR = 210;
+
+    let html = "";
+
+    // Draw branches and leaves
+    tree.children!.forEach((branch, bi) => {
+      const branchAngle = (bi / 5) * 2 * Math.PI - Math.PI / 2;
+      const bx = Math.cos(branchAngle) * midR;
+      const by = Math.sin(branchAngle) * midR;
+
+      // Line from root to branch
+      html +=
+        '<line x1="0" y1="0" x2="' +
+        bx +
+        '" y2="' +
+        by +
+        '" stroke="' +
+        border +
+        '" stroke-width="1.5" />';
+
+      // Branch label
+      const labelR = midR + 2;
+      const lx = Math.cos(branchAngle) * (innerR + 18);
+      const ly = Math.sin(branchAngle) * (innerR + 18);
+
+      branch.children!.forEach((leaf, li) => {
+        // Spread leaves in a sub-arc around the branch angle
+        const spread = 0.28;
+        const leafAngle = branchAngle + (li - 2) * spread;
+        const lx2 = Math.cos(leafAngle) * outerR;
+        const ly2 = Math.sin(leafAngle) * outerR;
+
+        // Line from branch to leaf
+        html +=
+          '<line x1="' +
+          bx +
+          '" y1="' +
+          by +
+          '" x2="' +
+          lx2 +
+          '" y2="' +
+          ly2 +
+          '" stroke="' +
+          border +
+          '" stroke-width="1" />';
+
+        // Leaf circle
+        const isSelA = selectedA === leaf.value;
+        const isSelB = selectedB === leaf.value;
+        const fill = isSelA ? accent : isSelB ? accentSec : "transparent";
+        const stroke = isSelA || isSelB ? "none" : border;
+        const textFill = isSelA || isSelB ? getColor("--color-bg") : text;
+
+        html +=
+          '<circle cx="' +
+          lx2 +
+          '" cy="' +
+          ly2 +
+          '" r="16" fill="' +
+          fill +
+          '" stroke="' +
+          stroke +
+          '" stroke-width="1" data-value="' +
+          leaf.value +
+          '" class="ultra-leaf" style="cursor:pointer" />';
+
+        html +=
+          '<text x="' +
+          lx2 +
+          '" y="' +
+          (ly2 + 5) +
+          '" text-anchor="middle" fill="' +
+          textFill +
+          '" font-size="12" font-weight="600" ' +
+          'font-family="var(--font-mono)" ' +
+          'pointer-events="none">' +
+          leaf.value +
+          "</text>";
+      });
+
+      // Branch node circle
+      html +=
+        '<circle cx="' + bx + '" cy="' + by + '" r="8" fill="' + muted + '" />';
+    });
+
+    // Root node
+    html += '<circle cx="0" cy="0" r="10" fill="' + accent + '" />';
+    html +=
+      '<text x="0" y="4" text-anchor="middle" fill="' +
+      getColor("--color-bg") +
+      '" font-size="8" font-weight="700" ' +
+      'font-family="var(--font-mono)" ' +
+      'pointer-events="none">Z5</text>';
+
+    // Highlight path if two selected
+    if (selectedA !== null && selectedB !== null) {
+      function findLeafPos(val: number): [number, number] {
+        for (let bi = 0; bi < 5; bi++) {
+          for (let li = 0; li < 5; li++) {
+            if (bi + li * 5 === val) {
+              const branchAngle = (bi / 5) * 2 * Math.PI - Math.PI / 2;
+              const leafAngle = branchAngle + (li - 2) * 0.28;
+              return [
+                Math.cos(leafAngle) * outerR,
+                Math.sin(leafAngle) * outerR,
+              ];
+            }
+          }
+        }
+        return [0, 0];
+      }
+
+      const [ax, ay] = findLeafPos(selectedA!);
+      const [bxx, byy] = findLeafPos(selectedB!);
+
+      // Draw highlighted path through the tree
+      const aBranch = selectedA! % 5;
+      const bBranch = selectedB! % 5;
+      const aAngle = (aBranch / 5) * 2 * Math.PI - Math.PI / 2;
+      const bAngle = (bBranch / 5) * 2 * Math.PI - Math.PI / 2;
+      const abx = Math.cos(aAngle) * midR;
+      const aby = Math.sin(aAngle) * midR;
+      const bbx = Math.cos(bAngle) * midR;
+      const bby = Math.sin(bAngle) * midR;
+
+      if (aBranch === bBranch) {
+        // Same branch: path goes leaf -> branch -> leaf
+        html +=
+          '<line x1="' +
+          ax +
+          '" y1="' +
+          ay +
+          '" x2="' +
+          abx +
+          '" y2="' +
+          aby +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+        html +=
+          '<line x1="' +
+          abx +
+          '" y1="' +
+          aby +
+          '" x2="' +
+          bxx +
+          '" y2="' +
+          byy +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+      } else {
+        // Different branches: path goes leaf -> branch -> root -> branch -> leaf
+        html +=
+          '<line x1="' +
+          ax +
+          '" y1="' +
+          ay +
+          '" x2="' +
+          abx +
+          '" y2="' +
+          aby +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+        html +=
+          '<line x1="' +
+          abx +
+          '" y1="' +
+          aby +
+          '" x2="0" y2="0' +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+        html +=
+          '<line x1="0" y1="0' +
+          '" x2="' +
+          bbx +
+          '" y2="' +
+          bby +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+        html +=
+          '<line x1="' +
+          bbx +
+          '" y1="' +
+          bby +
+          '" x2="' +
+          bxx +
+          '" y2="' +
+          byy +
+          '" stroke="' +
+          accentSec +
+          '" stroke-width="2" stroke-dasharray="4,3" />';
+      }
+    }
+
+    svg.innerHTML = html;
+
+    // Re-attach click listeners
+    svg.querySelectorAll(".ultra-leaf").forEach(el => {
+      el.addEventListener("click", e => {
+        const val = parseInt((e.target as Element).getAttribute("data-value")!);
+        handleClick(val);
+      });
+    });
+  }
+
+  function handleClick(val: number) {
+    if (selectedA === null) {
+      selectedA = val;
+      updateInfo();
+    } else if (selectedB === null) {
+      selectedB = val;
+      updateInfo();
+    } else {
+      selectedA = val;
+      selectedB = null;
+      updateInfo();
+    }
+    render();
+  }
+
+  function updateInfo() {
+    const el = document.getElementById("ultra-tree-info");
+    if (!el) return;
+    if (selectedA !== null && selectedB !== null) {
+      const d = padicDist(selectedA, selectedB, 5);
+      el.innerHTML =
+        "|<strong>" +
+        selectedA +
+        "</strong> - <strong>" +
+        selectedB +
+        "</strong>|<sub>5</sub> = <strong>" +
+        d +
+        "</strong>";
+    } else if (selectedA !== null) {
+      el.innerHTML =
+        "Selected <strong>" + selectedA + "</strong>. Click another number.";
+    } else {
+      el.innerHTML = "Click two numbers to see their 5-adic distance.";
+    }
+  }
+
+  // Theme observer
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  render();
+</script>
+
+<style is:global>
+  .ultra-tree {
+    margin: 2rem 0;
+  }
+
+  .ultra-tree svg {
+    width: 100%;
+    max-width: 520px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .ultra-tree-info {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  .ultra-tree-info strong {
+    color: var(--color-accent);
+  }
+
+  .ultra-tree-info sub {
+    font-size: 0.7em;
+  }
+</style>

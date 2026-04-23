@@ -57,6 +57,21 @@ jobs:
         with:
           path: ./dist
 
+  test-sage:
+    name: Test Sage scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install SageMath
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sagemath
+
+      - name: Run Sage tests
+        run: make test-sage
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest

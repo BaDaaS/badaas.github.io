@@ -2,7 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("blog");
+const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 // Collect all tags with their post counts
 const tagCounts = new Map<string, number>();

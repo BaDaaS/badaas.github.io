@@ -1,0 +1,260 @@
+---
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+---
+
+<div class="sagecell-container">
+  <div class="sage-cell">
+    <script type="text/x-sage" set:html={code} />
+  </div>
+</div>
+
+<script>
+  function expandEditors() {
+    const els = document.querySelectorAll(".sage-cell .CodeMirror");
+    if (els.length === 0) return false;
+    let expanded = false;
+    els.forEach(el => {
+      const htmlEl = el as HTMLElement;
+      // Try the CodeMirror API first
+      const cm = (el as any).CodeMirror;
+      if (cm) {
+        cm.setSize(null, "auto");
+        cm.refresh();
+        expanded = true;
+      }
+      // Force all height constraints via inline styles
+      htmlEl.style.setProperty("height", "auto", "important");
+      htmlEl.style.setProperty("max-height", "none", "important");
+      const scroll = htmlEl.querySelector(".CodeMirror-scroll") as HTMLElement;
+      if (scroll) {
+        scroll.style.setProperty("height", "auto", "important");
+        scroll.style.setProperty("max-height", "none", "important");
+        scroll.style.setProperty("overflow", "visible", "important");
+        expanded = true;
+      }
+      const sizer = htmlEl.querySelector(".CodeMirror-sizer") as HTMLElement;
+      if (sizer) {
+        sizer.style.setProperty("min-height", "0", "important");
+      }
+    });
+    return expanded;
+  }
+
+  function pollExpand() {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (expandEditors() || attempts > 50) {
+        clearInterval(interval);
+      }
+    }, 200);
+  }
+
+  function initSageCells() {
+    const opts = {
+      inputLocation: ".sage-cell",
+      linked: true,
+      languages: ["sage"],
+      evalButtonText: "Run",
+    };
+
+    if (typeof sagecell === "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://sagecell.sagemath.org/static/embedded_sagecell.js";
+      script.onload = () => {
+        (window as any).sagecell.makeSagecell(opts);
+        pollExpand();
+      };
+      document.head.appendChild(script);
+
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://sagecell.sagemath.org/static/sagecell_embed.css";
+      document.head.appendChild(link);
+    } else {
+      (window as any).sagecell.makeSagecell(opts);
+      pollExpand();
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSageCells);
+  } else {
+    initSageCells();
+  }
+</script>
+
+<style is:global>
+  /* ----------------------------------------------------------------
+     SageCell: match site code block appearance
+     ---------------------------------------------------------------- */
+  .sagecell-container {
+    margin: 1.5rem 0;
+  }
+
+  /* Editor wrapper */
+  .sagecell .sagecell_editor {
+    background-color: var(--color-bg-secondary) !important;
+    border: 1px solid var(--color-border) !important;
+    padding: 0 !important;
+  }
+
+  /* CodeMirror overrides */
+  .sagecell .CodeMirror {
+    background: var(--color-bg-secondary) !important;
+    color: var(--color-text) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.875rem !important;
+    line-height: 1.7 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0.75rem 1rem !important;
+    border: none !important;
+  }
+
+  .sagecell .CodeMirror-scroll {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .sagecell .CodeMirror-sizer {
+    min-height: 0 !important;
+  }
+
+  .sagecell .CodeMirror-gutters {
+    background: var(--color-bg-secondary) !important;
+    border-right: 1px solid var(--color-border) !important;
+  }
+
+  .sagecell .CodeMirror-linenumber {
+    color: var(--color-text-muted) !important;
+  }
+
+  .sagecell .CodeMirror-cursor {
+    border-left-color: var(--color-text) !important;
+  }
+
+  .sagecell .CodeMirror-selected {
+    background: rgba(91, 143, 212, 0.2) !important;
+  }
+
+  .sagecell .CodeMirror-focused .CodeMirror-selected {
+    background: rgba(91, 143, 212, 0.3) !important;
+  }
+
+  /* Syntax highlighting - github-dark-ish palette */
+  .sagecell .cm-keyword {
+    color: #ff7b72 !important;
+  }
+  .sagecell .cm-def {
+    color: #d2a8ff !important;
+  }
+  .sagecell .cm-variable {
+    color: var(--color-text) !important;
+  }
+  .sagecell .cm-variable-2 {
+    color: #79c0ff !important;
+  }
+  .sagecell .cm-string {
+    color: #a5d6ff !important;
+  }
+  .sagecell .cm-number {
+    color: #79c0ff !important;
+  }
+  .sagecell .cm-comment {
+    color: #8b949e !important;
+    font-style: italic;
+  }
+  .sagecell .cm-builtin {
+    color: #ffa657 !important;
+  }
+  .sagecell .cm-operator {
+    color: #ff7b72 !important;
+  }
+  .sagecell .cm-property {
+    color: #79c0ff !important;
+  }
+
+  /* Run button */
+  .sagecell .sagecell_evalButton {
+    background-color: var(--color-accent) !important;
+    color: var(--color-bg) !important;
+    border: none !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    padding: 0.4rem 1.2rem !important;
+    margin-top: 0.5rem !important;
+    cursor: pointer !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease !important;
+  }
+
+  .sagecell .sagecell_evalButton:hover {
+    opacity: 0.85 !important;
+    transform: translateY(-1px) !important;
+  }
+
+  /* Output area */
+  .sagecell .sagecell_output_area {
+    background: var(--color-bg-secondary) !important;
+    border: 1px solid var(--color-border) !important;
+    border-top: none !important;
+    color: var(--color-text) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.875rem !important;
+    padding: 0.75rem 1rem !important;
+    margin-top: 0 !important;
+  }
+
+  .sagecell .sagecell_output_area pre {
+    color: var(--color-text) !important;
+    background: transparent !important;
+    border: none !important;
+    font-family: var(--font-mono) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Light theme adjustments */
+  [data-theme="light"] .sagecell .cm-keyword {
+    color: #cf222e !important;
+  }
+  [data-theme="light"] .sagecell .cm-def {
+    color: #8250df !important;
+  }
+  [data-theme="light"] .sagecell .cm-string {
+    color: #0a3069 !important;
+  }
+  [data-theme="light"] .sagecell .cm-number {
+    color: #0550ae !important;
+  }
+  [data-theme="light"] .sagecell .cm-comment {
+    color: #6e7781 !important;
+  }
+  [data-theme="light"] .sagecell .cm-builtin {
+    color: #953800 !important;
+  }
+  [data-theme="light"] .sagecell .cm-operator {
+    color: #cf222e !important;
+  }
+  [data-theme="light"] .sagecell .cm-variable-2 {
+    color: #0550ae !important;
+  }
+  [data-theme="light"] .sagecell .cm-property {
+    color: #0550ae !important;
+  }
+  [data-theme="light"] .sagecell .CodeMirror-selected {
+    background: rgba(45, 90, 158, 0.15) !important;
+  }
+  [data-theme="light"] .sagecell .CodeMirror-focused .CodeMirror-selected {
+    background: rgba(45, 90, 158, 0.25) !important;
+  }
+</style>

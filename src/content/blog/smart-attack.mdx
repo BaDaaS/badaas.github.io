@@ -1,0 +1,211 @@
+---
+title:
+  "Smart's Attack: Breaking Elliptic Curve Cryptography with p-adic Numbers"
+description:
+  "A step-by-step walkthrough of Smart's attack on anomalous elliptic curves. We
+  lift curves and points into the p-adic world, use the formal group logarithm
+  to linearize the group law, and solve the discrete logarithm problem in linear
+  time. Includes a runnable Sage implementation."
+pubDate: 2026-04-19
+author: "Danny Willems"
+authorUrl: "https://dannywillems.github.io"
+tags:
+  [
+    "cryptography",
+    "number-theory",
+    "p-adic-numbers",
+    "elliptic-curves",
+    "mathematics",
+  ]
+draft: true
+---
+
+import SageCell from "../../components/SageCell.astro";
+import smartAttackCode from "../../../scripts/smart_attack.sage?raw";
+
+## From p-adic numbers to cryptographic attacks
+
+In the [previous article](/blog/p-adic-numbers), we built the $p$-adic numbers
+from scratch: the $p$-adic absolute value, the ultrametric world it creates, the
+construction of $\mathbb{Z}_p$ as infinite digit expansions, and Hensel lifting
+as the $p$-adic analogue of Newton's method. All of that was pure mathematics.
+
+Now we put it to work. The $p$-adic numbers are not just number-theoretic
+decoration. They appear in a concrete, devastating attack on a specific class of
+elliptic curves used in cryptography.
+
+## Smart's attack on anomalous elliptic curves
+
+Let $E$ be an elliptic curve over $\mathbb{F}_p$, with a generator $P$. In
+elliptic curve cryptography, the secret key is an integer $n$ and the public key
+is the point $Q = nP$. The elliptic curve discrete logarithm problem (ECDLP)
+asks: given $P$ and $Q$, recover $n$. Normally this is hard. That hardness is
+the foundation of ECDSA, ECDH, and most elliptic curve cryptography.
+
+But there is a degenerate case. If $\#E(\mathbb{F}_p) = p$, the curve is called
+**anomalous**.
+[Nigel Smart](<https://en.wikipedia.org/wiki/Nigel_Smart_(cryptographer)>)
+showed in 1999 that the ECDLP on anomalous curves can be solved in linear time.
+The mechanism goes through $p$-adic numbers.
+
+Here is the idea. Three groups are in play, and the notation can be confusing,
+so let us spell them out:
+
+- $E(\mathbb{F}_p)$: the group of points on the original curve over the finite
+  field. This is where cryptography happens. It is a finite group of $p$ points
+  (since the curve is anomalous).
+- $\tilde{E}(\mathbb{Q}_p)$: the group of points on a **lifted** curve over
+  $\mathbb{Q}_p$. We choose a curve $\tilde{E}$ with $p$-adic coefficients that
+  reduces to $E$ modulo $p$. This is an infinite group. Every point in
+  $E(\mathbb{F}_p)$ lifts to a point in $\tilde{E}(\mathbb{Q}_p)$.
+- $\hat{E}(p\mathbb{Z}_p)$: the **formal group**, consisting of points on
+  $\tilde{E}$ that reduce to the identity (the point at infinity) modulo $p$.
+  Here $p\mathbb{Z}_p = \{x \in \mathbb{Z}_p : |x|_p \leq 1/p\}$ is the ideal of
+  $p$-adic integers divisible by $p$, i.e. those whose first digit $a_0$ is
+  zero. The formal group is the kernel of the reduction map
+  $\tilde{E}(\mathbb{Q}_p) \to E(\mathbb{F}_p)$. It captures the "purely
+  $p$-adic" part of the lifted curve.
+
+### Step-by-step walkthrough
+
+Let us walk through the attack concretely enough that you could reimplement it.
+
+**Step 1: Lift the curve.** Take the equation of $E$ (say $y^2 = x^3 + ax + b$
+over $\mathbb{F}_p$) and choose a curve $\tilde{E}$ over $\mathbb{Q}_p$ that
+reduces to $E$ mod $p$. The simplest way: keep the same coefficients $a, b$ but
+view them as $p$-adic integers, then perturb them by adding random multiples of
+$p$. For instance $\tilde{a} = a + r \cdot p$ for random $r$. The perturbation
+ensures that the lifted curve is not the "canonical" lift (where the next step
+would give a trivial zero).
+
+**Step 2: Lift the points.** For a point $P = (x_0, y_0) \in E(\mathbb{F}_p)$,
+find a point $\tilde{P} \in \tilde{E}(\mathbb{Q}_p)$ that reduces to $P$ mod
+$p$. Concretely: plug $x_0$ (viewed as a $p$-adic integer) into the curve
+equation $\tilde{y}^2 = x_0^3 + \tilde{a} x_0 + \tilde{b}$, take the square root
+in $\mathbb{Q}_p$ (which exists by
+[Hensel lifting](/blog/p-adic-numbers#hensel-lifting), since $y_0 \neq 0$), and
+pick the root that reduces to $y_0$ mod $p$. Do the same for $Q$.
+
+**Step 3: Multiply by $p$.** Compute $p \cdot \tilde{P}$ and $p \cdot \tilde{Q}$
+using the elliptic curve group law over $\mathbb{Q}_p$. Why does this help? In
+$E(\mathbb{F}_p)$, the point $P$ has order $p$ (since $\#E(\mathbb{F}_p) = p$),
+so $p \cdot P = \mathcal{O}$ (the identity). When we reduce $p \cdot \tilde{P}$
+mod $p$, we get $\mathcal{O}$. That means the coordinates of $p \cdot \tilde{P}$
+are divisible by $p$: this point lies in the formal group
+$\hat{E}(p\mathbb{Z}_p)$.
+
+**Step 4: Extract the logarithm.** A point in the formal group has coordinates
+$(x, y)$ where $v_p(x) \leq -2$ and $v_p(y) \leq -3$ (the coordinates blow up
+$p$-adically). The **local parameter** is $t = -x/y$, which satisfies
+$v_p(t) \geq 1$, so $t \in p\mathbb{Z}_p$. The formal group logarithm is a power
+series
+
+$$\log_{\hat{E}}(t) = t + c_2 t^2 + c_3 t^3 + \cdots$$
+
+that converges for $t \in p\mathbb{Z}_p$. The key property: this logarithm is a
+**group homomorphism** from $\hat{E}(p\mathbb{Z}_p)$ (with the elliptic curve
+group law) to $p\mathbb{Z}_p$ (with plain addition). To first order,
+$\log_{\hat{E}}(t) \approx t$, and for the attack we only need the leading term.
+
+So define:
+
+$$\phi(\tilde{P}) = -\frac{x(p\tilde{P})}{y(p\tilde{P})} \in p\mathbb{Z}_p$$
+
+This $\phi$ maps the elliptic curve group law to addition.
+
+**Step 5: Divide.** Since $Q = nP$ on the original curve, the lifts satisfy
+$p\tilde{Q} = n \cdot (p\tilde{P})$ in the formal group (up to an error that
+vanishes to high $p$-adic order). Applying $\phi$:
+
+$$\phi(\tilde{Q}) = n \cdot \phi(\tilde{P}) \quad \text{in } p\mathbb{Z}_p$$
+
+Now $n$ is just a ratio of two $p$-adic numbers:
+
+$$n = \frac{\phi(\tilde{Q})}{\phi(\tilde{P})} \mod p$$
+
+Division in $\mathbb{Q}_p$ is easy. Reduce mod $p$ to get the secret key as an
+integer in $\{0, \ldots, p-1\}$.
+
+### Why the anomalous condition is essential
+
+The whole argument hinges on step 3: $p \cdot \tilde{P}$ must land in the formal
+group but must not be zero. The anomalous condition $\#E(\mathbb{F}_p) = p$
+guarantees that $P$ has order exactly $p$ in $E(\mathbb{F}_p)$, so $p\tilde{P}$
+reduces to the identity. If the group order were different (say $p + 1$ or some
+other value), then $p \cdot P \neq \mathcal{O}$ in $E(\mathbb{F}_p)$, and
+$p\tilde{P}$ would not land in the formal group at all. The logarithm would have
+nothing to work with.
+
+The takeaway for implementers: never use an anomalous curve. Any reasonable
+curve generation procedure checks $\#E(\mathbb{F}_p) \neq p$, but the attack
+illustrates something deeper. The $p$-adic structure was always there,
+underlying the curve arithmetic. The anomalous condition simply makes it visible
+and exploitable.
+
+## Implementation
+
+Here is the full implementation in Sage
+([source](https://github.com/BaDaaS/badaas.github.io/blob/main/scripts/smart_attack.sage)).
+You can edit and run it directly in your browser:
+
+<SageCell code={smartAttackCode} />
+
+The entire ECDLP, normally requiring $O(\sqrt{p})$ operations, collapses to a
+handful of $p$-adic arithmetic steps.
+
+## The broader picture
+
+Beyond Smart's attack, $p$-adic analysis appears throughout modern number theory
+in ways that feed back into cryptography. $p$-adic $L$-functions encode deep
+arithmetic information about elliptic curves and modular forms. The Iwasawa main
+conjecture (now a theorem in many cases) relates $p$-adic $L$-functions to the
+structure of certain Galois modules, connecting analytic and algebraic
+invariants. This circle of ideas informs our understanding of why certain
+number-theoretic problems are hard and others are not, which is ultimately what
+cryptographic security rests on.
+
+## References
+
+- N. Smart, "The Discrete Logarithm Problem on Elliptic Curves of Trace One",
+  _Journal of Cryptology_, vol. 12, 1999, pp. 193--196.
+  ([DOI](https://doi.org/10.1007/s001459900052))
+- J. Silverman, _The Arithmetic of Elliptic Curves_, 2nd ed., Springer GTM
+  106, 2009. (Chapter IV covers formal groups and the p-adic logarithm.)
+- F. Gouvea, _p-adic Numbers: An Introduction_, 2nd ed., Springer
+  Universitext, 1997.
+
+### Further reading
+
+- N. Smart, "The Discrete Logarithm Problem on Elliptic Curves of Trace One",
+  original HP Labs technical report, 1997.
+  ([PDF](https://www.hpl.hp.com/techreports/97/HPL-97-128.pdf))
+- T. Bradley, "A Cryptographic Attack: Finding the Discrete Logarithm on
+  Elliptic Curves of Trace One", Scripps Senior Thesis, 2015. An accessible
+  undergraduate thesis that walks through the full theory and implementation.
+  ([PDF](https://scholarship.claremont.edu/cgi/viewcontent.cgi?article=1633&context=scripps_theses))
+- J. Monnerat, "Generating Anomalous Elliptic Curves", EPFL, 2002. Explains how
+  to construct anomalous curves and implements the attack.
+  ([PDF](http://www.monnerat.info/publications/anomalous.pdf))
+- P. Novotney, "Weak Curves in Elliptic Curve Cryptography", 2010. A survey of
+  ECC attacks including Smart's, with Sage code.
+  ([PDF](https://wstein.org/edu/2010/414/projects/novotney.pdf))
+- J. Silverman, _The Arithmetic of Elliptic Curves_, Chapter IV (formal groups)
+  and Chapter VII (elliptic curves over local fields). These two chapters
+  contain the mathematical foundations for the formal group logarithm.
+  ([Springer](https://link.springer.com/book/10.1007/978-0-387-09494-6))
+- I. Blake, G. Seroussi, N. Smart, _Elliptic Curves in Cryptography_, London
+  Mathematical Society Lecture Note Series 265, Cambridge University
+  Press, 1999. Chapter 5 covers anomalous curves and the attack by one of its
+  inventors.
+- jvdsn/crypto-attacks, a Python/Sage repository with a clean implementation of
+  Smart's attack alongside many other ECC attacks.
+  ([GitHub](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py))
+- "Smart Attack on Elliptic Curves for Programmers", LeetArxiv, 2024. A
+  programmer-oriented walkthrough with code.
+  ([Substack](https://leetarxiv.substack.com/p/smart-attack-on-elliptic-curves-for))
+
+---
+
+_This article was generated using Claude Opus 4.6, with the author reviewing and
+correcting throughout. The process also served as an educational exercise for
+the author._
