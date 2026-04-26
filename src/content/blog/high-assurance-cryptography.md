@@ -116,7 +116,7 @@ German BSI.
 
 ### Companies
 
-**[Galois](https://galois.com/)** (Portland, USA) is commercial organization
+**[Galois](https://galois.com/)** (Portland, USA) is a commercial organization
 exclusively focused on high assurance software. They build cryptographic
 libraries, write formal proofs in Coq and SAW (Software Analysis Workbench), and
 advise US government and defense clients. Notable work:
