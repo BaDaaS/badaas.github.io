@@ -35,16 +35,14 @@ please contact us.
 
 </div>
 
-Cryptographic software has a unique property: a single implementation bug can
-silently undermine the security of millions of users. Padding oracle
-vulnerabilities, timing side-channels, integer overflows in bignum arithmetic --
-the attack surface of a cryptographic library is measured not just in lines of
-code, but in the gap between mathematical specification and running program.
+Cryptographic software has a property that complicates testing: an
+implementation bug can affect security without producing observable failures in
+normal operation. Padding oracle vulnerabilities, timing side-channels, and
+integer overflows in bignum arithmetic are example classes of such bugs.
 
-**High assurance cryptography** is the discipline of closing that gap using
-formal methods, memory-safe languages, and machine-checked proofs. The goal is
-software where correctness is not a claim made in a README, but a theorem proved
-in a proof assistant.
+**High assurance cryptography** is the discipline of reducing the gap between
+mathematical specification and running program through formal methods,
+memory-safe languages, and machine-checked proofs.
 
 This article maps the ecosystem: the organizations building it, the tools they
 use, the languages they write in, and the primitives they have verified.
@@ -63,10 +61,10 @@ The term covers a spectrum of rigor:
 | **Functional correctness**   | Machine-checked proofs against a formal spec       | [HACL\*](https://github.com/hacl-star/hacl-star), [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto), [EverCrypt](https://eprint.iacr.org/2019/757) |
 | **Computational security**   | Game-based proofs, symbolic or computational model | CryptoVerif proofs of TLS, Signal                                                                                                                      |
 
-In practice, the most credible high assurance libraries combine several of these
-levels: a formally specified API, a machine-checked proof of functional
-correctness, constant-time guarantees verified by a dedicated tool, and
-extraction to a safe or audited target language.
+In practice, high assurance libraries often combine several of these levels: a
+formally specified API, a machine-checked proof of functional correctness,
+constant-time guarantees verified by a dedicated tool, and extraction to a safe
+or audited target language.
 
 ---
 
@@ -76,10 +74,10 @@ extraction to a safe or audited target language.
 
 **[INRIA](https://www.inria.fr/)** (France) and the
 [Prosecco team](https://prosecco.inria.fr/) at INRIA Paris produced
-**[miTLS](https://www.mitls.org/)** -- a formally verified TLS implementation
-written in F\* -- and contributed core work on the
-**[HACL\*](https://hacl-star.github.io/)** library. Former Prosecco members span
-academia and industry worldwide.
+**[miTLS](https://www.mitls.org/)** (a formally verified TLS implementation
+written in F\*) and contributed core work on the
+**[HACL\*](https://hacl-star.github.io/)** library. Former Prosecco members work
+across academic and industrial cryptography teams.
 
 **[Carnegie Mellon University](https://www.cmu.edu/)** (USA) houses
 [CyLab](https://www.cylab.cmu.edu/) and has produced verified cryptographic
@@ -117,9 +115,9 @@ German BSI.
 ### Companies
 
 **[Galois](https://galois.com/)** (Portland, USA) is a commercial organization
-exclusively focused on high assurance software. They build cryptographic
-libraries, write formal proofs in Coq and SAW (Software Analysis Workbench), and
-advise US government and defense clients. Notable work:
+focused on high assurance software. They build cryptographic libraries, write
+formal proofs in Coq and SAW (Software Analysis Workbench), and advise US
+government and defense clients. Notable work:
 **[cryptol](https://cryptol.net/)** (a domain-specific language for specifying
 cryptographic algorithms) and **[SAW](https://saw.galois.com/)** (Software
 Analysis Workbench for bit-precise equivalence checking).
@@ -134,9 +132,9 @@ formally verified ML-KEM (Kyber) implementation.
 **[Trail of Bits](https://www.trailofbits.com/)** (New York, USA) combines
 security auditing with tool development. Their
 **[manticore](https://github.com/trailofbits/manticore)** symbolic execution
-engine and **[echidna](https://github.com/crytic/echidna)** fuzzer are widely
-used. They have audited many cryptographic implementations and contributed to
-constant-time verification tooling.
+engine and **[echidna](https://github.com/crytic/echidna)** fuzzer are used in
+smart contract and binary analysis. They have audited cryptographic
+implementations and contributed to constant-time verification tooling.
 
 **[NCC Group](https://www.nccgroup.com/)** (Manchester, UK / worldwide) performs
 cryptographic audits, including formal reviews of TLS implementations, key
@@ -159,8 +157,9 @@ assembly for big-number arithmetic used in AWS cryptographic services.
 
 **[Google](https://security.google/)** (USA) ships Fiat-Crypto-generated field
 arithmetic in Chrome's TLS stack and is the primary maintainer of
-**[BoringSSL](https://boringssl.googlesource.com/boringssl)**, which has
-undergone multiple formal analyses.
+**[BoringSSL](https://boringssl.googlesource.com/boringssl)**. Components of
+BoringSSL (notably AES-256-GCM) have been verified by AWS using SAW; see
+[aws-lc-verification](https://github.com/awslabs/aws-lc-verification).
 
 **[Microsoft Research](https://www.microsoft.com/en-us/research/)** (USA / UK /
 India) is the primary developer of **[F\*](https://fstar-lang.org/)** -- the
@@ -190,16 +189,16 @@ types and effect systems. F\* is the primary language for **HACL\*** and
 proofs in F\* combine type-level specifications with SMT-backed discharge of
 verification conditions.
 
-**[Coq](https://coq.inria.fr/)** is the proof assistant behind **Fiat-Crypto**.
-It has the longest history in the space (since 1989) and an enormous ecosystem
-of verified mathematics. Cryptographic work in Coq typically proves functional
-correctness (the implementation computes the right mathematical function) and
-extracts to OCaml or, via specialized tools, to C.
+**[Coq](https://coq.inria.fr/)** (renamed **[Rocq](https://rocq-prover.org/)**
+in 2025) is the proof assistant behind **Fiat-Crypto**. It dates from 1989 and
+has a large ecosystem of verified mathematics. Cryptographic work in Coq/Rocq
+typically proves functional correctness (the implementation computes the right
+mathematical function) and extracts to OCaml or, via specialized tools, to C.
 
-**[Lean 4](https://leanprover.github.io/)** is an emerging proof assistant with
-growing interest for cryptographic verification. Its metaprogramming
-capabilities and mathematical library (**Mathlib**) make it attractive for
-proofs that blend number theory with implementation correctness.
+**[Lean 4](https://leanprover.github.io/)** is a more recent proof assistant
+used in some cryptographic verification efforts. Its metaprogramming
+capabilities and mathematical library (**Mathlib**) are relevant for proofs that
+combine number theory with implementation correctness.
 
 **[Isabelle/HOL](https://isabelle.in.tum.de/)** (UK / Germany) has been used for
 verified cryptographic protocols in academia, including proofs in the
@@ -207,23 +206,22 @@ Computational Model using the **CryptHOL** framework developed at ETH Zurich and
 Karlsruhe Institute of Technology.
 
 **[EasyCrypt](https://www.easycrypt.info/)** targets game-based cryptographic
-proofs -- the standard proof technique in modern cryptography. It provides a
+proofs, a common proof technique in provable security. It provides a
 probabilistic relational Hoare logic and has been used to verify constructions
 like OCB, OAEP, and components of TLS. Developed at IMDEA (Spain).
 
 **[CryptoVerif](https://bblanche.gitlabpages.inria.fr/CryptoVerif/)** is a proof
-assistant for computational security proofs of cryptographic protocols. It is
-directly connected to real-world protocols: it has been used to verify Signal,
-TLS 1.3, and WireGuard. Developed by Bruno Blanchet at INRIA.
-
-**[ProVerif](https://bblanche.gitlabpages.inria.fr/proverif/)** works in the
-Dolev-Yao (symbolic) model and is the most widely deployed protocol verifier,
-used for SSH, TLS 1.3, OAuth, and many other protocols. Also from Bruno Blanchet
+assistant for computational security proofs of cryptographic protocols. It has
+been used to analyse Signal, TLS 1.3, and WireGuard. Developed by Bruno Blanchet
 at INRIA.
 
-**[Tamarin Prover](https://tamarin-prover.com/)** provides a more expressive
-symbolic model with support for mutable global state and complex protocol
-properties. Used for formal analysis of 5G protocols, TLS 1.3, and post-quantum
+**[ProVerif](https://bblanche.gitlabpages.inria.fr/proverif/)** works in the
+Dolev-Yao (symbolic) model and has been used to analyse SSH, TLS 1.3, OAuth, and
+other protocols. Also from Bruno Blanchet at INRIA.
+
+**[Tamarin Prover](https://tamarin-prover.com/)** is a symbolic-model verifier
+with support for mutable global state and equational theories not handled by
+ProVerif. Used for formal analysis of 5G protocols, TLS 1.3, and post-quantum
 handshakes.
 
 **[SAW (Software Analysis Workbench)](https://saw.galois.com/)** from Galois
@@ -244,11 +242,14 @@ ChaCha20, and others.
 
 ### Memory safety approaches
 
-**[Rust](https://www.rust-lang.org/)** has become the dominant memory-safe
-language for production cryptographic software. Its ownership model and borrow
-checker eliminate use-after-free, buffer overflows, and data races at compile
-time -- the classes of bugs responsible for the majority of cryptographic
-implementation vulnerabilities historically.
+**[Rust](https://www.rust-lang.org/)** is increasingly used for production
+cryptographic software. Its ownership model and borrow checker eliminate
+use-after-free, buffer overflows, and data races at compile time. Studies from
+[Microsoft](https://msrc.microsoft.com/blog/2019/07/a-proactive-approach-to-more-secure-code/)
+and
+[Google](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html)
+report that approximately 70% of historical security vulnerabilities in their
+C/C++ codebases were memory-safety issues that Rust's type system prevents.
 
 **[Haskell](https://www.haskell.org/)** provides strong type safety and is used
 in **[cryptonite](https://github.com/haskell-crypto/cryptonite)** and
@@ -289,15 +290,14 @@ pure OCaml cryptographic stack for the MirageOS unikernel ecosystem.
 
 ## Programming languages in use
 
-The high assurance cryptography ecosystem uses a wider range of languages than
-most software domains, because the choice of language directly impacts what
-properties can be verified.
+The high assurance cryptography ecosystem uses a range of specialized languages,
+because the choice of language affects what properties can be verified.
 
-**F\*** is the specification and proof language for the largest single corpus of
-formally verified cryptographic code. Writing in F\* gives access to dependent
-types, effect systems that track stateful and probabilistic computations, and
-SMT-backed verification. The resulting code is extracted to readable C or
-compiled to WebAssembly.
+**F\*** is the specification and proof language for HACL\* and EverCrypt, two of
+the larger corpora of formally verified cryptographic code in production use.
+Writing in F\* gives access to dependent types, effect systems that track
+stateful and probabilistic computations, and SMT-backed verification. The
+resulting code is extracted to readable C or compiled to WebAssembly.
 
 **Coq** is used where the proof style benefits from tactics-based interactive
 theorem proving and the existing Coq mathematical library. Fiat-Crypto generates
@@ -309,9 +309,9 @@ of assembly, allowing verified implementations of cryptographic primitives that
 match hand-optimized C in performance while carrying machine-checked correctness
 proofs.
 
-**Rust** is the dominant safe-systems language. While Rust does not provide
-functional correctness proofs out of the box, its type system eliminates memory
-safety vulnerabilities, and the ecosystem is large and active. Tools like
+**Rust** is widely used as a safe-systems language. While Rust does not provide
+functional correctness proofs out of the box, its type system eliminates classes
+of memory safety vulnerabilities. Tools like
 **[Kani](https://github.com/model-checking/kani)** (AWS) and
 **[Prusti](https://github.com/viperproject/prusti-dev)** (ETH Zurich) extend
 Rust with formal verification.
@@ -324,8 +324,8 @@ enabling equivalence checking between spec and implementation via SAW.
 
 ## Cryptographic primitives covered
 
-The formally verified ecosystem now covers most of the cryptographic primitives
-in modern use:
+The formally verified ecosystem covers many cryptographic primitives in current
+use:
 
 ### Elliptic curves
 
@@ -426,12 +426,12 @@ funding, and industrial demand.
 
 ### France
 
-France has the densest concentration of formal cryptographic verification
-research globally. **INRIA** funds and houses multiple teams directly engaged in
-verified cryptography. The **[ANSSI](https://www.ssi.gouv.fr/)** (Agence
-nationale de la sécurité des systèmes d'information) sets technical standards
-for cryptographic products used by the French government and publishes reference
-documentation on acceptable algorithms. ANSSI has contributed to the
+France hosts a number of teams active in formal cryptographic verification
+research. **INRIA** funds and houses multiple teams directly engaged in verified
+cryptography. The **[ANSSI](https://www.ssi.gouv.fr/)** (Agence nationale de la
+sécurité des systèmes d'information) sets technical standards for cryptographic
+products used by the French government and publishes reference documentation on
+acceptable algorithms. ANSSI has contributed to the
 [French post-quantum cryptography roadmap](https://cyber.gouv.fr/en/publications/follow-position-paper-post-quantum-cryptography)
 and requires formal security evaluations under
 [Common Criteria](https://www.commoncriteriaportal.org/) for high-security
@@ -442,9 +442,10 @@ Key organizations: INRIA (Prosecco, CASCADE teams), IRIF (Paris), Cryspen
 
 ### United States
 
-The US has the largest industry concentration. NIST drives global standards
-(SHA-3, AES, the PQC standardization process). Defense and intelligence agencies
-fund verification research through DARPA (programs like
+The US hosts a large concentration of industry players in this area. NIST runs
+international cryptographic standardization processes (SHA-3, AES, the PQC
+standardization process). Defense and intelligence agencies fund verification
+research through DARPA (programs like
 **[HACMS](https://www.darpa.mil/program/high-assurance-cyber-military-systems)**
 -- High Assurance Cyber Military Systems) and the NSA's
 **[Commercial National Security Algorithm Suite](https://www.nsa.gov/Resources/Commercial-Solutions-for-Classified-Program/)**
@@ -470,22 +471,21 @@ Key organizations: NCSC, PQShield (Oxford), NCC Group (Manchester), Nomadic Labs
 ### Germany
 
 **BSI** (Bundesamt für Sicherheit in der Informationstechnik) is Germany's
-federal cybersecurity authority and one of the most technically rigorous
-national security agencies in Europe. The BSI has co-developed
+federal cybersecurity authority. The BSI has co-developed
 **[XMSS](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Quantentechnologien-und-Post-Quanten-Kryptografie/quantentechnologien-und-post-quanten-kryptografie_node.html)**
-(a stateful hash-based signature adopted by NIST and RFC 8391) and published
-guidance recommending formally verified implementations for critical systems.
+(a stateful hash-based signature adopted by NIST and RFC 8391) and publishes
+guidance that includes formally verified implementations for critical systems.
 
 Key organizations: BSI, KIT (Karlsruhe Institute of Technology), TU Darmstadt
 (Cryptoplexity group), Cryspen (distributed), Cure53 (Berlin).
 
 ### Netherlands
 
-The Netherlands has produced significant cryptographic theory (CWI, TU/e) and
-verification work. The **[Radboud University](https://www.ru.nl/en)** group
-(Bernstein, Lange, and colleagues) produced Curve25519, Ed25519, and
-SPHINCS/SPHINCS+. **[TU/e (Eindhoven)](https://www.tue.nl/)** is home to leading
-public-key cryptography researchers.
+The Netherlands hosts active cryptographic theory and verification groups at CWI
+and TU/e. The **[Radboud University](https://www.ru.nl/en)** group (Bernstein,
+Lange, and colleagues) contributed to the design of Curve25519, Ed25519, and
+SPHINCS/SPHINCS+. **[TU/e (Eindhoven)](https://www.tue.nl/)** hosts public-key
+cryptography research, including the Cryptographic Implementations group.
 
 Key organizations: CWI (Amsterdam), Radboud University (Nijmegen), TU/e
 (Eindhoven).
@@ -503,20 +503,20 @@ Key organizations: ETH Zurich, EPFL, University of Bern.
 
 ### Spain
 
-**IMDEA Software Institute** (Madrid) developed both **EasyCrypt** and
-**Jasmin** -- two of the most important tools in the high assurance cryptography
-toolchain.
+**IMDEA Software Institute** (Madrid) developed both **EasyCrypt** (a proof
+assistant for game-based cryptographic security proofs) and **Jasmin** (a
+language for high-speed verified cryptographic implementations).
 
 Key organizations: IMDEA Software (Madrid), UPM (Universidad Politécnica de
 Madrid).
 
 ### Belgium
 
-**KU Leuven** (Leuven) is home to the COSIC research group (Computer Security
-and Industrial Cryptography), one of the most productive cryptographic research
-groups in the world. COSIC designed **AES** (Rijndael), led the **SHA-3**
-competition candidate Keccak, and is deeply involved in post-quantum
-standardization.
+**KU Leuven** (Leuven) hosts the COSIC research group (Computer Security and
+Industrial Cryptography). COSIC members co-designed **AES** (Rijndael, by Joan
+Daemen and Vincent Rijmen) and **Keccak** (the algorithm selected as **SHA-3**,
+by Bertoni, Daemen, Peeters, and Van Assche). COSIC is also active in
+post-quantum standardization.
 
 Key organizations: KU Leuven COSIC, UCLouvain.
 
@@ -524,8 +524,8 @@ Key organizations: KU Leuven COSIC, UCLouvain.
 
 **[CRYPTREC](https://www.cryptrec.go.jp/en/)** is Japan's government-run
 cryptographic evaluation project, producing the list of ciphers approved for use
-in Japanese e-government applications. NTT and NEC have strong cryptographic
-research divisions with contributions to lattice-based cryptography and protocol
+in Japanese e-government applications. NTT and NEC have cryptographic research
+divisions with contributions to lattice-based cryptography and protocol
 verification.
 
 Key organizations: [CRYPTREC](https://www.cryptrec.go.jp/en/),
