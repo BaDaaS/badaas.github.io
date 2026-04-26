@@ -1,5 +1,5 @@
 ---
-title: "High Assurance Cryptography: Who is Building Provably Correct Crypto?"
+title: "High Assurance Cryptography: A snapshot of the landscape"
 description:
   "An overview of the high assurance cryptography ecosystem: the companies,
   research labs, tools, programming languages, products, and cryptographic
@@ -16,6 +16,24 @@ tags:
     "fstar",
   ]
 ---
+
+<div class="note-box">
+
+_This article is part of an ongoing effort at [BaDaaS](https://badaas.be) to
+track the cryptographic engineering landscape. If an organization, tool, or
+country is missing,
+[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
+
+_This document was mostly generated with Claude Opus 4.7. If you spot any error,
+please [contact me](mailto:danny@badaas.be) or
+[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._ Claude is
+used at BaDaaS to gather information available across the Internet, codebases
+and papers. We do not encourage to use AI to generate cryptographic code (or
+critical code in general). This document does not reflect any opinion of the
+company or the author. If you think that the article has opiniated content,
+please contact us.
+
+</div>
 
 Cryptographic software has a unique property: a single implementation bug can
 silently undermine the security of millions of users. Padding oracle
@@ -56,10 +74,10 @@ extraction to a safe or audited target language.
 
 ### Research labs and universities
 
-**[INRIA](https://www.inria.fr/)** (France) is an influential institution in
-this space. The [Prosecco team](https://prosecco.inria.fr/) at INRIA Paris
-produced **[miTLS](https://www.mitls.org/)** -- a formally verified TLS
-implementation written in F\* -- and contributed core work on the
+**[INRIA](https://www.inria.fr/)** (France) and the
+[Prosecco team](https://prosecco.inria.fr/) at INRIA Paris produced
+**[miTLS](https://www.mitls.org/)** -- a formally verified TLS implementation
+written in F\* -- and contributed core work on the
 **[HACL\*](https://hacl-star.github.io/)** library. Former Prosecco members span
 academia and industry worldwide.
 
@@ -98,10 +116,10 @@ German BSI.
 
 ### Companies
 
-**[Galois](https://galois.com/)** (Portland, USA) is probably the best-known
-commercial organization exclusively focused on high assurance software. They
-build cryptographic libraries, write formal proofs in Coq and SAW (Software
-Analysis Workbench), and advise US government and defense clients. Notable work:
+**[Galois](https://galois.com/)** (Portland, USA) is a commercial organization
+exclusively focused on high assurance software. They build cryptographic
+libraries, write formal proofs in Coq and SAW (Software Analysis Workbench), and
+advise US government and defense clients. Notable work:
 **[cryptol](https://cryptol.net/)** (a domain-specific language for specifying
 cryptographic algorithms) and **[SAW](https://saw.galois.com/)** (Software
 Analysis Workbench for bit-precise equivalence checking).
@@ -121,9 +139,9 @@ used. They have audited many cryptographic implementations and contributed to
 constant-time verification tooling.
 
 **[NCC Group](https://www.nccgroup.com/)** (Manchester, UK / worldwide) performs
-cryptographic audits at scale, including formal reviews of TLS implementations,
-key management systems, and hardware security modules. Their Cryptography
-Services team has published extensive public research on implementation flaws.
+cryptographic audits, including formal reviews of TLS implementations, key
+management systems, and hardware security modules. Their Cryptography Services
+team has published public research on implementation flaws.
 
 **[Cure53](https://cure53.de/)** (Berlin, Germany) audits cryptographic code and
 protocols. Their published reports are listed at
@@ -510,32 +528,37 @@ in Japanese e-government applications. NTT and NEC have strong cryptographic
 research divisions with contributions to lattice-based cryptography and protocol
 verification.
 
-Key organizations: CRYPTREC, NTT Research (also active in USA), NEC, Tohoku
-University.
+Key organizations: [CRYPTREC](https://www.cryptrec.go.jp/en/),
+[NTT Research](https://ntt-research.com/) (also active in USA),
+[NEC](https://www.nec.com/en/global/rd/),
+[Tohoku University](https://www.tohoku.ac.jp/en/research/).
 
 ---
 
 ## Why this matters now
 
-Three forces are converging to make high assurance cryptography urgent:
+Three contemporary trends are relevant to high assurance cryptography:
 
 **Post-quantum migration**: NIST finalized ML-KEM, ML-DSA, and SLH-DSA in 2024.
-Every TLS stack, VPN, secure messaging app, and HSM on the planet must be
-updated. The window for introducing implementation bugs is large. Formally
-verified implementations reduce that risk.
+TLS stacks, VPNs, secure messaging applications, and HSMs are expected to be
+updated to support these algorithms. The migration introduces new code paths,
+which can be a source of implementation bugs. Formal verification is one
+approach among others (testing, fuzzing, code review) that may help address
+this.
 
 **Regulatory pressure**: The EU's
 [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act)
-and DORA (Digital Operational Resilience Act) impose liability for software
-vulnerabilities. NIST's
+and DORA (Digital Operational Resilience Act) introduce liability rules for
+software vulnerabilities. NIST's
 [Secure Software Development Framework](https://csrc.nist.gov/projects/ssdf) and
-the US Executive Order on Cybersecurity (2021) push toward formal verification
-for high-risk software.
+the US Executive Order on Cybersecurity (2021) reference formal methods among
+recommended practices for some categories of software.
 
-**Hardware proliferation**: Cryptographic operations are moving into enclaves,
-trusted execution environments, and dedicated accelerators. Bugs in these
-environments are extraordinarily hard to patch. Formally verified cryptographic
-primitives for hardware are an active research and product area.
+**Hardware proliferation**: Cryptographic operations are increasingly executed
+in enclaves, trusted execution environments, and dedicated accelerators.
+Patching bugs in such environments can be more difficult than in general-purpose
+software. Formally verified cryptographic primitives for hardware is one of the
+research and product areas in this space.
 
 ---
 
@@ -576,14 +599,3 @@ primitives for hardware are an active research and product area.
 - [NIST Secure Software Development Framework (SSDF)](https://csrc.nist.gov/projects/ssdf)
 - [NSA CNSA 2.0 -- post-quantum migration timeline](https://media.defense.gov/2022/Sep/07/2003071236/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF)
 - [DARPA HACMS program](https://www.darpa.mil/program/high-assurance-cyber-military-systems)
-
----
-
-_This article is part of an ongoing effort at [badaas.be](https://badaas.be) to
-track the cryptographic engineering landscape. If an organization, tool, or
-country is missing,
-[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
-
-_This document was mostly generated with Claude Opus 4.7. If you spot any error,
-please [contact me](mailto:danny@badaas.be) or
-[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
