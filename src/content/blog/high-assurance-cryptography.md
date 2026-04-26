@@ -29,7 +29,9 @@ please [contact me](mailto:danny@badaas.be) or
 [open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._ Claude is
 used at BaDaaS to gather information available across the Internet, codebases
 and papers. We do not encourage to use AI to generate cryptographic code (or
-critical code in general).
+critical code in general). This document does not reflect any opinion of the
+company or the author. If you think that the article has opiniated content,
+please contact us.
 
 </div>
 
@@ -72,10 +74,10 @@ extraction to a safe or audited target language.
 
 ### Research labs and universities
 
-**[INRIA](https://www.inria.fr/)** (France) is an influential institution in
-this space. The [Prosecco team](https://prosecco.inria.fr/) at INRIA Paris
-produced **[miTLS](https://www.mitls.org/)** -- a formally verified TLS
-implementation written in F\* -- and contributed core work on the
+**[INRIA](https://www.inria.fr/)** (France) and the
+[Prosecco team](https://prosecco.inria.fr/) at INRIA Paris produced
+**[miTLS](https://www.mitls.org/)** -- a formally verified TLS implementation
+written in F\* -- and contributed core work on the
 **[HACL\*](https://hacl-star.github.io/)** library. Former Prosecco members span
 academia and industry worldwide.
 
