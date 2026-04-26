@@ -139,9 +139,9 @@ used. They have audited many cryptographic implementations and contributed to
 constant-time verification tooling.
 
 **[NCC Group](https://www.nccgroup.com/)** (Manchester, UK / worldwide) performs
-cryptographic audits at scale, including formal reviews of TLS implementations,
+cryptographic audits, including formal reviews of TLS implementations,
 key management systems, and hardware security modules. Their Cryptography
-Services team has published extensive public research on implementation flaws.
+Services team has published public research on implementation flaws.
 
 **[Cure53](https://cure53.de/)** (Berlin, Germany) audits cryptographic code and
 protocols. Their published reports are listed at
