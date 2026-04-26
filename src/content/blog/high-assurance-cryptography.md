@@ -116,10 +116,10 @@ German BSI.
 
 ### Companies
 
-**[Galois](https://galois.com/)** (Portland, USA) is probably the best-known
-commercial organization exclusively focused on high assurance software. They
-build cryptographic libraries, write formal proofs in Coq and SAW (Software
-Analysis Workbench), and advise US government and defense clients. Notable work:
+**[Galois](https://galois.com/)** (Portland, USA) is commercial organization
+exclusively focused on high assurance software. They build cryptographic
+libraries, write formal proofs in Coq and SAW (Software Analysis Workbench), and
+advise US government and defense clients. Notable work:
 **[cryptol](https://cryptol.net/)** (a domain-specific language for specifying
 cryptographic algorithms) and **[SAW](https://saw.galois.com/)** (Software
 Analysis Workbench for bit-precise equivalence checking).
