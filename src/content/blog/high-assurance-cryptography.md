@@ -139,9 +139,9 @@ used. They have audited many cryptographic implementations and contributed to
 constant-time verification tooling.
 
 **[NCC Group](https://www.nccgroup.com/)** (Manchester, UK / worldwide) performs
-cryptographic audits, including formal reviews of TLS implementations,
-key management systems, and hardware security modules. Their Cryptography
-Services team has published public research on implementation flaws.
+cryptographic audits, including formal reviews of TLS implementations, key
+management systems, and hardware security modules. Their Cryptography Services
+team has published public research on implementation flaws.
 
 **[Cure53](https://cure53.de/)** (Berlin, Germany) audits cryptographic code and
 protocols. Their published reports are listed at
@@ -528,32 +528,37 @@ in Japanese e-government applications. NTT and NEC have strong cryptographic
 research divisions with contributions to lattice-based cryptography and protocol
 verification.
 
-Key organizations: CRYPTREC, NTT Research (also active in USA), NEC, Tohoku
-University.
+Key organizations: [CRYPTREC](https://www.cryptrec.go.jp/en/),
+[NTT Research](https://ntt-research.com/) (also active in USA),
+[NEC](https://www.nec.com/en/global/rd/),
+[Tohoku University](https://www.tohoku.ac.jp/en/research/).
 
 ---
 
 ## Why this matters now
 
-Three forces are converging to make high assurance cryptography urgent:
+Three contemporary trends are relevant to high assurance cryptography:
 
 **Post-quantum migration**: NIST finalized ML-KEM, ML-DSA, and SLH-DSA in 2024.
-Every TLS stack, VPN, secure messaging app, and HSM on the planet must be
-updated. The window for introducing implementation bugs is large. Formally
-verified implementations reduce that risk.
+TLS stacks, VPNs, secure messaging applications, and HSMs are expected to be
+updated to support these algorithms. The migration introduces new code paths,
+which can be a source of implementation bugs. Formal verification is one
+approach among others (testing, fuzzing, code review) that may help address
+this.
 
 **Regulatory pressure**: The EU's
 [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act)
-and DORA (Digital Operational Resilience Act) impose liability for software
-vulnerabilities. NIST's
+and DORA (Digital Operational Resilience Act) introduce liability rules for
+software vulnerabilities. NIST's
 [Secure Software Development Framework](https://csrc.nist.gov/projects/ssdf) and
-the US Executive Order on Cybersecurity (2021) push toward formal verification
-for high-risk software.
+the US Executive Order on Cybersecurity (2021) reference formal methods among
+recommended practices for some categories of software.
 
-**Hardware proliferation**: Cryptographic operations are moving into enclaves,
-trusted execution environments, and dedicated accelerators. Bugs in these
-environments are extraordinarily hard to patch. Formally verified cryptographic
-primitives for hardware are an active research and product area.
+**Hardware proliferation**: Cryptographic operations are increasingly executed
+in enclaves, trusted execution environments, and dedicated accelerators.
+Patching bugs in such environments can be more difficult than in general-purpose
+software. Formally verified cryptographic primitives for hardware is one of the
+research and product areas in this space.
 
 ---
 
