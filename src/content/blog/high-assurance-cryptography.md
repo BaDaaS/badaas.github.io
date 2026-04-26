@@ -1,5 +1,5 @@
 ---
-title: "High Assurance Cryptography: Who is Building Provably Correct Crypto?"
+title: "High Assurance Cryptography: A snapshot of the landscape"
 description:
   "An overview of the high assurance cryptography ecosystem: the companies,
   research labs, tools, programming languages, products, and cryptographic
