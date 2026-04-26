@@ -37,13 +37,13 @@ use, the languages they write in, and the primitives they have verified.
 
 The term covers a spectrum of rigor:
 
-| Level                        | Technique                                          | Example                           |
-| ---------------------------- | -------------------------------------------------- | --------------------------------- |
-| **Testing + fuzzing**        | Property-based tests, differential fuzzing         | libsodium test suite              |
-| **Constant-time discipline** | Compiler analysis, ct-verif, dudect                | s2n, BearSSL                      |
-| **Memory safety**            | Safe language, borrow checker, garbage collection  | RustCrypto, ring                  |
-| **Functional correctness**   | Machine-checked proofs against a formal spec       | HACL\*, Fiat-Crypto, EverCrypt    |
-| **Computational security**   | Game-based proofs, symbolic or computational model | CryptoVerif proofs of TLS, Signal |
+| Level                        | Technique                                          | Example                                                                                                                                                |
+| ---------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Testing + fuzzing**        | Property-based tests, differential fuzzing         | [libsodium](https://libsodium.gitbook.io/doc) test suite                                                                                               |
+| **Constant-time discipline** | Compiler analysis, ct-verif, dudect                | [s2n](https://github.com/aws/s2n-tls), [BearSSL](https://bearssl.org/)                                                                                 |
+| **Memory safety**            | Safe language, borrow checker, garbage collection  | [RustCrypto](https://github.com/rustcrypto), [ring](https://github.com/briansmith/ring)                                                                |
+| **Functional correctness**   | Machine-checked proofs against a formal spec       | [HACL\*](https://github.com/hacl-star/hacl-star), [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto), [EverCrypt](https://eprint.iacr.org/2019/757) |
+| **Computational security**   | Game-based proofs, symbolic or computational model | CryptoVerif proofs of TLS, Signal                                                                                                                      |
 
 In practice, the most credible high assurance libraries combine several of these
 levels: a formally specified API, a machine-checked proof of functional
@@ -56,18 +56,18 @@ extraction to a safe or audited target language.
 
 ### Research labs and universities
 
-**[INRIA](https://www.inria.fr/)** (France) is the single most influential
-institution in this space. The
-[Prosecco team](https://prosecco.gforge.inria.fr/) at INRIA Paris produced
-**[miTLS](https://tls.mbarrier.net/)** -- a formally verified TLS implementation
-written in F\* -- and contributed core work on the
+**[INRIA](https://www.inria.fr/)** (France) is an influential institution in
+this space. The [Prosecco team](https://prosecco.inria.fr/) at INRIA Paris
+produced **[miTLS](https://www.mitls.org/)** -- a formally verified TLS
+implementation written in F\* -- and contributed core work on the
 **[HACL\*](https://hacl-star.github.io/)** library. Former Prosecco members span
 academia and industry worldwide.
 
-**[Carnegie Mellon University](https://www.cmu.edu/)** (USA) houses CyLab and
-has produced verified cryptographic protocols through projects like
-**[Cassels](https://research.cs.cmu.edu/)** and contributions to Coq-based
-verification infrastructure.
+**[Carnegie Mellon University](https://www.cmu.edu/)** (USA) houses
+[CyLab](https://www.cylab.cmu.edu/) and has produced verified cryptographic
+protocols through projects like
+**[OWL](https://www.andrew.cmu.edu/user/bparno/papers/owl.pdf)** and
+contributions to Coq-based verification infrastructure.
 
 **[MIT CSAIL](https://www.csail.mit.edu/)** (USA) contributed
 **[Fiat-Crypto](https://github.com/mit-plv/fiat-crypto)**, the Coq-based
@@ -85,9 +85,11 @@ the **[EasyCrypt](https://www.easycrypt.info/)** framework for game-based
 cryptographic security proofs.
 
 **[Centrum Wiskunde & Informatica (CWI)](https://www.cwi.nl/)** (Netherlands)
-has longstanding contributions to cryptographic protocol theory and
-verification, including early work on the computational soundness of symbolic
-models.
+hosts the [Cryptology Group](https://www.cwi.nl/en/groups/cryptology/) led by
+[Ronald Cramer](https://homepages.cwi.nl/~cramer/),
+[Léo Ducas](https://homepages.cwi.nl/~ducas/), and
+[Serge Fehr](https://homepages.cwi.nl/~fehr/). Léo Ducas is a co-author of
+CRYSTALS-Kyber (ML-KEM) and CRYSTALS-Dilithium (ML-DSA).
 
 **[Radboud University](https://www.ru.nl/en)** (Netherlands) produced the
 **[XMSS](https://datatracker.ietf.org/doc/html/rfc8391)** stateful hash-based
@@ -123,15 +125,13 @@ cryptographic audits at scale, including formal reviews of TLS implementations,
 key management systems, and hardware security modules. Their Cryptography
 Services team has published extensive public research on implementation flaws.
 
-**[Cure53](https://cure53.de/)** (Berlin, Germany) has audited cryptographic
-code in numerous high-profile projects including **Sequoia-PGP**, **WireGuard**,
-and **libsodium**.
+**[Cure53](https://cure53.de/)** (Berlin, Germany) audits cryptographic code and
+protocols. Their published reports are listed at
+[cure53/Publications](https://github.com/cure53/Publications).
 
 **[Nadim Kobeissi / Symbolic Software](https://symbolic.software/)** (France)
 built **[Verifpal](https://verifpal.com/)** -- a protocol verification tool
-designed for a wider audience than ProVerif or Tamarin -- and
-**[Formal Verification of Cryptographic Protocols](https://eprint.iacr.org/)**
-research.
+designed for a wider audience than ProVerif or Tamarin.
 
 **[Amazon Web Services (AWS)](https://aws.amazon.com/)** (USA) produced
 **[s2n-tls](https://github.com/aws/s2n-tls)** -- their TLS implementation with a
@@ -213,7 +213,7 @@ performs bit-precise equivalence checking between a Cryptol specification and a
 C or LLVM implementation. It has verified parts of **Amazon s2n**, **OpenSSL**,
 and **BoringSSL** at the assembly level.
 
-**[ct-verif](https://github.com/imdea-software/ct-verif)** and
+**[ct-verif](https://github.com/imdea-software/verifying-constant-time)** and
 **[binsec/rel](https://binsec.github.io/)** verify constant-time properties of
 binary code -- ensuring no secret-dependent branching or memory access patterns
 exist that could leak via timing channels.
@@ -234,7 +234,7 @@ implementation vulnerabilities historically.
 
 **[Haskell](https://www.haskell.org/)** provides strong type safety and is used
 in **[cryptonite](https://github.com/haskell-crypto/cryptonite)** and
-**[botan](https://github.com/haskell-crypto/haskell-botan)**. Its garbage
+**[botan](https://github.com/haskell-cryptography/botan)**. Its garbage
 collection eliminates memory corruption but introduces timing variability that
 must be managed carefully.
 
@@ -255,7 +255,7 @@ pure OCaml cryptographic stack for the MirageOS unikernel ecosystem.
 | [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto)      | Coq → C / Rust    | Coq proofs                   | MIT CSAIL                   |
 | [s2n-tls](https://github.com/aws/s2n-tls)                  | C                 | CBMC, TLA+, SAW              | Amazon Web Services         |
 | [s2n-bignum](https://github.com/awslabs/s2n-bignum)        | ARM/x86 asm + HOL | HOL Light proofs             | Amazon Web Services         |
-| [miTLS](https://tls.mbarrier.net/)                         | F\* → OCaml       | F\* proofs, CryptoVerif      | INRIA / MSR                 |
+| [miTLS](https://www.mitls.org/)                            | F\* → OCaml       | F\* proofs, CryptoVerif      | INRIA / MSR                 |
 | [ring](https://github.com/briansmith/ring)                 | Rust + assembly   | Fuzzing, audits              | Brian Smith (community)     |
 | [RustCrypto](https://github.com/RustCrypto)                | Rust              | Memory safety, audits        | Community                   |
 | [orion](https://github.com/orion-rs/orion)                 | Rust              | Memory safety, fuzzing       | Orion project               |
@@ -311,50 +311,92 @@ in modern use:
 
 ### Elliptic curves
 
-- **Curve25519 / X25519**: Field arithmetic verified in Fiat-Crypto; scalar
-  multiplication verified in HACL\*
-- **Ed25519 / EdDSA**: Verified in HACL\* and libcrux
-- **P-256, P-384, P-521**: Field arithmetic from Fiat-Crypto, deployed in
-  Chrome, Firefox, and Android
-- **secp256k1**: Available in various Rust implementations; partial formal
-  verification work
+- **Curve25519 / X25519**: Field arithmetic verified in
+  [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/curve25519_64.c);
+  scalar multiplication verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/curve25519)
+- **Ed25519 / EdDSA**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/ed25519); Rust
+  bindings exposed by [libcrux](https://github.com/cryspen/libcrux)
+- **P-256, P-384, P-521**: Field arithmetic generated by Fiat-Crypto
+  ([p256_64.c](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/p256_64.c),
+  [p384_64.c](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/p384_64.c),
+  [p521_64.c](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/p521_64.c)),
+  deployed in Chrome, Firefox, and Android. P-256 ECDSA also verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/ecdsap256)
+- **secp256k1**: Field arithmetic generated by Fiat-Crypto
+  ([secp256k1_dettman_64.c](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/secp256k1_dettman_64.c));
+  curve operations in
+  [HACL\* k256](https://github.com/hacl-star/hacl-star/tree/main/code/k256).
+  Production library
+  [bitcoin-core/secp256k1](https://github.com/bitcoin-core/secp256k1) is audited
+  but not formally verified end-to-end.
 
 ### Symmetric primitives
 
-- **ChaCha20-Poly1305**: Verified in HACL\* (F\* proofs) and Jasmin
-- **AES-GCM**: Verified in EverCrypt (F\*), with hardware intrinsics
-- **AES**: Core operations verified in HACL\*
-- **BLAKE2b / BLAKE2s**: Verified in HACL\*
-- **SHA-256, SHA-384, SHA-512**: Verified in HACL\* and s2n-bignum
-- **SHA-3 / SHAKE**: Verified in HACL\*
-- **HMAC**: Verified in HACL\*
+- **ChaCha20-Poly1305**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/chacha20poly1305)
+  (F\* proofs) and
+  [Jasmin / formosa-crypto](https://github.com/formosa-crypto/formosa-25519)
+- **AES-GCM**: Verified in
+  [EverCrypt](https://github.com/hacl-star/hacl-star/tree/main/providers/evercrypt)
+  (F\*), with hardware intrinsics; AWS-LC / BoringSSL AES-256-GCM verified via
+  [SAW](https://github.com/awslabs/aws-lc-verification)
+- **AES**: Verified assembly in
+  [HACL\* / Vale](https://github.com/hacl-star/hacl-star/tree/main/vale/code/crypto/aes)
+- **BLAKE2b / BLAKE2s**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/blake2)
+- **SHA-256, SHA-384, SHA-512**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/hash) and
+  [s2n-bignum](https://github.com/awslabs/s2n-bignum)
+- **SHA-3 / SHAKE**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/sha3)
+- **HMAC**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/hmac)
 
 ### Key derivation and agreement
 
-- **HKDF**: Verified in HACL\*
-- **X25519** (Diffie-Hellman on Curve25519): Verified in HACL\*
-- **ECDH on P-256**: Verified via Fiat-Crypto field arithmetic
+- **HKDF**: Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/hkdf)
+- **X25519** (Diffie-Hellman on Curve25519): Verified in
+  [HACL\*](https://github.com/hacl-star/hacl-star/tree/main/code/curve25519)
+- **ECDH on P-256**: Built on Fiat-Crypto
+  [p256_64.c](https://github.com/mit-plv/fiat-crypto/blob/master/fiat-c/src/p256_64.c)
+  field arithmetic, with curve operations in
+  [HACL\* ecdsap256](https://github.com/hacl-star/hacl-star/tree/main/code/ecdsap256)
 
 ### Post-quantum cryptography (NIST standards)
 
-- **ML-KEM** (CRYSTALS-Kyber): Formally verified in **libcrux** (Cryspen), with
-  F\* functional correctness proofs and constant-time verification.
+- **ML-KEM** (CRYSTALS-Kyber): Formally verified in
+  **[libcrux](https://github.com/cryspen/libcrux/tree/main/libcrux-ml-kem)**
+  (Cryspen), with F\* functional correctness proofs and constant-time
+  verification.
   [First formally verified ML-KEM implementation](https://cryspen.com/post/ml-kem-verification/).
-- **ML-DSA** (CRYSTALS-Dilithium): Verification work underway in libcrux and
+- **ML-DSA** (CRYSTALS-Dilithium): Verification work underway in
+  [libcrux](https://github.com/cryspen/libcrux/tree/main/libcrux-ml-dsa) and
   PQShield toolchains
-- **SLH-DSA** (SPHINCS+): Hash-based signature; stateless and conservatively
-  designed
-- **FN-DSA** (FALCON): Lattice-based; verification work ongoing
+- **SLH-DSA** (SPHINCS+):
+  [reference implementation](https://github.com/sphincs/sphincsplus); hash-based
+  signature, stateless and conservatively designed
+- **FN-DSA** (FALCON): [reference implementation](https://falcon-sign.info/);
+  lattice-based, verification work ongoing
 
 ### Protocols
 
-- **TLS 1.3**: Formally analyzed with CryptoVerif (computational) and Tamarin
-  (symbolic); implementation verification in miTLS
-- **Signal Protocol**: Formally analyzed with CryptoVerif; shown to meet forward
+- **TLS 1.3**: Formally analyzed with
+  [CryptoVerif](https://bblanche.gitlabpages.inria.fr/CryptoVerif/)
+  (computational) and [Tamarin](https://tamarin-prover.com/) (symbolic);
+  implementation verification in
+  [miTLS](https://github.com/project-everest/mitls-fstar)
+- **Signal Protocol**: Formally analyzed with
+  [CryptoVerif](https://eprint.iacr.org/2016/1013); shown to meet forward
   secrecy and break-in recovery
-- **WireGuard**: Formally analyzed with Tamarin and ProVerif; Noise protocol
-  framework verified
-- **SSH**: Analyzed with ProVerif; various implementation audits
+- **WireGuard**:
+  [formally analyzed with Tamarin and ProVerif](https://www.wireguard.com/papers/wireguard-formal-verification.pdf);
+  Noise protocol framework verified
+- **SSH**: Analyzed with
+  [ProVerif](https://bblanche.gitlabpages.inria.fr/proverif/); various
+  implementation audits
 
 ---
 
@@ -372,7 +414,7 @@ verified cryptography. The **[ANSSI](https://www.ssi.gouv.fr/)** (Agence
 nationale de la sécurité des systèmes d'information) sets technical standards
 for cryptographic products used by the French government and publishes reference
 documentation on acceptable algorithms. ANSSI has contributed to the
-[French post-quantum cryptography roadmap](https://www.ssi.gouv.fr/en/publication/anssi-views-on-the-post-quantum-cryptography-transition/)
+[French post-quantum cryptography roadmap](https://cyber.gouv.fr/en/publications/follow-position-paper-post-quantum-cryptography)
 and requires formal security evaluations under
 [Common Criteria](https://www.commoncriteriaportal.org/) for high-security
 products.
@@ -412,7 +454,7 @@ Key organizations: NCSC, PQShield (Oxford), NCC Group (Manchester), Nomadic Labs
 **BSI** (Bundesamt für Sicherheit in der Informationstechnik) is Germany's
 federal cybersecurity authority and one of the most technically rigorous
 national security agencies in Europe. The BSI has co-developed
-**[XMSS](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Quantencomputer/quantencomputer_node.html)**
+**[XMSS](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Quantentechnologien-und-Post-Quanten-Kryptografie/quantentechnologien-und-post-quanten-kryptografie_node.html)**
 (a stateful hash-based signature adopted by NIST and RFC 8391) and published
 guidance recommending formally verified implementations for critical systems.
 
@@ -517,8 +559,8 @@ primitives for hardware are an active research and product area.
 - [NIST PQC Standards -- ML-KEM, ML-DSA, SLH-DSA](https://csrc.nist.gov/pqc-standardization)
 - [CRYSTALS-Kyber specification](https://pq-crystals.org/kyber/)
 - [First formally verified ML-KEM (Cryspen, 2024)](https://cryspen.com/post/ml-kem-verification/)
-- [ANSSI post-quantum transition views](https://www.ssi.gouv.fr/en/publication/anssi-views-on-the-post-quantum-cryptography-transition/)
-- [BSI post-quantum cryptography guidance](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Quantencomputer/quantencomputer_node.html)
+- [ANSSI post-quantum transition views](https://cyber.gouv.fr/en/publications/follow-position-paper-post-quantum-cryptography)
+- [BSI post-quantum cryptography guidance](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Quantentechnologien-und-Post-Quanten-Kryptografie/quantentechnologien-und-post-quanten-kryptografie_node.html)
 
 ### Formal verification of protocols
 
@@ -540,4 +582,8 @@ primitives for hardware are an active research and product area.
 _This article is part of an ongoing effort at [badaas.be](https://badaas.be) to
 track the cryptographic engineering landscape. If an organization, tool, or
 country is missing,
+[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
+
+_This document was mostly generated with Claude Opus 4.7. If you spot any error,
+please [contact me](mailto:danny@badaas.be) or
 [open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
