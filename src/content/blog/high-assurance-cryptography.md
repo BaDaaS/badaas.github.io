@@ -244,12 +244,7 @@ ChaCha20, and others.
 
 **[Rust](https://www.rust-lang.org/)** is increasingly used for production
 cryptographic software. Its ownership model and borrow checker eliminate
-use-after-free, buffer overflows, and data races at compile time. Studies from
-[Microsoft](https://msrc.microsoft.com/blog/2019/07/a-proactive-approach-to-more-secure-code/)
-and
-[Google](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html)
-report that approximately 70% of historical security vulnerabilities in their
-C/C++ codebases were memory-safety issues that Rust's type system prevents.
+use-after-free, buffer overflows, and data races at compile time.
 
 **[Haskell](https://www.haskell.org/)** provides strong type safety and is used
 in **[cryptonite](https://github.com/haskell-crypto/cryptonite)** and
