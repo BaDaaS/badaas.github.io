@@ -17,6 +17,22 @@ tags:
   ]
 ---
 
+<div class="note-box">
+
+_This article is part of an ongoing effort at [BaDaaS](https://badaas.be) to
+track the cryptographic engineering landscape. If an organization, tool, or
+country is missing,
+[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
+
+_This document was mostly generated with Claude Opus 4.7. If you spot any error,
+please [contact me](mailto:danny@badaas.be) or
+[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._ Claude is
+used at BaDaaS to gather information available across the Internet, codebases
+and papers. We do not encourage to use AI to generate cryptographic code (or
+critical code in general).
+
+</div>
+
 Cryptographic software has a unique property: a single implementation bug can
 silently undermine the security of millions of users. Padding oracle
 vulnerabilities, timing side-channels, integer overflows in bignum arithmetic --
@@ -576,14 +592,3 @@ primitives for hardware are an active research and product area.
 - [NIST Secure Software Development Framework (SSDF)](https://csrc.nist.gov/projects/ssdf)
 - [NSA CNSA 2.0 -- post-quantum migration timeline](https://media.defense.gov/2022/Sep/07/2003071236/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF)
 - [DARPA HACMS program](https://www.darpa.mil/program/high-assurance-cyber-military-systems)
-
----
-
-_This article is part of an ongoing effort at [badaas.be](https://badaas.be) to
-track the cryptographic engineering landscape. If an organization, tool, or
-country is missing,
-[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
-
-_This document was mostly generated with Claude Opus 4.7. If you spot any error,
-please [contact me](mailto:danny@badaas.be) or
-[open an issue](https://github.com/BaDaaS/badaas.github.io/issues)._
