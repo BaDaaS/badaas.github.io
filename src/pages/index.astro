@@ -115,7 +115,7 @@ const services = [
 ---
 
 <BaseLayout
-  title="BaDaaS - Making the Internet Better"
+  title="BaDaaS"
   description="BaDaaS is a European applied mathematics lab specialising in cryptography, zero-knowledge proofs, SNARKs, post-quantum cryptography, formal verification in Lean 4, and AI tooling."
 >
   <Fragment slot="head">
@@ -140,9 +140,6 @@ const services = [
       <div class="max-w-md">
         <div class="accent-bar-secondary mb-6"></div>
         <p class="font-display text-accent text-3xl leading-tight xl:text-4xl">
-          Making the Internet better.
-        </p>
-        <p class="text-text-muted mt-4 text-base leading-relaxed">
           We use abstract mathematics to build concrete applications.
         </p>
         <p class="text-text-muted mt-6 text-sm leading-relaxed opacity-70">
@@ -172,9 +169,6 @@ const services = [
       <!-- Mobile: show mission inline -->
       <p class="text-text mb-3 max-w-[600px] text-xl font-medium lg:hidden">
         We use abstract mathematics to build concrete applications.
-      </p>
-      <p class="text-text mb-3 max-w-[600px] text-xl font-medium lg:hidden">
-        Making the Internet better.
       </p>
       <p class="text-text-muted mb-4 max-w-[540px] text-base leading-relaxed">
         A group of mathematicians turned engineers, based in Belgium, Europe,
@@ -227,375 +221,11 @@ const services = [
     </div>
   </section>
 
-  <!-- Track Record Section -->
-  <section
-    id="portfolio"
-    class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
-  >
-    <div class="mb-12 flex items-end gap-6">
-      <span class="section-number">02</span>
-      <div>
-        <div class="accent-bar-secondary mb-4"></div>
-        <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
-          Track Record
-        </h2>
-      </div>
-    </div>
-
-    <!-- Trust Metrics -->
-    <div
-      class="border-border mb-16 grid grid-cols-2 gap-px border md:grid-cols-4"
-      style="background: var(--color-border)"
-    >
-      <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">2020</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">Founded</p>
-      </div>
-      <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">2</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">Protocols contributed to</p>
-      </div>
-      <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent m-0 text-4xl md:text-5xl">5+</p>
-        <p class="text-text-muted m-0 mt-2 text-sm">Publications and talks</p>
-      </div>
-      <div class="bg-bg px-6 py-8 text-center">
-        <p class="font-display text-accent-secondary m-0 text-4xl md:text-5xl">
-          BE
-        </p>
-        <p class="text-text-muted m-0 mt-2 text-sm">Based in Belgium</p>
-      </div>
-    </div>
-
-    <!-- Featured Engagements -->
-    <h3 class="font-display text-text-muted mb-6 text-lg tracking-wide">
-      Selected engagements
-    </h3>
-    <div class="max-w-4xl">
-      <a
-        href="https://minaprotocol.com"
-        class="border-border group block border-t py-8 no-underline hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-          <div class="shrink-0 md:w-48">
-            <h4
-              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-            >
-              Mina Protocol
-            </h4>
-            <p class="text-accent-secondary m-0 mt-1 text-xs">
-              Zero-Knowledge Proofs
-            </p>
-          </div>
-          <p class="text-text-muted m-0 text-sm leading-relaxed">
-            Core contributor to the Mina Protocol with o1Labs. Contributed to
-            Kimchi (proof system), Pickles (recursive composition), and o1vm
-            (zkVM for MIPS). Drafted Arrabbiata (folding-based proving system).
-            Cryptographic primitives and protocol-level logic in OCaml and Rust.
-          </p>
-        </div>
-      </a>
-      <a
-        href="https://tezos.com"
-        class="border-border group block border-t py-8 no-underline hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-          <div class="shrink-0 md:w-48">
-            <h4
-              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-            >
-              Tezos
-            </h4>
-            <p class="text-accent-secondary m-0 mt-1 text-xs">
-              Protocol Development
-            </p>
-          </div>
-          <p class="text-text-muted m-0 text-sm leading-relaxed">
-            Protocol-level development and cryptographic research for the Tezos
-            ecosystem with Nomadic Labs. Core infrastructure, ZK rollups, and
-            low-level cryptographic engineering in OCaml.
-          </p>
-        </div>
-      </a>
-      <a
-        href="https://leakix.net"
-        class="border-border group block border-t py-8 no-underline hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-          <div class="shrink-0 md:w-48">
-            <h4
-              class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-            >
-              LeakIX
-            </h4>
-            <p class="text-accent-secondary m-0 mt-1 text-xs">
-              Co-founded by BaDaaS
-            </p>
-          </div>
-          <p class="text-text-muted m-0 text-sm leading-relaxed">
-            Internet-wide attack surface management platform, co-founded and
-            actively developed by BaDaaS. Indexes misconfigurations and
-            vulnerabilities across the Internet with responsible disclosure.
-            100+ clients.
-          </p>
-        </div>
-      </a>
-      <div class="border-border border-t"></div>
-    </div>
-
-    <!-- Additional Clients -->
-    <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
-      <p class="text-text-muted m-0 text-sm">Also worked with</p>
-      <a
-        href="https://www.nomadic-labs.com"
-        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer">Nomadic Labs</a
-      >
-      <a
-        href="https://www.inria.fr"
-        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer">INRIA</a
-      >
-      <a
-        href="https://web.umons.ac.be"
-        class="font-display text-text-muted hover:text-accent text-xl no-underline transition-colors hover:opacity-100"
-        target="_blank"
-        rel="noopener noreferrer">UMONS</a
-      >
-    </div>
-  </section>
-
-  <!-- Research Section -->
-  <section id="research" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
-    <div class="max-w-container mx-auto">
-      <div class="mb-12 flex items-end gap-6">
-        <span class="section-number">03</span>
-        <div>
-          <div class="accent-bar mb-4"></div>
-          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
-            Research
-          </h2>
-        </div>
-      </div>
-
-      <!-- Publications -->
-      <div class="max-w-4xl">
-        <div class="border-border flex items-center gap-4 border-t py-4">
-          <span
-            class="border-accent text-accent border px-3 py-1 text-xs font-medium tracking-widest uppercase"
-            >Publications</span
-          >
-          <span class="text-text-muted text-xs"
-            >Cryptography, type theory, and applied mathematics</span
-          >
-        </div>
-
-        <a
-          href="https://eprint.iacr.org/2022/840"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                Anemoi
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">2022</p>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Hash Functions</span
-                >
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >ZK Proofs</span
-                >
-              </div>
-            </div>
-            <div>
-              <p class="text-text m-0 text-sm leading-relaxed font-medium">
-                New Design Techniques for Efficient Arithmetization-Oriented
-                Hash Functions: Anemoi Permutations and Jive Compression Mode
-              </p>
-              <p class="text-text-muted m-0 mt-2 text-xs">
-                C. Bouvier, P. Briaud, P. Chaidos, L. Perrin, R. Salen, V.
-                Velichkov, D. Willems
-              </p>
-            </div>
-          </div>
-        </a>
-
-        <a
-          href="https://eprint.iacr.org/2022/462"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                PlonK
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">2022</p>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >zk-SNARKs</span
-                >
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Optimization</span
-                >
-              </div>
-            </div>
-            <div>
-              <p class="text-text m-0 text-sm leading-relaxed font-medium">
-                New optimization techniques for PlonK's arithmetization
-              </p>
-              <p class="text-text-muted m-0 mt-2 text-xs">
-                M. Ambrona, A.-L. Schmitt, R. R. Toledo, D. Willems
-              </p>
-            </div>
-          </div>
-        </a>
-        <a
-          href="https://github.com/dannywillems/master-thesis/"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                RML
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">
-                Master's Thesis, 2017
-              </p>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Type Systems</span
-                >
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >OCaml</span
-                >
-              </div>
-            </div>
-            <div>
-              <p class="text-text m-0 text-sm leading-relaxed font-medium">
-                To a typed language for modular programming
-              </p>
-              <p class="text-text-muted m-0 mt-2 text-xs">
-                D. Willems. Directed by F. Pottier (INRIA Paris)
-              </p>
-            </div>
-          </div>
-        </a>
-
-        <div class="border-border border-t"></div>
-      </div>
-
-      <!-- Talks -->
-      <div class="mt-12 max-w-4xl">
-        <div class="border-border flex items-center gap-4 border-t py-4">
-          <span
-            class="border-accent-secondary text-accent-secondary border px-3 py-1 text-xs font-medium tracking-widest uppercase"
-            >Talks</span
-          >
-          <span class="text-text-muted text-xs">Conference presentations</span>
-        </div>
-
-        <a
-          href="https://www.youtube.com/watch?v=HDH2KXRAxAc"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                ZK Summit 11
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">2024</p>
-            </div>
-            <p class="text-text-muted m-0 text-sm leading-relaxed">
-              o1VM: Building a Real-World zkVM for MIPS. Bitwise operation
-              encoding, folding schemes, and RAM lookups.
-            </p>
-          </div>
-        </a>
-
-        <a
-          href="https://www.youtube.com/watch?v=hR1lwvc3LBg"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                SevenX Research Day
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">2024</p>
-            </div>
-            <p class="text-text-muted m-0 text-sm leading-relaxed">
-              A zkVM for the MIPS architecture and OP fault proofs.
-            </p>
-          </div>
-        </a>
-
-        <a
-          href="https://www.youtube.com/watch?v=3EdbLiClFPI"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                ZKProof 5
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">Tel Aviv, 2022</p>
-            </div>
-            <p class="text-text-muted m-0 text-sm leading-relaxed">
-              Anemoi & Jive: New Arithmetization-Oriented Tools for PlonK. With
-              C. Bouvier.
-            </p>
-          </div>
-        </a>
-        <div class="border-border border-t"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- Open Source Section -->
   <section id="projects" class="px-5 py-16 md:px-16 md:py-24">
     <div class="max-w-container mx-auto">
       <div class="mb-12 flex items-end gap-6">
-        <span class="section-number">04</span>
+        <span class="section-number">02</span>
         <div>
           <div class="accent-bar mb-4"></div>
           <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
@@ -833,78 +463,6 @@ const services = [
           </div>
         </a>
 
-        <a
-          href="https://github.com/LeakIX/zcash-web-wallet"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                Zcash Web Wallet
-              </h4>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Privacy</span
-                >
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Zcash</span
-                >
-                <span
-                  class="bg-text-muted/10 text-text-muted px-2 py-0.5 text-xs"
-                  >Archived</span
-                >
-              </div>
-            </div>
-            <p class="text-text-muted m-0 text-sm leading-relaxed">
-              Browser-based Zcash wallet with shielded transaction support.
-              Handles zk-SNARK proof generation client-side for private
-              transfers without trusting a server.
-            </p>
-          </div>
-        </a>
-
-        <a
-          href="https://github.com/LeakIX/zcash-infra"
-          class="border-border group block border-t py-8 no-underline hover:opacity-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
-            <div class="shrink-0 md:w-48">
-              <h4
-                class="font-display text-accent group-hover:text-accent-secondary m-0 text-2xl transition-colors md:text-3xl"
-              >
-                Zcash Infra
-              </h4>
-              <p class="text-text-muted m-0 mt-1 text-xs">2025 - 2026</p>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >DevOps</span
-                >
-                <span
-                  class="border-accent/30 text-accent border px-2 py-0.5 text-xs"
-                  >Zcash</span
-                >
-                <span
-                  class="bg-text-muted/10 text-text-muted px-2 py-0.5 text-xs"
-                  >Archived</span
-                >
-              </div>
-            </div>
-            <p class="text-text-muted m-0 text-sm leading-relaxed">
-              Infrastructure tooling for deploying and managing Zcash full nodes
-              and related services. Automated provisioning, monitoring, and
-              maintenance.
-            </p>
-          </div>
-        </a>
         <div class="border-border border-t"></div>
       </div>
 
@@ -1006,7 +564,7 @@ const services = [
         class="max-w-container mx-auto px-5 py-16 md:px-16 md:py-24"
       >
         <div class="mb-12 flex items-end gap-6">
-          <span class="section-number">05</span>
+          <span class="section-number">03</span>
           <div>
             <div class="accent-bar-secondary mb-4" />
             <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
@@ -1049,7 +607,7 @@ const services = [
   <section id="events" class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
     <div class="max-w-container mx-auto">
       <div class="mb-12 flex items-end gap-6">
-        <span class="section-number">06</span>
+        <span class="section-number">04</span>
         <div>
           <div class="accent-bar mb-4"></div>
           <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
@@ -1178,7 +736,7 @@ const services = [
   <section id="team" class="px-5 py-16 md:px-16 md:py-24">
     <div class="max-w-container mx-auto">
       <div class="mb-12 flex items-end gap-6">
-        <span class="section-number">07</span>
+        <span class="section-number">05</span>
         <div>
           <div class="accent-bar mb-4"></div>
           <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
