@@ -42,7 +42,9 @@ integer overflows in bignum arithmetic are example classes of such bugs.
 
 **High assurance cryptography** is the discipline of reducing the gap between
 mathematical specification and running program through formal methods,
-memory-safe languages, and machine-checked proofs.
+memory-safe languages, and machine-checked proofs. For a more detailed
+definition, see Franziskus Kiefer's
+[What is High Assurance Cryptography?](https://www.franziskuskiefer.de/p/what-is-high-assurance-cryptography/).
 
 This article maps the ecosystem: the organizations building it, the tools they
 use, the languages they write in, and the primitives they have verified.
