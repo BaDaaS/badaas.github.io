@@ -42,7 +42,9 @@ integer overflows in bignum arithmetic are example classes of such bugs.
 
 **High assurance cryptography** is the discipline of reducing the gap between
 mathematical specification and running program through formal methods,
-memory-safe languages, and machine-checked proofs.
+memory-safe languages, and machine-checked proofs. For a more detailed
+definition, see Franziskus Kiefer's
+[What is High Assurance Cryptography?](https://www.franziskuskiefer.de/p/what-is-high-assurance-cryptography/).
 
 This article maps the ecosystem: the organizations building it, the tools they
 use, the languages they write in, and the primitives they have verified.
@@ -60,11 +62,6 @@ The term covers a spectrum of rigor:
 | **Memory safety**            | Safe language, borrow checker, garbage collection                                                                                      | [RustCrypto](https://github.com/rustcrypto), [ring](https://github.com/briansmith/ring)                                                                |
 | **Functional correctness**   | Machine-checked proofs against a formal spec                                                                                           | [HACL\*](https://github.com/hacl-star/hacl-star), [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto), [EverCrypt](https://eprint.iacr.org/2019/757) |
 | **Computational security**   | Game-based proofs, symbolic or computational model                                                                                     | CryptoVerif proofs of TLS, Signal                                                                                                                      |
-
-In practice, high assurance libraries often combine several of these levels: a
-formally specified API, a machine-checked proof of functional correctness,
-constant-time guarantees verified by a dedicated tool, and extraction to a safe
-or audited target language.
 
 ---
 
