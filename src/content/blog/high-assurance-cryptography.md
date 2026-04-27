@@ -61,11 +61,6 @@ The term covers a spectrum of rigor:
 | **Functional correctness**   | Machine-checked proofs against a formal spec                                                                                           | [HACL\*](https://github.com/hacl-star/hacl-star), [Fiat-Crypto](https://github.com/mit-plv/fiat-crypto), [EverCrypt](https://eprint.iacr.org/2019/757) |
 | **Computational security**   | Game-based proofs, symbolic or computational model                                                                                     | CryptoVerif proofs of TLS, Signal                                                                                                                      |
 
-In practice, high assurance libraries often combine several of these levels: a
-formally specified API, a machine-checked proof of functional correctness,
-constant-time guarantees verified by a dedicated tool, and extraction to a safe
-or audited target language.
-
 ---
 
 ## Organizations
