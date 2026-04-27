@@ -29,7 +29,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "shiki": "^4.0.2",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.4"
   },
   "dependencies": {
     "rehype-katex": "^7.0.1",
