@@ -488,6 +488,93 @@ known" entry refers to the more recent two-pass Argon2i-B analysis.
 
 ---
 
+## Who is working on this in 2024-2026
+
+MHF research did not stop with the PHC and the deployment of RandomX. The recent
+literature is dominated by a few active groups and themes.
+
+### Trapdoor memory-hard functions (TMHFs)
+
+A TMHF is an MHF that becomes much cheaper to evaluate given a secret trapdoor.
+Biryukov and Perrin introduced the idea at
+[Asiacrypt 2017](https://eprint.iacr.org/2017/996) with **Diodon**, a scrypt
+variant where the initial hash chain is replaced by a sequence of squarings in
+an RSA group of unknown order; the trapdoor is the factorization. The
+construction sat without a tight memory-hardness proof for several years.
+
+Auerbach, Günther, Hofheinz, Kiltz, and Pan,
+[Trapdoor Memory-Hard Functions](https://eprint.iacr.org/2024/312) (EUROCRYPT
+2024), gave the first CMC lower bound on the TdScrypt instantiation of Diodon,
+off the conjectured optimum by a $\log n$ factor. Blocki and Lee,
+[A Tight Lower Bound on the TdScrypt Trapdoor Memory-Hard Function](https://eprint.iacr.org/2024/1644)
+(2024, published in IACR
+[Communications in Cryptology](https://cic.iacr.org/p/2/3/11), 2025), closed the
+gap. TMHFs are relevant for verifiable delay functions, time-lock puzzles, and
+proofs of work where a designated party should be able to verify or generate
+cheaply.
+
+### Sustained-space complexity and reversibility
+
+The CMC measure has been refined by **sustained space complexity (SSC)**,
+introduced by Alwen, Blocki, and Pietrzak,
+[Sustained Space Complexity](https://eprint.iacr.org/2018/147) (EUROCRYPT 2018).
+SSC requires not only that total memory-time be large but that memory occupancy
+stay above a threshold for many time steps, which more closely matches the cost
+of running DRAM at full utilization.
+
+The line continues in 2024-2025:
+
+- Blocki, Holman, and Lee,
+  [Sustained Space and Cumulative Complexity Trade-offs for Data-Dependent Memory-Hard Functions](https://eprint.iacr.org/2022/832)
+  (CRYPTO 2022).
+- Blocki, Holman, and Lee,
+  [The Impact of Reversibility on Parallel Pebbling](https://eprint.iacr.org/2024/1995)
+  (EUROCRYPT 2025), which studies how reversible computation changes pebbling
+  lower bounds, with consequences for quantum attackers.
+- A 2025 preprint,
+  [Towards Practical Data-Dependent Memory-Hard Functions with Optimal Sustained Space Trade-offs in the Parallel Random Oracle Model](https://arxiv.org/abs/2508.06795),
+  proposes new data-dependent constructions targeting optimal SSC.
+
+### Memory-hard PoW with cheap verification
+
+Blocki and Smearsoll,
+[Provably Memory-Hard Proofs of Work With Memory-Easy Verification](https://link.springer.com/chapter/10.1007/978-3-032-12290-2_17)
+(TCC 2025), give a PoW that is provably memory-hard to produce but verifiable
+without the full working set, addressing one of the central engineering
+constraints of deployed PoW MHFs. This is the line of work most directly
+relevant to projects considering an MHF-based consensus mechanism today.
+
+### Active groups and venues
+
+- **Jeremiah Blocki's group at Purdue**
+  ([publications](https://www.cs.purdue.edu/homes/jblocki/publications.html)) is
+  the most consistently productive on MHF lower bounds, with Seunghoon Lee,
+  Blake Holman, and Brayan Yepes Garcia as co-authors on much of the recent
+  output. Blocki gave a survey talk at the
+  [NIST Crypto Club](https://csrc.nist.gov/presentations/2025/memory-hard-functions)
+  in January 2025 that is a useful entry point.
+- **Joël Alwen** continues to publish on the foundations; his
+  [home page](https://jalwen.com/) tracks the line.
+- **Krzysztof Pietrzak's group at ISTA** contributes the sustained-space and
+  pebbling work; the Alwen-Blocki-Pietrzak collaboration on iMHF lower bounds
+  and Argon2i analysis is the historical anchor.
+- **Stefano Tessaro** (UW) and co-authors continue the time-memory trade-off
+  line, with the
+  [Provable Time-Memory Trade-Offs](https://eprint.iacr.org/2018/780) paper
+  followed by a sequence of results connecting MHFs to the broader question of
+  memory-bounded adversaries in symmetric cryptography.
+- **The Monero Research Lab**
+  ([page](https://www.getmonero.org/resources/research-lab/)) is the main
+  applied-MHF venue; deployment-side analysis of RandomX, future ASIC
+  observations, and parameter updates appear there. Tevador remains the primary
+  author on RandomX itself; activity has slowed since 2022, reflecting the
+  maturity of the deployed design rather than abandonment.
+- IACR venues (EUROCRYPT, CRYPTO, TCC, Asiacrypt, EuroS&P) and the IACR
+  [Communications in Cryptology](https://cic.iacr.org/) journal are where most
+  new lower-bound and construction results land.
+
+---
+
 ## Open problems
 
 A short, biased list of questions I find interesting.
