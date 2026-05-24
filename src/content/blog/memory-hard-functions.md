@@ -1,5 +1,6 @@
 ---
-title: "Memory-Hard Functions: From scrypt to RandomX"
+title:
+  "An Overview and History of Memory-Hard Functions, from scrypt to RandomX"
 description:
   "A symmetric cryptographer's tour of memory-hard functions: why they exist,
   how they evolved from scrypt and the Password Hashing Competition to RandomX,
