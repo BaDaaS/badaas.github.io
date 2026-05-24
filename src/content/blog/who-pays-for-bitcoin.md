@@ -67,8 +67,8 @@ point to a missing source, please [contact us](mailto:danny@badaas.be) or
 Bitcoin's protocol is maintained by an effort that, by every quantitative
 measure, would not survive a corporate quarterly review. In 2023, the entire
 global expenditure on Bitcoin Core development was **$8.4M**
-([1A1z, October 2024](https://1a1z.com/fund.html);
-[nobsbitcoin, 2024](https://www.nobsbitcoin.com/bitcoin-core-development-funded-with-8-4m-in-2023-report/)).
+([1A1z, October 2024](https://web.archive.org/web/2024/https://1a1z.com/fund.html);
+[nobsbitcoin, 2024](https://web.archive.org/web/2024/https://www.nobsbitcoin.com/bitcoin-core-development-funded-with-8-4m-in-2023-report/)).
 That figure paid for **41 active core developers** — defined as contributors
 with at least five merged commits in the trailing year — and the **5
 individuals** then holding merge authority. The network those people maintain
@@ -78,11 +78,11 @@ The contrast hardens when set against directly comparable peers. The Ethereum
 Foundation spent **$134.9M** in 2023, of which **$32.1M (30%)** was allocated
 specifically to "Layer 1 R&D" — the line item that maps onto what Bitcoin Core
 developers do
-([Cointelegraph, August 2024](https://cointelegraph.com/news/vitalik-buterin-breakdown-2023-ethereum-foundation-spending)).
+([Cointelegraph, August 2024](https://web.archive.org/web/2024/https://cointelegraph.com/news/vitalik-buterin-breakdown-2023-ethereum-foundation-spending)).
 The Web3 Foundation, whose underlying network has roughly one percent of
 Bitcoin's market capitalisation, allocated $45M to its Decentralised Futures
 programme alone in late 2023
-([Web3 Foundation, November 2023](https://web3.foundation/press/w3f-launches-decentralized-futures-program/)),
+([Web3 Foundation, November 2023](https://web.archive.org/web/2023/https://web3.foundation/press/w3f-launches-decentralized-futures-program/)),
 with the protocol-equivalent line item estimated at ~$16.8M for H1 2024. At the
 company level, Meta — comparable in market cap to Bitcoin in 2023 — employed
 roughly **20,000 engineers**. Bitcoin's core team is smaller than the platform
@@ -126,7 +126,7 @@ which became the academic refuge for Bitcoin Core during what could have been a
 catastrophic interregnum. Joi Ito launched the DCI under the MIT Media Lab in
 2015, funding the salaries of Wladimir van der Laan — who had taken over as lead
 maintainer in April 2014 — along with Andresen and Cory Fields
-([van der Laan profile, weusecoins](https://www.weusecoins.com/wladimir-van-der-laan/)).
+([van der Laan profile, weusecoins](https://web.archive.org/web/2023/https://www.weusecoins.com/wladimir-van-der-laan/)).
 That arrangement underwrote stable, university-style employment for the three
 most consequential developers in the project at exactly the moment the
 Foundation was disintegrating. It also turned out to have a darker dimension.
@@ -135,8 +135,8 @@ Epstein donated roughly **$525,000** to the DCI as part of an **$850,000** total
 to MIT between 2002 and 2017, with email correspondence in which Ito thanked
 Epstein for funds that "allowed us to move quickly and win this round" in
 recruiting Bitcoin developers
-([Genfinity, February 2026](https://genfinity.io/2026/02/02/epstein-documents-bitcoin-core-mit-funding/);
-[DL News, 2026](https://www.dlnews.com/articles/people-culture/epstein-files-reveal-desire-to-steer-bitcoin-via-its-developers/)).
+([Genfinity, February 2026](https://web.archive.org/web/2026/https://genfinity.io/2026/02/02/epstein-documents-bitcoin-core-mit-funding/);
+[DL News, 2026](https://web.archive.org/web/2026/https://www.dlnews.com/articles/people-culture/epstein-files-reveal-desire-to-steer-bitcoin-via-its-developers/)).
 Ito resigned in September 2019 after the connection surfaced. Developers funded
 through the line have said publicly they were unaware of the source and that the
 funding carried no technical conditions; the structural point — that a
@@ -159,7 +159,7 @@ in December 2021. The Human Rights Foundation's Bitcoin Development Fund opened
 in May 2020. OpenSats incorporated as a 501(c)(3) in 2020. Brink launched in
 November 2020, founded by John Newbery and Mike Schmidt with seed capital from
 John Pfeffer and Wences Casares
-([CoinDesk, November 2020](https://www.coindesk.com/tech/2020/11/24/square-human-rights-foundation-back-new-bitcoin-open-source-developer-fund)).
+([CoinDesk, November 2020](https://web.archive.org/web/2020/https://www.coindesk.com/tech/2020/11/24/square-human-rights-foundation-back-new-bitcoin-open-source-developer-fund)).
 In February 2021 Dorsey and Jay-Z committed 500 BTC — about $21.5M at the time —
 to Btrust, a blind irrevocable trust focused on African and Indian developer
 training.
@@ -167,13 +167,13 @@ training.
 The final phase, **maturation and geographic diversification (2022–2026)**, is
 where the structure visible today actually settles. Vinteum was founded in
 Brazil in August 2022 by Lucas Ferreira and André Neves
-([Bitcoin Magazine, 2022](https://bitcoinmagazine.com/business/vinteum-to-fund-bitcoin-developers-in-brazil)).
+([Bitcoin Magazine, 2022](https://web.archive.org/web/2022/https://bitcoinmagazine.com/business/vinteum-to-fund-bitcoin-developers-in-brazil)).
 The Maelstrom grant programme launched in 2024 under Arthur Hayes's family
 office. OKX seeded the 2140 Foundation in Amsterdam in 2025. The Payjoin
 Foundation received 501(c)(3) status on 23 July 2025. Coinbase wound down its
 GiveCrypto programme in February 2024 and sent the remaining $3.6M to Brink;
 VanEck pledged 5% of its spot Bitcoin ETF profits to Brink for ten years
-([CoinDesk, January 2024](https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers)).
+([CoinDesk, January 2024](https://web.archive.org/web/2024/https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers)).
 The structure has gone from one institution to thirteen in roughly a decade — a
 slow, contested decentralisation that mirrors, at the funding layer, what the
 protocol layer claims as its main political property.
@@ -216,7 +216,7 @@ fully-funded subsidiary. Its core mandate is layered Bitcoin infrastructure: the
 Lightning Development Kit (LDK), the Bitcoin Development Kit (BDK), Bitcoin
 Design. Spiral describes its grant programme as supporting "over two dozen
 developers and designers across more than 18 countries"
-([Spiral blog](https://spiral.xyz/blog/square-crypto-grants-for-everybody/)).
+([Spiral blog](https://web.archive.org/web/2023/https://spiral.xyz/blog/square-crypto-grants-for-everybody/)).
 The strategic role is hybrid: it employs salaried staff on Lightning and
 adjacent infrastructure while running an externally-facing grant arm that funds
 discrete Bitcoin contributors — closer to in-house R&D than to a pure
@@ -226,7 +226,7 @@ foundation.
 joined in 2022) is the only exchange in the corporate-employer cohort. The
 Okcoin Developer Grant Program launched in 2019 and has now disbursed more than
 **$1.5M** cumulatively
-([OKX, 2022](https://www.okx.com/learn/okx-okcoin-developer-grant-program-award-bitcoin-developer-dusty-daemon)).
+([OKX, 2022](https://web.archive.org/web/2023/https://www.okx.com/learn/okx-okcoin-developer-grant-program-award-bitcoin-developer-dusty-daemon)).
 It funds Marco Falke, Amiti Uttarwar, and Dusty Daemon (the latter working on
 Lightning Splicing). OKX also provided the multi-year seed for the 2140
 Foundation in Amsterdam in 2025.
@@ -235,7 +235,7 @@ On the non-profit side, **the Human Rights Foundation's Bitcoin Development
 Fund** is the longest-running. Launched in May 2020 under Alex Gladstein, it has
 distributed more than **$8.5M in BTC to nearly 300 projects across 62
 countries**
-([HRF Bitcoin Development Fund](https://hrf.org/program/financial-freedom/bitcoin-development-fund/)).
+([HRF Bitcoin Development Fund](https://web.archive.org/web/2024/https://hrf.org/program/financial-freedom/bitcoin-development-fund/)).
 The grant cadence is roughly quarterly: a September 2023 round allocated $505K
 across 15 projects with a stated focus on global education, Bitcoin Core, DLCs
 on Lightning and e-cash; the most recent round in April 2026 disbursed 1.5
@@ -249,12 +249,12 @@ stipends for engineers working specifically on protocol code. Its donor base is
 the broadest in the ecosystem — Pfeffer, Casares, Dorsey (~14.2% of donations),
 Gemini, Bitfinex, Kraken, Coinbase (which gave a one-time $3.6M in February 2024
 when GiveCrypto wound down
-([The Block, February 2024](https://www.theblock.co/post/277882/coinbase-donates-3-6-million-to-support-bitcoin-developer-funding-through-brink)))
+([The Block, February 2024](https://web.archive.org/web/2024/https://www.theblock.co/post/277882/coinbase-donates-3-6-million-to-support-bitcoin-developer-funding-through-brink)))
 and now VanEck, which in January 2024 pledged 5% of its spot Bitcoin ETF profits
 to Brink for at least ten years. Brink also commissioned the first public
 third-party security audit of Bitcoin Core, coordinated through OSTIF and
 executed by Quarkslab between May and September 2025
-([Quarkslab, November 2025](https://blog.quarkslab.com/bitcoin-core-audit.html)).
+([Quarkslab, November 2025](https://web.archive.org/web/2025/https://blog.quarkslab.com/bitcoin-core-audit.html)).
 Brink supports eight engineers as of its 2025 impact report; donations fell
 roughly **58% year-on-year** in 2022 with the bear market — a data point that
 more than any other illustrates how thin the buffer is between
@@ -264,11 +264,11 @@ protocol-development funding and the cycle.
 also the most concentrated. Incorporated in 2020 as a 501(c)(3) and
 operationally active from 2022, it has by end-2024 allocated approximately
 **$27.4M to 319 grantees in 32+ countries**
-([OpenSats 2024 year-in-review](https://opensats.org/blog/2024-year-in-review)).
+([OpenSats 2024 year-in-review](https://web.archive.org/web/2025/https://opensats.org/blog/2024-year-in-review)).
 In 2024 alone it received $23.6M in donations, of which a single gift — Jack
 Dorsey's December 2023 #startsmall donation of $21M ($15M to the General Fund,
 $5M to the Nostr Fund, $1M to operations) — accounted for roughly **90.5%**
-([TFTC, December 2023](https://www.tftc.io/jack-dorseys-startsmall-donates-21-million-opensats/)).
+([TFTC, December 2023](https://web.archive.org/web/2024/https://www.tftc.io/jack-dorseys-startsmall-donates-21-million-opensats/)).
 OpenSats sends about $1M/month to grantees and runs a Long-Term Support
 programme aimed at Core engineers; the current LTS roster includes Marco Falke,
 Josi Baker, Sjors Provoost, Vasil Dimov, Will Clark, 0xB10C and Bruno Garcia.
@@ -298,10 +298,10 @@ institution as well as an independent organisation.
 grant programme administered by Jonathan Bier — who had previously run BitMEX's
 open-source grants. Grants run **$50K to $150K** over twelve months in BTC, USDC
 or USDT
-([The Block, 2024](https://www.theblock.co/post/305798/arthur-hayes-maelstrom-bitcoin-developer-grant-program)).
+([The Block, 2024](https://web.archive.org/web/2024/https://www.theblock.co/post/305798/arthur-hayes-maelstrom-bitcoin-developer-grant-program)).
 Recipients to date include rkrux, Ben Allen (a $100K grant in 2024 for the
 Payjoin Dev Kit
-([Cointelegraph, 2024](https://cointelegraph.com/news/bitcoin-payjoin-privacy-grant-maelstrom))),
+([Cointelegraph, 2024](https://web.archive.org/web/2024/https://cointelegraph.com/news/bitcoin-payjoin-privacy-grant-maelstrom))),
 and "macgyver13" / Ron, who works on Silent Payments under BIP 352. Maelstrom's
 mandate is the most privacy-explicit of the thirteen.
 
@@ -310,7 +310,7 @@ Launched in 2025 in Amsterdam by Bitcoin Core contributors Josie Baker and Ruben
 Somsen on a multi-year OKX seed grant, it offers something closer to a European
 Chaincode: a physical office, employment that "enables developers to think in
 years rather than months," and structured mentorship for incoming contributors
-([nobsbitcoin, 2025](https://www.nobsbitcoin.com/2140-foundation-launched-to-support-open-source-bitcoin-development/)).
+([nobsbitcoin, 2025](https://web.archive.org/web/2025/https://www.nobsbitcoin.com/2140-foundation-launched-to-support-open-source-bitcoin-development/)).
 Its strategic role is geographic redundancy — putting a senior employer presence
 in Europe to balance the New York and Bay-Area weight of Chaincode, Spiral, MIT
 DCI and Brink.
@@ -335,7 +335,7 @@ person's for nearly a decade.
 
 Within those five, the distribution is sharper. fanquake handles about **65% of
 all merges**
-([Bitcoin Magazine maintainer history](https://bitcoinmagazine.com/print/the-core-issue-the-role-and-history-of-bitcoin-core-maintainers)).
+([Bitcoin Magazine maintainer history](https://web.archive.org/web/2024/https://bitcoinmagazine.com/print/the-core-issue-the-role-and-history-of-bitcoin-core-maintainers)).
 This is the number that the 1A1z report and several follow-on analyses elevate
 to a structural risk: if fanquake departs, merge throughput falls by
 approximately that fraction overnight. The remaining four maintainers each carry
@@ -347,7 +347,7 @@ The first new maintainer in three years was added on 8 January 2026, when
 sedited (operating publicly as TheCharlatan) was nominated by Gloria Zhao during
 a regular bitcoin-core-dev IRC meeting and added to the trusted-keys file the
 following day
-([insider.btcpp.dev, January 2026](https://insider.btcpp.dev/p/bitcoin-core-adds-new-maintainer)).
+([insider.btcpp.dev, January 2026](https://web.archive.org/web/2026/https://insider.btcpp.dev/p/bitcoin-core-adds-new-maintainer)).
 TheCharlatan, a University of Zurich CS graduate from South Africa, focuses on
 reproducibility and validation logic. The addition takes the cohort to six. It
 also marks a small geographic widening — the first maintainer drawn primarily
@@ -433,7 +433,7 @@ made it politically expensive for any organisation to try.
 The two years since the 1A1z report have visibly hardened the funding base. The
 most consequential single event is the January 2024 VanEck pledge: 5% of net
 profits from a spot Bitcoin ETF, running for at least ten years, paid to Brink
-([CoinDesk, January 2024](https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers)).
+([CoinDesk, January 2024](https://web.archive.org/web/2024/https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers)).
 VanEck's spot ETF was approved with the rest of the cohort on 10 January 2024.
 The pledge structure — a percentage of an ongoing revenue stream rather than a
 one-off endowment — is the first time the development funding base has been
@@ -447,7 +447,7 @@ Coinbase's $3.6M GiveCrypto wind-down to Brink in February 2024 was a one-off
 transfer rather than a recurring commitment, but it funded the most substantive
 operational year Brink has had to date — including the Quarkslab security audit
 announced in November 2025
-([Brink, November 2025](https://brink.dev/blog/2025/11/19/bitcoin-core-security-audit/)).
+([Brink, November 2025](https://web.archive.org/web/2025/https://brink.dev/blog/2025/11/19/bitcoin-core-security-audit/)).
 That audit deserves its own line. It was the first public third-party security
 review of Bitcoin Core in the project's history, ran 100 person-days between May
 and September 2025, covered the peer-to-peer networking layer, mempool,
@@ -461,7 +461,7 @@ arguments for the model the funding organisations had been operating under.
 The Maelstrom Bitcoin Grant Program, in its third or fourth quarter of 2025, has
 now disbursed grants to rkrux, Ben Allen, Ron / macgyver13 and a fourth
 recipient. The Payjoin Foundation became a 501(c)(3) on 23 July 2025
-([Bitcoin Magazine, July 2025](https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development)),
+([Bitcoin Magazine, July 2025](https://web.archive.org/web/2025/https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development)),
 which makes it the first privacy-dedicated funding entity in the ecosystem and
 the only organisation explicitly trying to bypass the "Bitcoin Grant Purgatory"
 of routing privacy-feature work through general-purpose grant pipelines. The
@@ -572,49 +572,49 @@ revisiting in a follow-up.
 Primary source for the structural numbers:
 
 - Dan O'Prey and Mas Nakachi,
-  ["Building Bitcoin: Funding a $1.2 Trillion Dollar Project" (Part 1)](https://1a1z.com/fund.html),
+  ["Building Bitcoin: Funding a $1.2 Trillion Dollar Project" (Part 1)](https://web.archive.org/web/2024/https://1a1z.com/fund.html),
   1A1z, October 2024.
-  [Twitter announcement](https://x.com/1A1zBTC/status/1848845545714098311).
-- [nobsbitcoin, October 2024 — Bitcoin Core development funded with $8.4M in 2023](https://www.nobsbitcoin.com/bitcoin-core-development-funded-with-8-4m-in-2023-report/).
+  [Twitter announcement](https://web.archive.org/web/2024/https://x.com/1A1zBTC/status/1848845545714098311).
+- [nobsbitcoin, October 2024 — Bitcoin Core development funded with $8.4M in 2023](https://web.archive.org/web/2024/https://www.nobsbitcoin.com/bitcoin-core-development-funded-with-8-4m-in-2023-report/).
 
 Historical funding:
 
 - [Wikipedia — Bitcoin Foundation](https://en.wikipedia.org/wiki/Bitcoin_Foundation).
-- [weusecoins — Wladimir van der Laan profile](https://www.weusecoins.com/wladimir-van-der-laan/).
-- [Genfinity, February 2026 — Newly released Epstein documents reveal Bitcoin Core funding connection](https://genfinity.io/2026/02/02/epstein-documents-bitcoin-core-mit-funding/).
-- [DL News, 2026 — Epstein files and Bitcoin development](https://www.dlnews.com/articles/people-culture/epstein-files-reveal-desire-to-steer-bitcoin-via-its-developers/).
+- [weusecoins — Wladimir van der Laan profile](https://web.archive.org/web/2023/https://www.weusecoins.com/wladimir-van-der-laan/).
+- [Genfinity, February 2026 — Newly released Epstein documents reveal Bitcoin Core funding connection](https://web.archive.org/web/2026/https://genfinity.io/2026/02/02/epstein-documents-bitcoin-core-mit-funding/).
+- [DL News, 2026 — Epstein files and Bitcoin development](https://web.archive.org/web/2026/https://www.dlnews.com/articles/people-culture/epstein-files-reveal-desire-to-steer-bitcoin-via-its-developers/).
 - [Wikipedia — Blockstream](https://en.wikipedia.org/wiki/Blockstream).
-- [Chaincode Labs — About](https://chaincode.com/about).
+- [Chaincode Labs — About](https://web.archive.org/web/2024/https://chaincode.com/about).
 
 Organisations and grants:
 
-- [CoinDesk, November 2020 — Square, HRF back new Bitcoin OSS developer fund](https://www.coindesk.com/tech/2020/11/24/square-human-rights-foundation-back-new-bitcoin-open-source-developer-fund).
-- [HRF — Bitcoin Development Fund](https://hrf.org/program/financial-freedom/bitcoin-development-fund/).
-- [Spiral — Square Crypto grants for everybody](https://spiral.xyz/blog/square-crypto-grants-for-everybody/).
-- [OpenSats — 2024 Year in Review](https://opensats.org/blog/2024-year-in-review).
-- [OpenSats — Long-Term Support program](https://opensats.org/blog/announcing-lts-grant-program-to-support-bitcoin-core-contributors).
-- [TFTC, December 2023 — Dorsey's #startsmall donates $21M to OpenSats](https://www.tftc.io/jack-dorseys-startsmall-donates-21-million-opensats/).
-- [Bitcoin Magazine, 2022 — Vinteum to fund Bitcoin developers in Brazil](https://bitcoinmagazine.com/business/vinteum-to-fund-bitcoin-developers-in-brazil).
-- [The Block, 2024 — Arthur Hayes' Maelstrom Bitcoin developer grant program](https://www.theblock.co/post/305798/arthur-hayes-maelstrom-bitcoin-developer-grant-program).
-- [Cointelegraph, 2024 — Bitcoin Payjoin privacy grant from Maelstrom](https://cointelegraph.com/news/bitcoin-payjoin-privacy-grant-maelstrom).
-- [nobsbitcoin, 2025 — 2140 Foundation launched](https://www.nobsbitcoin.com/2140-foundation-launched-to-support-open-source-bitcoin-development/).
-- [OKX, 2022 — OKX joins Okcoin Developer Grant Program; Dusty Daemon co-sponsorship](https://www.okx.com/learn/okx-okcoin-developer-grant-program-award-bitcoin-developer-dusty-daemon).
+- [CoinDesk, November 2020 — Square, HRF back new Bitcoin OSS developer fund](https://web.archive.org/web/2020/https://www.coindesk.com/tech/2020/11/24/square-human-rights-foundation-back-new-bitcoin-open-source-developer-fund).
+- [HRF — Bitcoin Development Fund](https://web.archive.org/web/2024/https://hrf.org/program/financial-freedom/bitcoin-development-fund/).
+- [Spiral — Square Crypto grants for everybody](https://web.archive.org/web/2023/https://spiral.xyz/blog/square-crypto-grants-for-everybody/).
+- [OpenSats — 2024 Year in Review](https://web.archive.org/web/2025/https://opensats.org/blog/2024-year-in-review).
+- [OpenSats — Long-Term Support program](https://web.archive.org/web/2024/https://opensats.org/blog/announcing-lts-grant-program-to-support-bitcoin-core-contributors).
+- [TFTC, December 2023 — Dorsey's #startsmall donates $21M to OpenSats](https://web.archive.org/web/2024/https://www.tftc.io/jack-dorseys-startsmall-donates-21-million-opensats/).
+- [Bitcoin Magazine, 2022 — Vinteum to fund Bitcoin developers in Brazil](https://web.archive.org/web/2022/https://bitcoinmagazine.com/business/vinteum-to-fund-bitcoin-developers-in-brazil).
+- [The Block, 2024 — Arthur Hayes' Maelstrom Bitcoin developer grant program](https://web.archive.org/web/2024/https://www.theblock.co/post/305798/arthur-hayes-maelstrom-bitcoin-developer-grant-program).
+- [Cointelegraph, 2024 — Bitcoin Payjoin privacy grant from Maelstrom](https://web.archive.org/web/2024/https://cointelegraph.com/news/bitcoin-payjoin-privacy-grant-maelstrom).
+- [nobsbitcoin, 2025 — 2140 Foundation launched](https://web.archive.org/web/2025/https://www.nobsbitcoin.com/2140-foundation-launched-to-support-open-source-bitcoin-development/).
+- [OKX, 2022 — OKX joins Okcoin Developer Grant Program; Dusty Daemon co-sponsorship](https://web.archive.org/web/2023/https://www.okx.com/learn/okx-okcoin-developer-grant-program-award-bitcoin-developer-dusty-daemon).
 
 Recent funding events:
 
-- [CoinDesk, January 2024 — VanEck to donate 5% of BTC ETF profits to Bitcoin Core developers](https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers).
-- [The Block, February 2024 — Coinbase donates $3.6M to Brink](https://www.theblock.co/post/277882/coinbase-donates-3-6-million-to-support-bitcoin-developer-funding-through-brink).
-- [Bitcoin Magazine, July 2025 — Payjoin Foundation gains 501(c)(3) status](https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development).
-- [Tether, October 2025 — Tether donates $250,000 to OpenSats](https://tether.io/news/tether-donates-250000-to-opensats-to-strengthen-free-and-open-source-ecosystems-supporting-bitcoin-and-freedom-tech/).
-- [Quarkslab blog, November 2025 — Bitcoin Core audit](https://blog.quarkslab.com/bitcoin-core-audit.html).
-- [Brink, November 2025 — Independent security audit of Bitcoin Core](https://brink.dev/blog/2025/11/19/bitcoin-core-security-audit/).
+- [CoinDesk, January 2024 — VanEck to donate 5% of BTC ETF profits to Bitcoin Core developers](https://web.archive.org/web/2024/https://www.coindesk.com/business/2024/01/05/vaneck-to-donate-5-of-profits-from-btc-etf-to-bitcoin-core-developers).
+- [The Block, February 2024 — Coinbase donates $3.6M to Brink](https://web.archive.org/web/2024/https://www.theblock.co/post/277882/coinbase-donates-3-6-million-to-support-bitcoin-developer-funding-through-brink).
+- [Bitcoin Magazine, July 2025 — Payjoin Foundation gains 501(c)(3) status](https://web.archive.org/web/2025/https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development).
+- [Tether, October 2025 — Tether donates $250,000 to OpenSats](https://web.archive.org/web/2025/https://tether.io/news/tether-donates-250000-to-opensats-to-strengthen-free-and-open-source-ecosystems-supporting-bitcoin-and-freedom-tech/).
+- [Quarkslab blog, November 2025 — Bitcoin Core audit](https://web.archive.org/web/2025/https://blog.quarkslab.com/bitcoin-core-audit.html).
+- [Brink, November 2025 — Independent security audit of Bitcoin Core](https://web.archive.org/web/2025/https://brink.dev/blog/2025/11/19/bitcoin-core-security-audit/).
 
 Maintainer and governance:
 
-- [insider.btcpp.dev, January 2026 — Bitcoin Core adds new maintainer: sedited](https://insider.btcpp.dev/p/bitcoin-core-adds-new-maintainer).
-- [Bitcoin Magazine — The Core Issue: the role and history of Bitcoin Core maintainers](https://bitcoinmagazine.com/print/the-core-issue-the-role-and-history-of-bitcoin-core-maintainers).
+- [insider.btcpp.dev, January 2026 — Bitcoin Core adds new maintainer: sedited](https://web.archive.org/web/2026/https://insider.btcpp.dev/p/bitcoin-core-adds-new-maintainer).
+- [Bitcoin Magazine — The Core Issue: the role and history of Bitcoin Core maintainers](https://web.archive.org/web/2024/https://bitcoinmagazine.com/print/the-core-issue-the-role-and-history-of-bitcoin-core-maintainers).
 
 Comparison numbers:
 
-- [Cointelegraph, August 2024 — Vitalik Buterin breaks down 2023 Ethereum Foundation spending](https://cointelegraph.com/news/vitalik-buterin-breakdown-2023-ethereum-foundation-spending).
-- [Web3 Foundation, November 2023 — $45M Decentralised Futures Program](https://web3.foundation/press/w3f-launches-decentralized-futures-program/).
+- [Cointelegraph, August 2024 — Vitalik Buterin breaks down 2023 Ethereum Foundation spending](https://web.archive.org/web/2024/https://cointelegraph.com/news/vitalik-buterin-breakdown-2023-ethereum-foundation-spending).
+- [Web3 Foundation, November 2023 — $45M Decentralised Futures Program](https://web.archive.org/web/2023/https://web3.foundation/press/w3f-launches-decentralized-futures-program/).
