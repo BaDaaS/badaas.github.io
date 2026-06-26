@@ -162,6 +162,12 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             class="text-text-muted hover:text-accent text-sm transition-colors"
             class:list={{ active: currentPath.startsWith("/blog") }}>Blog</a
           >
+          <a
+            href="/careers"
+            class="text-text-muted hover:text-accent text-sm transition-colors"
+            class:list={{ active: currentPath.startsWith("/careers") }}
+            >Careers</a
+          >
           <ThemeSelector />
         </div>
 
@@ -234,6 +240,11 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
             href="/blog"
             class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
             >Blog</a
+          >
+          <a
+            href="/careers"
+            class="text-text-muted hover:text-accent hover:bg-accent/5 py-3 text-sm transition-colors"
+            >Careers</a
           >
         </div>
       </div>
@@ -371,6 +382,11 @@ const canonicalURL = new URL(Astro.url.pathname, "https://badaas.be");
               href="/#projects"
               class="text-text-muted hover:text-accent text-sm transition-colors"
               >Open Source</a
+            >
+            <a
+              href="/careers"
+              class="text-text-muted hover:text-accent text-sm transition-colors"
+              >Careers</a
             >
           </div>
 
