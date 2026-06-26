@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const careersJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Careers at BaDaaS",
+  url: "https://badaas.be/careers",
+  description:
+    "Careers at BaDaaS, a European applied mathematics lab based in Belgium. We have no open positions right now, but we are always interested in talented students for internships. Reach out at careers@badaas.be.",
+  publisher: {
+    "@type": "Organization",
+    name: "BaDaaS",
+    url: "https://badaas.be",
+  },
+});
+---
+
+<BaseLayout
+  title="Careers - BaDaaS"
+  description="Careers at BaDaaS, a European applied mathematics lab based in Belgium. No open positions right now, but we are always interested in talented students for internships. Reach out at careers@badaas.be."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={careersJsonLd} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="px-5 pt-32 pb-12 md:px-16 md:pt-40">
+    <div class="max-w-container mx-auto">
+      <div class="accent-bar mb-8"></div>
+      <h1
+        class="font-display text-accent m-0 text-4xl leading-none tracking-tight md:text-6xl"
+      >
+        Careers
+      </h1>
+      <p class="text-text-muted mt-6 max-w-[600px] text-base leading-relaxed">
+        We are a group of mathematicians turned engineers, based in Belgium,
+        Europe. We work on applied cryptography, formal verification, and AI
+        tooling, from zero-knowledge proof systems to machine-checked proofs in
+        Lean 4.
+      </p>
+      <p class="text-text-muted mt-4 max-w-[600px] text-base leading-relaxed">
+        Our offices are based in Belgium, but we are open to candidates from
+        everywhere.
+      </p>
+    </div>
+  </section>
+
+  <!-- Open Positions -->
+  <section class="bg-bg-secondary px-5 py-16 md:px-16 md:py-24">
+    <div class="max-w-container mx-auto">
+      <div class="mb-12 flex items-end gap-6">
+        <span class="section-number">01</span>
+        <div>
+          <div class="accent-bar mb-4"></div>
+          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+            Open positions
+          </h2>
+        </div>
+      </div>
+
+      <div class="max-w-4xl">
+        <div class="border-border border-t py-8">
+          <p class="text-text m-0 leading-relaxed">
+            We have no open positions right now.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            If you think your work fits what we do, we still want to hear from
+            you. Send us a note at
+            <a
+              href="mailto:careers@badaas.be"
+              class="text-accent hover:text-accent-secondary transition-colors"
+              >careers@badaas.be</a
+            > and tell us what you would like to work on.
+          </p>
+        </div>
+        <div class="border-border border-t"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Internships -->
+  <section class="px-5 py-16 md:px-16 md:py-24">
+    <div class="max-w-container mx-auto">
+      <div class="mb-12 flex items-end gap-6">
+        <span class="section-number">02</span>
+        <div>
+          <div class="accent-bar-secondary mb-4"></div>
+          <h2 class="font-display text-accent m-0 text-3xl md:text-4xl">
+            Internships
+          </h2>
+        </div>
+      </div>
+
+      <div class="max-w-4xl">
+        <div class="border-border border-t py-8">
+          <p class="text-text m-0 leading-relaxed">
+            We are always interested in talented students.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            If you are studying mathematics, computer science, or a related
+            field and want to work on applied cryptography, zero-knowledge proof
+            systems, post-quantum cryptography, formal verification in Lean 4,
+            or open-source infrastructure, we would like to hear from you.
+            Internships can be tailored around your interests and ongoing
+            research.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            We are particularly interested in mathematicians with an interest in
+            applied abstract algebra, category theory, logic, type systems,
+            theoretical physics, and related areas. If that sounds like you, we
+            would be glad to find a project that fits.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            Our interns work directly with the founder,
+            <a
+              href="https://dannywillems.github.io"
+              class="text-accent hover:text-accent-secondary transition-colors"
+              target="_blank"
+              rel="noopener noreferrer">Danny Willems</a
+            >, whose interests are broad across mathematics.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            We are actively looking for funding to give our interns the best
+            possible conditions, and we help them bootstrap their careers,
+            whether they head toward industry or academia. We always have master
+            thesis subjects to discuss, so we are open to talk with talented
+            students at any time.
+          </p>
+          <p class="text-text-muted m-0 mt-4 text-sm leading-relaxed">
+            Reach out at
+            <a
+              href="mailto:careers@badaas.be"
+              class="text-accent hover:text-accent-secondary transition-colors"
+              >careers@badaas.be</a
+            > with a short introduction, your CV, and what you would like to explore
+            with us.
+          </p>
+        </div>
+        <div class="border-border border-t"></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
